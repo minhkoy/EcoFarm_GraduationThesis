@@ -7,9 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Common\Exceptions\" />
       <Folder Include="DTOs\" />
-      <Folder Include="Exceptions\" />
       <Folder Include="Validators\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
     </ItemGroup>
 
 </Project>

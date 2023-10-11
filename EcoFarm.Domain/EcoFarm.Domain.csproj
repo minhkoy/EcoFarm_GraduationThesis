@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Common\" />
       <Folder Include="Entities\" />
       <Folder Include="Helpers\Configs\" />
       <Folder Include="Helpers\Constants\" />
       <Folder Include="Helpers\Enums\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.1.1" />
     </ItemGroup>
 
 </Project>
