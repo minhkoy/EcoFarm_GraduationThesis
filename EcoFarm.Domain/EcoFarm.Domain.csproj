@@ -3,11 +3,10 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\" />
       <Folder Include="Helpers\Configs\" />
       <Folder Include="Helpers\Constants\" />
       <Folder Include="Helpers\Enums\" />

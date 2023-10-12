@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="ApiHandlers\EcoService\Commands\"/>
+        <Folder Include="ApiHandlers\EcoService\Queries\"/>
       <Folder Include="Common\Exceptions\" />
       <Folder Include="DTOs\" />
+        <Folder Include="Extensions\"/>
       <Folder Include="Validators\" />
     </ItemGroup>
 
