@@ -11,10 +11,12 @@ public abstract class BaseEntity : IEntity
     [Key]
     [Column("ID")]
     public string Id { get; set; } = Guid.NewGuid().ToString("N").ToUpper();
+    [Column("VERSION")] 
+    public int? Version { get; set; } = 1;
     [Column("CREATED_TIME")]
-    public long CreatedTime { get; set; } = Convert.ToInt64(DateTime.Now.ToString("yyyyMMddHHmmss"));
+    public DateTime CreatedTime { get; set; } = DateTime.Now;
     [Column("MODIFIED_TIME")]
-    public long ModifiedTime { get; set; }
+    public DateTime? ModifiedTime { get; set; }
     [Column("IS_ACTIVE")]
     public bool? IsActive { get; set; }
     [Column("IS_DELETE")]

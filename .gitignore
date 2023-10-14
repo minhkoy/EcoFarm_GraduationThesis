@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EcoFarm.Api/appsettings.json
+/EcoFarm.Api/appsettings.Development.json

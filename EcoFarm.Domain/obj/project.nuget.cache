@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "MB/Nb/85iu6ZV162X/8ppSyBrvzlK6RX20K5U+fl4f3p1YRXlc6K82stwZYgJydramX6UxAYIJ1m2MMx4MuBPg==",
+  "success": true,
+  "projectFilePath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

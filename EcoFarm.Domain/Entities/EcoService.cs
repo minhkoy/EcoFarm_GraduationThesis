@@ -3,6 +3,7 @@ using EcoFarm.Domain.Common;
 
 namespace EcoFarm.Domain.Entities;
 
+[Table("ECO_SERVICE")]
 public class EcoService : BaseAuditableEntity
 {
     [Column("DESCRIPTION")] public string Description { get; set; }

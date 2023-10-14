@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="Helpers\Configs\" />
       <Folder Include="Helpers\Constants\" />
-      <Folder Include="Helpers\Enums\" />
     </ItemGroup>
 
     <ItemGroup>
