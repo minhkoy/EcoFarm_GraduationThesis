@@ -7,12 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\Configs\" />
-      <Folder Include="Helpers\Constants\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="MediatR" Version="12.1.1" />
     </ItemGroup>
+
 
 </Project>

@@ -4,14 +4,87 @@
     "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj": {
+    "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\EcoFarm.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj",
-        "projectName": "EcoFarm.Infrastructure",
-        "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj",
+        "projectUniqueName": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\EcoFarm.Application.csproj",
+        "projectName": "EcoFarm.Application",
+        "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\EcoFarm.Application.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\obj\\",
+        "outputPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj": {
+                "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.7.1, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.Extensions.Localization": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj",
+        "projectName": "EcoFarm.Domain",
+        "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\EcoFarm.Domain.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +112,81 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj",
+        "projectName": "EcoFarm.Infrastructure",
+        "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\EcoFarm.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\EcoFarm.Application.csproj": {
+                "projectPath": "D:\\VisualStudioFiles\\source\\repos\\--ASP.NET--\\EcoFarm_GraduationThesis\\EcoFarm.Application\\EcoFarm.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

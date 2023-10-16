@@ -2,13 +2,23 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj"/>
+        <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj"/>
+        <ProjectReference Include="..\EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Middlewares\"/>
     </ItemGroup>
 
 </Project>
