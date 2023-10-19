@@ -1,5 +1,7 @@
 using EcoFarm.Application;
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Repositories;
+using EcoFarm.Application.Localization.Services;
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Localization;
@@ -21,7 +23,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         new CultureInfo(Constants.Languages.En),
         new CultureInfo(vi),
     };
-    options.DefaultRequestCulture = new RequestCulture(culture: vi, uiCulture: vi);
+    //options.DefaultRequestCulture = new RequestCulture(culture: vi, uiCulture: vi);
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 
@@ -35,7 +37,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         var currentLanguage = languages.Split(",").FirstOrDefault();
         var defaultLanguage = string.IsNullOrEmpty(currentLanguage) ? vi : currentLanguage;
 
-        if (defaultLanguage != vi && defaultLanguage != Constants.Languages.En)
+        if (!defaultLanguage.Equals(vi) && !defaultLanguage.Equals(Constants.Languages.En))
         {
             defaultLanguage = vi;
         }
@@ -43,6 +45,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         return Task.FromResult(new ProviderCultureResult(defaultLanguage, defaultLanguage));
     }));
 });
+builder.Services.AddTransient<ILocalizeService, LocalizeService>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -58,9 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 //app.UseMiddleware<RequestLocalizationMiddleware>();

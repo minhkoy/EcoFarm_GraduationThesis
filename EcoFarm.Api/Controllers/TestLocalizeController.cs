@@ -1,5 +1,6 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Localization;
 using EcoFarm.Application.Localization.Services;
 using EcoFarm.Domain.Common.Values.Constants;
@@ -15,10 +16,10 @@ namespace EcoFarm.Api.Controllers
     [ApiController]
     public class TestLocalizeController : BaseController
     {
-        private readonly LocalizeService _localizeService;
+        private readonly ILocalizeService _localizeService;
         private static string lang = "vi";
 
-        public TestLocalizeController(IMediator mediator, LocalizeService localizeService) : base(mediator)
+        public TestLocalizeController(IMediator mediator, ILocalizeService localizeService) : base(mediator)
         {
             _localizeService = localizeService;
             //HttpContext.Request.Headers["Accept-Language"] = "en";

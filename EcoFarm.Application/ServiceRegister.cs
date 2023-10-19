@@ -13,7 +13,7 @@ public static class ServiceRegister
     {
         services.AddLocalization(options => { options.ResourcesPath = "Localization/Resources"; });
         //services.AddTransient<ILocalizeService, LocalizeService>();
-        services.AddSingleton<LocalizeService>();
+        //services.AddSingleton<LocalizeService>();
         //services.Configure<RequestLocalizationOptions>
     }
 }

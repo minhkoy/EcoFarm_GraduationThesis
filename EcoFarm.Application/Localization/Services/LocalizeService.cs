@@ -1,5 +1,6 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Localization.Resources;
 using Microsoft.Extensions.Localization;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace EcoFarm.Application.Localization.Services
 {
-    public class LocalizeService //: ILocalizeService
+    public class LocalizeService : ILocalizeService
     {
         private readonly IStringLocalizer _localizer = null!;
 
