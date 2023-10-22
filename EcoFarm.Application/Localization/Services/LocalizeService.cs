@@ -24,7 +24,7 @@ namespace EcoFarm.Application.Localization.Services
             _localizer = factory.Create("Resource", assemblyName.Name);
         }
 
-        public string GetMessage(LocalizationEnum localizationEnum, string culture)
+        public string GetMessage(LocalizationEnum localizationEnum)
         {
             //var specifiedCulture = new CultureInfo(culture);
             //CultureInfo.CurrentCulture = specifiedCulture;

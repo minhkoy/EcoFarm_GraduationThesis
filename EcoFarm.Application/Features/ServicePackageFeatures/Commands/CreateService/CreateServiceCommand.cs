@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcoFarm.Application.Features.EcoServiceFeature.Commands.CreateService
+namespace EcoFarm.Application.Features.ServicePackageFeatures.Commands.CreateService
 {
     public class CreateServiceCommand : IRequest<CreateServiceResponse>
     {

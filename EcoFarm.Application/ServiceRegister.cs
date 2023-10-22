@@ -1,5 +1,6 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
+using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;

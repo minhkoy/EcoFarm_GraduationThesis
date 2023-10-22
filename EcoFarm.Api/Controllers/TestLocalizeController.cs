@@ -51,7 +51,7 @@ namespace EcoFarm.Api.Controllers
         {
             var headers = HttpContext.Request.Headers;
             var uno = _localizeService
-                          .GetMessage(LocalizationEnum.MissingRequiredFields, Constants.Languages.En)
+                          .GetMessage(LocalizationEnum.MissingRequiredFields)
                       ?? string.Empty;
             return Ok(uno);
         }

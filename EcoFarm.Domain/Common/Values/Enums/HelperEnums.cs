@@ -16,4 +16,14 @@ public class HelperEnums
         Accepted,
         Denied
     }
+
+    public enum OrderStatus 
+    {
+        WaitingSellerConfirm = 1,
+        SellerConfirmed,
+        InProgress,
+        Completed,
+        Shipping,
+        Shipped
+    }
 }

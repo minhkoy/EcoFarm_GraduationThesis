@@ -1056,7 +1056,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "MediatR": "12.1.1"
+          "MediatR": "12.1.1",
+          "Microsoft.EntityFrameworkCore": "7.0.12"
         },
         "compile": {
           "bin/placeholder/EcoFarm.Domain.dll": {}

@@ -1,12 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoFarm.Api", "EcoFarm.Api\EcoFarm.Api.csproj", "{BAEA6117-2FD9-4019-88CB-FA23F46B3A05}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcoFarm.Api", "EcoFarm.Api\EcoFarm.Api.csproj", "{BAEA6117-2FD9-4019-88CB-FA23F46B3A05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoFarm.Application", "EcoFarm.Application\EcoFarm.Application.csproj", "{6E361439-6BB2-42D8-B41F-25EC7BB4DF79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcoFarm.Application", "EcoFarm.Application\EcoFarm.Application.csproj", "{6E361439-6BB2-42D8-B41F-25EC7BB4DF79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoFarm.Infrastructure", "EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj", "{22241D6B-9C3E-458A-876D-990CADFC83E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcoFarm.Infrastructure", "EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj", "{22241D6B-9C3E-458A-876D-990CADFC83E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoFarm.Domain", "EcoFarm.Domain\EcoFarm.Domain.csproj", "{E884DCA5-4EF2-4DD0-82E1-593A8CB2FF56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcoFarm.Domain", "EcoFarm.Domain\EcoFarm.Domain.csproj", "{E884DCA5-4EF2-4DD0-82E1-593A8CB2FF56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A97CEF98-E76A-440A-AD96-E8977750AEBA}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +38,8 @@ Global
 		{E884DCA5-4EF2-4DD0-82E1-593A8CB2FF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E884DCA5-4EF2-4DD0-82E1-593A8CB2FF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E884DCA5-4EF2-4DD0-82E1-593A8CB2FF56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

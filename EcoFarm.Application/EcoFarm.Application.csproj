@@ -7,15 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Features\EcoServiceFeature\Queries\"/>
+        <Folder Include="Features\ServicePackageFeatures\Queries\" />
       <Folder Include="Common\Exceptions\" />
       <Folder Include="DTOs\" />
+      <Folder Include="Features\UserFeatures\Queries\" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="11.7.1"/>
-        <PackageReference Include="MediatR" Version="12.1.1"/>
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12"/>
+        <PackageReference Include="FluentValidation" Version="11.7.1" />
+        <PackageReference Include="MediatR" Version="12.1.1" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12" />
     </ItemGroup>
 
     <ItemGroup>

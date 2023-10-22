@@ -11,7 +11,9 @@ public abstract class BaseNonExtendedEntity : IEntity
     [Key] [Column("ID")] public string Id { get; set; } = Guid.NewGuid().ToString("N").ToUpper();
     [Column("VERSION")] public int? Version { get; set; } = 1;
     [Column("CREATED_TIME")] public DateTime CreatedTime { get; set; } = DateTime.Now;
+    [Column("CREATED_BY")] public string CreatedBy { get; set; }
     [Column("MODIFIED_TIME")] public DateTime? ModifiedTime { get; set; }
+    [Column("MODIFIED_BY")] public string ModifiedBy { get; set; }
     [Column("IS_ACTIVE")] public bool? IsActive { get; set; }
     [Column("IS_DELETE")] public bool? IsDelete { get; set; }
 

@@ -10,5 +10,8 @@ namespace EcoFarm.Application.Localization
     {
         MissingRequiredFields = 0,
         MissingRequiredFieldsDetail,
+        InvalidDataFieldDetail,
+        UserHasNotLoggedIn,
+        UsernameOrPasswordEmpty
     }
 }

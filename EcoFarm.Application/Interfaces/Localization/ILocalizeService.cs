@@ -9,7 +9,7 @@ namespace EcoFarm.Application.Interfaces.Localization
 {
     public interface ILocalizeService
     {
-        string GetMessage(LocalizationEnum localizationEnum, string culture);
+        string GetMessage(LocalizationEnum localizationEnum);
         string GetParameterizedMessage(LocalizationEnum localizationEnum, params object[] args);
     }
 }

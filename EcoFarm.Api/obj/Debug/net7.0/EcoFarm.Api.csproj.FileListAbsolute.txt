@@ -84,3 +84,4 @@ D:\VisualStudioFiles\source\repos\--ASP.NET--\EcoFarm_GraduationThesis\EcoFarm.A
 D:\VisualStudioFiles\source\repos\--ASP.NET--\EcoFarm_GraduationThesis\EcoFarm.Api\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 D:\VisualStudioFiles\source\repos\--ASP.NET--\EcoFarm_GraduationThesis\EcoFarm.Api\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\VisualStudioFiles\source\repos\--ASP.NET--\EcoFarm_GraduationThesis\EcoFarm.Api\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\VisualStudioFiles\source\repos\--ASP.NET--\EcoFarm_GraduationThesis\EcoFarm.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
