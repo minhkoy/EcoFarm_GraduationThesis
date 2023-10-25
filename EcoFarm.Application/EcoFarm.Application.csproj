@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="Common\Messaging\" />
         <Folder Include="Features\ServicePackageFeatures\Queries\" />
       <Folder Include="Common\Exceptions\" />
       <Folder Include="DTOs\" />
@@ -17,6 +18,8 @@
         <PackageReference Include="FluentValidation" Version="11.7.1" />
         <PackageReference Include="MediatR" Version="12.1.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.24.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
     </ItemGroup>
 
     <ItemGroup>

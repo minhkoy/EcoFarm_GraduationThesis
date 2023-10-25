@@ -1,7 +1,10 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
+using EcoFarm.Application.Features.ServicePackageFeatures.Commands.CreateService;
+using EcoFarm.Application.Features.UserFeatures.Commands.Login;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization.Services;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
@@ -16,5 +19,11 @@ public static class ServiceRegister
         //services.AddTransient<ILocalizeService, LocalizeService>();
         //services.AddSingleton<LocalizeService>();
         //services.Configure<RequestLocalizationOptions>
+    }
+
+    public static void AddValidators(this IServiceCollection services)
+    {
+        services.AddScoped<IValidator<CreateServiceCommand>, CreateServiceValidator>();
+        services.AddScoped<IValidator<LoginCommand>, LoginValidator>();
     }
 }

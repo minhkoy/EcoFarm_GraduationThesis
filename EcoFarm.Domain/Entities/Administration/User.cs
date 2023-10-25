@@ -20,6 +20,10 @@ public class User : BaseEntity
     public string HashedPassword { get; set; }
     [Column("DATE_OF_BIRTH")]
     public DateTime? DateOfBirth { get; set; }
+    [Column("LAST_LOGGED_IN")]
+    public DateTime? LastLoggedIn { get; set; }
+    [Column("LAST_LOGGED_OUT")]
+    public DateTime? LastLoggedOut { get; set; }
     //[Column("")]
 
     //Inverse properties

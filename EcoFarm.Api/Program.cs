@@ -1,22 +1,30 @@
+using EcoFarm.Api.Abstraction.Behaviors;
+using EcoFarm.Api.Middlewares;
 using EcoFarm.Application;
 using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization.Services;
 using EcoFarm.Domain.Common.Values.Constants;
+using EcoFarm.Domain.Common.Values.Options;
+using EcoFarm.Infrastructure.Contexts;
 using EcoFarm.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(EcoFarm.Application.AssemblyReference.Assembly));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddControllers();
 builder.Services.AddLocalizationService();
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -102,8 +110,13 @@ builder.Services.AddSwaggerGen(s =>
     };
     s.AddSecurityRequirement(securityRequirement);
 });
-//builder.Services();
-
+builder.Services.AddDbContext<EcoContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"), b => b.MigrationsAssembly("JWT.Domain"));
+});
+builder.Services.AddValidators();
+builder.Services.AddSingleton<ErrorHandlingMiddleware>();
+builder.Services.Configure<JwtOption>(builder.Configuration.GetSection(nameof(JwtOption)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -118,6 +131,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 //app.UseMiddleware<RequestLocalizationMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

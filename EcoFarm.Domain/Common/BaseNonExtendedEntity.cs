@@ -9,7 +9,7 @@ public abstract class BaseNonExtendedEntity : IEntity
     private readonly List<BaseEvent> _domainEvents = new();
 
     [Key] [Column("ID")] public string Id { get; set; } = Guid.NewGuid().ToString("N").ToUpper();
-    [Column("VERSION")] public int? Version { get; set; } = 1;
+    [Column("VERSION"), Timestamp] public byte[] Version { get; set; }
     [Column("CREATED_TIME")] public DateTime CreatedTime { get; set; } = DateTime.Now;
     [Column("CREATED_BY")] public string CreatedBy { get; set; }
     [Column("MODIFIED_TIME")] public DateTime? ModifiedTime { get; set; }
