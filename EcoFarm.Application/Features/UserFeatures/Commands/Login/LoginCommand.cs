@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -19,6 +20,7 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
     public class LoginCommand : IRequest<LoginResponse>
     {
         public string UsernameOrEmail { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 
@@ -50,8 +52,8 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
                 //Check for existance in database
                 var people = _unitOfWork.Users
                     .GetQueryable()
-                    .Where(x => x.Username.Equals(request.UsernameOrEmail)
-                    || x.Email.Equals(request.UsernameOrEmail))
+                    .Where(x => x.USERNAME.Equals(request.UsernameOrEmail)
+                    || x.EMAIL.Equals(request.UsernameOrEmail))
                     .FirstOrDefault();
                 if (people == null)
                 {
@@ -71,20 +73,20 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
 
             var userRoles = _unitOfWork.RoleUsers
                 .GetQueryable()
-                .Where(x => x.UserId.Equals(user.Id))
+                .Where(x => x.USER_ID.Equals(user.ID))
                 .ToList();
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Name),
-                // new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToString()),
-                // new Claim(ClaimTypes.MobilePhone, user.PhoneNumber)
+                new Claim(ClaimTypes.NameIdentifier, user.USERNAME),
+                new Claim(ClaimTypes.Email, user.EMAIL),
+                new Claim(ClaimTypes.Name, user.NAME),
+                // new Claim(ClaimTypes.DATE_OF_BIRTH, user.DATE_OF_BIRTH.ToString()),
+                // new Claim(ClaimTypes.MobilePhone, user.PHONE_NUMBER)
             };
 
             foreach (var role in userRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role.RoleId));
+                claims.Add(new Claim(ClaimTypes.Role, role.ROLE_ID));
             }
 
             var token = new JwtSecurityToken(issuer: _jwtOption.Issuer,

@@ -10,15 +10,22 @@ namespace EcoFarm.Application.Features.ServicePackageFeatures.Commands.CreateSer
 {
     public class CreateServiceCommand : IRequest<CreateServiceResponse>
     {
-        public string ServiceCode { get; set; }
+        //public string ServiceCode { get; set; }
         public string ServiceName { get; set; }
         public string Description { get; set; }
-        public string SupportAccountId { get; set; }
+        public string EnterpriseId { get; set; }
         public DateTime? StartDate { get; set; }
     }
 
     public class CreateServiceResponse
     {
+        public string Id { get; set; }
+        public string ServiceCode { get; set; }
+        public string ServiceName { get; set; }
+        public string Description { get; set; }
+        public string EnterpriseId { get; set; }
+        public string EnterpriseCode { get; set; }
+        public string EnterpriseName { get; set; }
     }
 
     internal class CreateServiceHandler : IRequestHandler<CreateServiceCommand, CreateServiceResponse>

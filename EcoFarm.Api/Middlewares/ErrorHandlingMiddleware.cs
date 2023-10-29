@@ -39,7 +39,7 @@ namespace EcoFarm.Api.Middlewares
                         Status: StatusCodes.Status500InternalServerError,
                         Type: "ServerError",
                         Title: "Server Error",
-                        Detail: "An unexpected error has occured",
+                        Detail: $"An unexpected error has occured: {e}",
                         null
                     );
                 }

@@ -22,12 +22,12 @@ namespace EcoFarm.Infrastructure.Repositories
 
         public IQueryable<T> GetQueryable()
         {
-            return _EcoContext.Set<T>().AsNoTracking().Where(x => !x.IsDelete.HasValue || !x.IsDelete.Value);
+            return _EcoContext.Set<T>().AsNoTracking().Where(x => !x.IS_DELETE.HasValue || !x.IS_DELETE.Value);
         }
 
         public IQueryable<T> GetTrackingQueryable()
         {
-            return _EcoContext.Set<T>().Where(x => !x.IsDelete.HasValue || !x.IsDelete.Value);
+            return _EcoContext.Set<T>().Where(x => !x.IS_DELETE.HasValue || !x.IS_DELETE.Value);
         }
 
         public IQueryable<T> GetQueryableIncludeIsDelete()
@@ -37,12 +37,12 @@ namespace EcoFarm.Infrastructure.Repositories
 
         public async Task<T> FindAsync(string id)
         {
-            return await GetQueryable().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            return await GetQueryable().FirstOrDefaultAsync(x => x.ID.Equals(id));
         }
 
         public T Find(string id)
         {
-            return this.GetQueryable().FirstOrDefault(x => x.Id.Equals(id));
+            return this.GetQueryable().FirstOrDefault(x => x.ID.Equals(id));
         }
 
         public void Add(T entity)
@@ -67,7 +67,7 @@ namespace EcoFarm.Infrastructure.Repositories
 
         public void Update(T entity)
         {
-            //if (entity != null && entity.Version > 9)
+            //if (entity != null && entity.VERSION > 9)
             _EcoContext.Set<T>().Update(entity);
         }
 

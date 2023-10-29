@@ -6,7 +6,7 @@ namespace EcoFarm.Domain.Entities.Administration;
 [Table("ROLE_USER")]
 public class RoleUser : BaseNonExtendedEntity
 {
-    [Column("ROLE_ID")] public string RoleId { get; set; }
-    [Column("USER_ID")] public string UserId { get; set; }
+    public string ROLE_ID { get; set; }
+    public string USER_ID { get; set; }
     
 }

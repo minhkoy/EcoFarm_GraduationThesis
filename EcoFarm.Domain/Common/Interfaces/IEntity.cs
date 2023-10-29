@@ -2,12 +2,12 @@ namespace EcoFarm.Domain.Common.Interfaces;
 
 public interface IEntity
 {
-    string Id { get; set; }
-    byte[] Version { get; set; } 
-    DateTime CreatedTime { get; set; }
-    DateTime? ModifiedTime { get; set; }
-    string CreatedBy { get; set; }
-    string ModifiedBy { get; set; }
-    bool? IsActive { get; set; }
-    bool? IsDelete { get; set; }
+    string ID { get; set; }
+    byte[] VERSION { get; set; } 
+    DateTime CREATED_TIME { get; set; }
+    DateTime? MODIFIED_TIME { get; set; }
+    string CREATED_BY { get; set; }
+    string MODIFIED_BY { get; set; }
+    bool? IS_ACTIVE { get; set; }
+    bool? IS_DELETE { get; set; }
 }

@@ -16,11 +16,11 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
         {
             _localizeService = localizeService;
             RuleFor(x => x.UsernameOrEmail).NotEmpty()
-                .WithName("Username")
-                .WithMessage(_localizeService.GetMessage(LocalizationEnum.UsernameOrPasswordEmpty));
+                .WithName("USERNAME")
+                .WithMessage(_localizeService.GetMessage(LocalizationEnum.MissingRequiredFields));
             RuleFor(x => x.Password).NotEmpty()
                 .WithName("Password")
-                .WithMessage(_localizeService.GetMessage(LocalizationEnum.UsernameOrPasswordEmpty));
+                .WithMessage(_localizeService.GetMessage(LocalizationEnum.MissingRequiredFields));
         }
     }
 }

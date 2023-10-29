@@ -6,6 +6,5 @@ namespace EcoFarm.Domain.Entities.Administration;
 [Table("ROLE")]
 public class Role : BaseEntity
 {
-    [Column("DESCRIPTION")]
-    public string Description { get; set; }
+    public string DESCRIPTION { get; set; }
 }

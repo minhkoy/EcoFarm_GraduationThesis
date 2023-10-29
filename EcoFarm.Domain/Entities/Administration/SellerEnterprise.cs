@@ -5,17 +5,11 @@ using EcoFarm.Domain.Entities;
 [Table("SELLER_ENTERPRISE")]
 public class SellerEnterprise : BaseEntity 
 {
-    [Column("DESCRIPTION")]
-    public string Description { get; set; }
-    [Column("TAX_CODE")]
-    public string TaxCode { get; set; }
-    [Column("IS_APPROVED")]
-    public bool IsApproved { get; set; } = false;
-    [Column("HOTLINE")]
-    public string Hotline { get; set; }
-    [Column("ADDRESS")]
-    public string Address { get; set; }
-    //[Column("")]
+    public string DESCRIPTION { get; set; }
+    public string TAX_CODE { get; set; }
+    public bool IS_APPROVED { get; set; } = false;
+    public string HOTLINE { get; set; }
+    public string ADDRESS { get; set; }
     
     //Inverse properties
     [InverseProperty(nameof(ServicePackage))]

@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace EcoFarm.Domain.Entities
 {
-    [Table("SERVICE_IMAGE")]
-    public class ServiceImage : BaseEntity
+    [Table("PRODUCT")]
+    public class Product : BaseEntity
     {
         public string DESCRIPTION { get; set; }
-        public byte[] DATA { get; set; }
+        public string ENTERPRISE_ID { get; set; }
+        public int? TYPE { get; set; }
+        public int? QUANTITY { get; set; }
+
     }
 }

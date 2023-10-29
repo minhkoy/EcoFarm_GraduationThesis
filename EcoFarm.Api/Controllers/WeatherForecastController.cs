@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace EcoFarm.Api.Controllers;
 
@@ -19,11 +20,11 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get([FromQuery] DateTime? date)
+    public IEnumerable<WeatherForecast> Get([FromQuery] DateOnly? date, [FromQuery, DataType(DataType.Password)] string password)
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                Date = date.HasValue ? date.Value.AddDays(index) : DateOnly.MinValue,
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })

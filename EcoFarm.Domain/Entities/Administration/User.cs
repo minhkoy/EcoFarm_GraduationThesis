@@ -5,25 +5,18 @@ using Microsoft.EntityFrameworkCore;
 namespace EcoFarm.Domain.Entities.Administration;
 
 [Table("USER")]
-[Index(nameof(Username), "USER_INDEX1")]
-[Index(nameof(Email), "USER_INDEX2")]
+[Index(nameof(USERNAME), "USER_INDEX1")]
+[Index(nameof(EMAIL), "USER_INDEX2")]
 
 public class User : BaseEntity
 {
-    [Column("USERNAME")]
-    public string Username { get; set; }
-    [Column("EMAIL")]
-    public string Email { get; set; }
-    [Column("IS_EMAIL_CONFIRMED")]
-    public bool IsEmailConfirmed { get; set; } = false;
-    [Column("HASHED_PASSWORD")]
-    public string HashedPassword { get; set; }
-    [Column("DATE_OF_BIRTH")]
-    public DateTime? DateOfBirth { get; set; }
-    [Column("LAST_LOGGED_IN")]
-    public DateTime? LastLoggedIn { get; set; }
-    [Column("LAST_LOGGED_OUT")]
-    public DateTime? LastLoggedOut { get; set; }
+    public string USERNAME { get; set; }
+    public string EMAIL { get; set; }
+    public bool IS_EMAIL_CONFIRMED { get; set; } = false;
+    public string HASHED_PASSWORD { get; set; }
+    public DateTime? DATE_OF_BIRTH { get; set; }
+    public DateTime? LAST_LOGGED_IN { get; set; }
+    public DateTime? LAST_LOGGED_OUT { get; set; }
     //[Column("")]
 
     //Inverse properties

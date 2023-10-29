@@ -5,6 +5,6 @@ namespace EcoFarm.Domain.Common;
 
 public abstract class BaseEntity : BaseNonExtendedEntity, IAuditableEntity
 {
-    [Column("CODE")] public string Code { get; set; }
-    [Column("NAME")] public string Name { get; set; }
+    [Column("CODE")] public string CODE { get; set; }
+    [Column("NAME")] public string NAME { get; set; }
 }

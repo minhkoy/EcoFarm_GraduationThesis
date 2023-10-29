@@ -1,4 +1,5 @@
 ﻿using EcoFarm.Application.Extensions;
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Domain.Common.Values.Constants;
 using FluentValidation;
 using System;
@@ -11,15 +12,19 @@ namespace EcoFarm.Application.Features.ServicePackageFeatures.Commands.CreateSer
 {
     public class CreateServiceValidator : AbstractValidator<CreateServiceCommand>
     {
-        public CreateServiceValidator()
+        private readonly ILocalizeService _localizeService;
+        public CreateServiceValidator(ILocalizeService localizeService)
         {
-            RuleFor(x => x.ServiceCode).NotEmpty()
-                .WithName(Constants.ValidationErrorNames.MissingRequiredInformation)
-                .WithMessage(
-                    HelperExtensions.StringAfterFormatting(Constants.ValidationErrorMsgs.MissingRequiredInformation,
-                        "Service code"));
+            _localizeService = localizeService;
+            //RuleFor(x => x.ServiceCode).NotEmpty()
+            //    .WithName(Constants.ValidationErrorNames.MissingRequiredInformation)
+            //    .WithMessage(
+            //        HelperExtensions.StringAfterFormatting(Constants.ValidationErrorMsgs.MissingRequiredInformation,
+            //            "Service code"));
             RuleFor(x => x.ServiceName).NotEmpty()
                 .WithMessage(Constants.ValidationErrorMsgs.MissingRequiredInformationDetail);
+            RuleFor(x => x.EnterpriseId).NotEmpty()
+                .WithMessage("Cần có thông tin doanh nghiệp");
         }
     }
 }

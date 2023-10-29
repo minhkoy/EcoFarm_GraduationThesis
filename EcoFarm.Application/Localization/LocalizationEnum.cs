@@ -8,10 +8,29 @@ namespace EcoFarm.Application.Localization
 {
     public enum LocalizationEnum
     {
-        MissingRequiredFields = 0,
+        #region General entities
+        Code = 0,
+        Name,
+        Status,
+        Description,
+        #endregion
+
+        #region Validation input error
+        MissingRequiredFields,
         MissingRequiredFieldsDetail,
-        InvalidDataFieldDetail,
         UserHasNotLoggedIn,
-        UsernameOrPasswordEmpty
+        IncorrectDetail,
+        InvalidDetail,
+
+        
+        #endregion
+
+        #region Validation data error
+        
+        #endregion
+
+        #region General messages
+        Successful,
+        #endregion
     }
 }
