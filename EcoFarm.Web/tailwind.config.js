@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'bg-login': "url('assets/eco-background.webp')"
+      }
+    },
   },
   plugins: [],
 }
