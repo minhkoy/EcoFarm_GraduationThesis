@@ -1,11 +1,11 @@
-import { KeyValuePair } from "../shared/Utils"
+import Utils, { KeyValuePair } from "../shared/Utils"
 
 interface iProps {
     options?: Array<KeyValuePair<string, string>>
     title?: string
     addBlankItem?: boolean
     blankItemText?: string
-    onChange: (value: string) => void
+    onChange: (value: string, key?: string) => void
 }
 
 const ComboBox = (props: iProps) => {
@@ -13,7 +13,10 @@ const ComboBox = (props: iProps) => {
         <>
         <label htmlFor="combo" className="block mb-2 text-sm text-black font-medium">{props.title}</label>
         <select id="combo" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        onChange={(e) => props.onChange(e.target.value)}
+        onChange={(e) => {
+            let val = e.target.value;
+            props.onChange(val, Utils.getFirstKeyFromValue(val, props.options!))
+        }}
         >
             {
                 props.addBlankItem ? (
