@@ -28,8 +28,8 @@ namespace EcoFarm.Api.Middlewares
                     problemDetails = new ProblemDetails(
                         Status: StatusCodes.Status400BadRequest,
                         Type: "ValidationError",
-                        Title: "Validation error",
-                        Detail: "One or more validation errors has occured",
+                        Title: "Lỗi kiểm tra dữ liệu đầu vào",
+                        Detail: "Thông tin không hợp lệ, vui lòng kiểm tra lại",
                         Errors: validationException.Errors
                     );
                 }

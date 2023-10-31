@@ -2,6 +2,13 @@ namespace EcoFarm.Domain.Common.Values.Enums;
 
 public class HelperEnums
 {
+    //Administration
+    public enum RoleType
+    {
+        Admin = 1,
+        Seller,
+        User
+    }
     public enum ServicePackageType
     {
         Tourism = 1,

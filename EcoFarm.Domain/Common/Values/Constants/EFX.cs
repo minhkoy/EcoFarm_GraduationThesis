@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace EcoFarm.Domain.Common.Values.Constants
 {
-    public static class Constants
+    public static class EFX
     {
+        
         public class ValidationErrorNames
         {
             public static string MissingRequiredInformation = "Argument error";

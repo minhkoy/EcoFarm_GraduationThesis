@@ -66,10 +66,8 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
 
         }
 
-        private string GenerateAccessToken(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtOption.Key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        private List<Claim> GenerateUserClaims(User user)
+        {            
 
             var userRoles = _unitOfWork.RoleUsers
                 .GetQueryable()
@@ -89,12 +87,7 @@ namespace EcoFarm.Application.Features.UserFeatures.Commands.Login
                 claims.Add(new Claim(ClaimTypes.Role, role.ROLE_ID));
             }
 
-            var token = new JwtSecurityToken(issuer: _jwtOption.Issuer,
-                audience: _jwtOption.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddSeconds(50), //XXX
-                signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return claims;
         }
 
         //private string GenerateRefreshToken()

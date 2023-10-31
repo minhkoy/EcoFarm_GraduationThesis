@@ -17,12 +17,12 @@ namespace EcoFarm.Application.Features.ServicePackageFeatures.Commands.CreateSer
         {
             _localizeService = localizeService;
             //RuleFor(x => x.ServiceCode).NotEmpty()
-            //    .WithName(Constants.ValidationErrorNames.MissingRequiredInformation)
+            //    .WithName(EFX.ValidationErrorNames.MissingRequiredInformation)
             //    .WithMessage(
-            //        HelperExtensions.StringAfterFormatting(Constants.ValidationErrorMsgs.MissingRequiredInformation,
+            //        HelperExtensions.StringAfterFormatting(EFX.ValidationErrorMsgs.MissingRequiredInformation,
             //            "Service code"));
             RuleFor(x => x.ServiceName).NotEmpty()
-                .WithMessage(Constants.ValidationErrorMsgs.MissingRequiredInformationDetail);
+                .WithMessage(EFX.ValidationErrorMsgs.MissingRequiredInformationDetail);
             RuleFor(x => x.EnterpriseId).NotEmpty()
                 .WithMessage("Cần có thông tin doanh nghiệp");
         }

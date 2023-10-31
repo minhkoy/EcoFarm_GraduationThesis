@@ -29,10 +29,10 @@ builder.Services.AddControllers();
 builder.Services.AddLocalizationService();
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var vi = Constants.Languages.Vi;
+    var vi = EFX.Languages.Vi;
     var supportedCultures = new CultureInfo[]
     {
-        new CultureInfo(Constants.Languages.En),
+        new CultureInfo(EFX.Languages.En),
         new CultureInfo(vi),
     };
     //options.DefaultRequestCulture = new RequestCulture(culture: vi, uiCulture: vi);
@@ -49,7 +49,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         var currentLanguage = languages.Split(",").FirstOrDefault();
         var defaultLanguage = string.IsNullOrEmpty(currentLanguage) ? vi : currentLanguage;
 
-        if (!defaultLanguage.Equals(vi) && !defaultLanguage.Equals(Constants.Languages.En))
+        if (!defaultLanguage.Equals(vi) && !defaultLanguage.Equals(EFX.Languages.En))
         {
             defaultLanguage = vi;
         }

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using EcoFarm.Domain.Common;
 using EcoFarm.Domain.Common.Values.Enums;
+using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
 namespace EcoFarm.Domain.Entities;
 
@@ -15,7 +16,8 @@ public class ServicePackage : BaseEntity
     public int QUANTITY_SOLD { get; set; }
     public int SERVICE_TYPE { get; set; }
     public double PRICE { get; set; } = 0;
-    public int STATUS { get; set; } = (int)HelperEnums.ServicePackageApprovalStatus.Pending;
+    public bool IS_APPROVED { get; set; } = false;
+    public ServicePackageApprovalStatus STATUS { get; set; } = ServicePackageApprovalStatus.Pending;
 
     //Extension properties
     [NotMapped] public int QuantityRemain => !QUANTITY_START.HasValue ? 0 : QUANTITY_START.Value - QUANTITY_SOLD;

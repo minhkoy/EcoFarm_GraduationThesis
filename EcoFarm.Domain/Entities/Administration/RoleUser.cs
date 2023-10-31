@@ -3,7 +3,8 @@ using EcoFarm.Domain.Common;
 
 namespace EcoFarm.Domain.Entities.Administration;
 
-[Table("ROLE_USER")]
+//[Table("ROLE_USER")]
+[NotMapped]
 public class RoleUser : BaseNonExtendedEntity
 {
     public string ROLE_ID { get; set; }
