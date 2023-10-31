@@ -10,8 +10,8 @@
         <Folder Include="Common\Messaging\" />
         <Folder Include="Features\ServicePackageFeatures\Queries\" />
       <Folder Include="Common\Exceptions\" />
-      <Folder Include="DTOs\" />
       <Folder Include="Features\UserFeatures\Queries\" />
+      <Folder Include="Services\DTOs\" />
     </ItemGroup>
 
     <ItemGroup>
