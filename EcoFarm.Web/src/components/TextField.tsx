@@ -1,4 +1,4 @@
-import { CSSProperties } from "react"
+import { CSSProperties, useState } from "react"
 
 interface iProps {
     style?: CSSProperties;
@@ -10,9 +10,15 @@ interface iProps {
     helperText?: string;
     name?: string;
     title: string;
+    //Validation props:
+    required?: boolean;
+    requiredMessage?: string;
+    regex?: RegExp;
+    regexMessage?: string;
 }
 
 const TextField = (props: iProps) => {
+    let [errorMessage, setErrorMessage] = useState('')
     return (
         <>
         <label htmlFor={props.name} className="block mb-2 text-sm font-medium text-gray-900">{props.title}</label>
@@ -22,12 +28,24 @@ const TextField = (props: iProps) => {
         placeholder={props.placeholder}
         value={props.defaultValue}
         onChange={(e) => {
-            props.onChange(e.target.value)
+            let value = e.target.value;
+            if (props.required && !value) {
+                setErrorMessage(props.requiredMessage || 'Vui lòng nhập trường thông tin này.')
+            } else if (props.regex && !props.regex.test(value)) {
+                setErrorMessage(props.regexMessage || 'Vui lòng nhập đúng định dạng.')
+            } else {
+                setErrorMessage('')
+            }
+            props.onChange(value)
         }}
         />
         {
+            errorMessage ? 
+            <p className="mt-2 text-sm text-red-600">{errorMessage}</p> : <></>
+        }
+        {
             props.helperText ? 
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{props.helperText}</p> : <></>
+            <p className="mt-2 text-sm text-gray-500">{props.helperText}</p> : <></>
         }        
         </>
     )

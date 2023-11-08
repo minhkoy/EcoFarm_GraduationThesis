@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { LoginCommand } from "./LoginDTO";
+import { useEffect, useState } from "react";
+import { LoginCommand, LoginResponse } from "../../../DTOs/auth/LoginDTO";
 import ComboBox from "../../../components/ComboBox";
 import { KeyValuePair } from "../../../shared/Utils";
 import { Link } from "react-router-dom";
 import SignUp from "../signup/SignUp";
+import HttpUtils from "../../../shared/HttpUtils";
 
 //type Page = () => React.FC;
 interface iProps {
@@ -16,20 +17,32 @@ interface iState {
 
 const Login = (props: iProps) => {
     const [command, setCommand] = useState(new LoginCommand())
+    //const [disabled, setDisabled] = useState(true)
+    useEffect(() => {
+        document.title = "Đăng nhập"
+    })
     const userType: Array<KeyValuePair<string, string>> = [
         {key: "user", value: "Người tìm dịch vụ"},
         {key: "erp", value: "Tổ chức/ cá nhân cung cấp dịch vụ"},
         {key: "adm", value: "Quản trị hệ thống"}
     ];
 
-    const handleSubmit = (val?: any) => {
-        console.log(command);
+    const handleSubmit = async (val?: any) => {
+        console.log(command); //XXXX
+        //let loginResult = HttpUtils.get<LoginResponse>()
+        let loginResult =  await HttpUtils.post<LoginCommand, LoginResponse>(
+            HttpUtils.DEV_BASE_URL,
+            HttpUtils.ApiUri.authLogin,
+            command
+        )
+        
     }
 
     return (
         <>
-        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-bg-login bg-cover bg-no-repeat"
-        >
+        {/* // <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-bg-login bg-cover bg-no-repeat h-screen"
+        // > */}
+            
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img className='mx-auto h-10 w-auto' width={100} height={200} src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Company logo"/>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Đăng nhập vào hệ thống</h2>
@@ -79,8 +92,9 @@ const Login = (props: iProps) => {
                     title="Đăng nhập với vai trò: " 
                     addBlankItem 
                     blankItemText="-- Chọn vai trò --"
-                    onChange={(value) => {
-                        command.UserType = value;
+                    onChange={(value, key) => {
+                        command.UserType = key;
+                        console.log(command)
                         setCommand(command)
                     }}
                     />
@@ -94,7 +108,7 @@ const Login = (props: iProps) => {
                     <Link to='/auth/signup' className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Đăng ký tại đây...</Link>
                 </p>
             </div>
-        </div>
+        {/* // </div> */}
         </>
         
     )

@@ -5,6 +5,7 @@ import Login from "./auth/login/Login"
 import Error404Page from "./Error404Page"
 import SignUp from "./auth/signup/SignUp"
 import ForgetPassword from "./auth/forgetPassword/ForgetPassword"
+import AuthenticationLayout from "../components/backgrounds/AuthenticationLayout"
 
 const RouteManager = () => {
     return (
@@ -12,7 +13,7 @@ const RouteManager = () => {
             <Routes>
                 <Route path='/' errorElement={<Error404Page />}>
                     <Route index element={<Home />} />
-                    <Route path='auth'>
+                    <Route path='auth' element={<AuthenticationLayout />}>
                         <Route path="login" element={<Login />}/>
                         <Route path="signup" element={<SignUp />} />
                         <Route path="forget-password" element={<ForgetPassword />} />

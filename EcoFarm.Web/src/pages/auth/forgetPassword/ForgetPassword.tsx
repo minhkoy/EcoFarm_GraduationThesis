@@ -1,9 +1,10 @@
 import Title from "antd/es/typography/Title"
 import { useState } from "react";
-import { ForgetPasswordCommand } from "./ForgetPasswordDTO";
+import { ForgetPasswordCommand } from "../../../DTOs/auth/ForgetPasswordDTO";
 import TextField from "../../../components/TextField";
 import ComboBox from "../../../components/ComboBox";
 import { KeyValuePair } from "../../../shared/Utils";
+import { Link } from "react-router-dom";
 
 type recoverType = 'username' | 'email';
 const recoverOptions: Array<KeyValuePair<string, string>> = [
@@ -27,6 +28,8 @@ const ForgetPassword = () => {
                             command.Username = value;
                             setCommand(command)
                         }}
+                        required
+                        helperText="Nếu tồn tại tên đăng nhập, chúng tôi sẽ gửi email khôi phục mật khẩu cho bạn, theo mail bạn đã đăng ký."
                     />
                 </div>
             )
@@ -36,22 +39,23 @@ const ForgetPassword = () => {
                 <div>
                     <TextField 
                         title="Email khôi phục"
-                        type="text"
+                        type="email"
                         name="email"
+                        required
+                        regex={/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/}
+                        regexMessage="Vui lòng nhập đúng định dạng email."
                         onChange={(value) => {
                             command.Email = value;
                             setCommand(command)
                         }}
-                        />
+                        helperText="Nếu tồn tại email trong hệ thống, chúng tôi sẽ gửi email khôi phục mật khẩu cho bạn."
+                    />
                 </div>
             )
         }
     }
     return (
         <>
-        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8
-         bg-blue-400 bg-bg-login bg-cover bg-no-repeat"
-        >
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img className='mx-auto h-10 w-auto' width={100} height={200} src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Company logo"/>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Quên mật khẩu</h2>
@@ -72,11 +76,21 @@ const ForgetPassword = () => {
                         {renderInputField()}
                     </div>
                     <div>
-                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Hoàn tất</button>
+                        <button type="reset" 
+                        className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900"
+                        onClick={(e) => {
+                            e.preventDefault();
+
+                        }}
+                        >
+                            Hoàn tất
+                        </button>
+                        <Link to={'/auth/login'} 
+                        className="flex w-full justify-center rounded-md mt-2 px-3 py-1.5 text-sm bg-indigo-600 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >Trở về đăng nhập</Link>
                     </div>
                 </form>            
             </div>        
-        </div>
         </>
     )
 }

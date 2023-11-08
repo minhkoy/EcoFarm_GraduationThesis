@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'bg-login': "url('assets/eco-background.webp')"
+        'bg-auth': "url('assets/eco-background.webp')"
       }
     },
   },
