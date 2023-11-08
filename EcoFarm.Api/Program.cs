@@ -9,6 +9,7 @@ using EcoFarm.Domain.Common.Values.Options;
 using EcoFarm.Infrastructure.Contexts;
 using EcoFarm.Infrastructure.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +23,17 @@ using static System.Net.Mime.MediaTypeNames;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSignalR();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(EcoFarm.Application.AssemblyReference.Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddControllers();
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/api/Account/Login";
+//        options.AccessDeniedPath = "/api/Account/AccessDenied";
+//    });
 builder.Services.AddLocalizationService();
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -112,7 +120,7 @@ builder.Services.AddSwaggerGen(s =>
 });
 builder.Services.AddDbContext<EcoContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"), b => b.MigrationsAssembly("JWT.Domain"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"), b => b.MigrationsAssembly("EcoFarm.Infrastructure"));
 });
 builder.Services.AddValidators();
 builder.Services.AddSingleton<ErrorHandlingMiddleware>();

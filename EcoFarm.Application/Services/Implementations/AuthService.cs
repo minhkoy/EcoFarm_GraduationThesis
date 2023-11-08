@@ -20,7 +20,7 @@ namespace EcoFarm.Application.Services.Implementations
         {
             _jwtOption = jwtOption.Value;
         }
-        public Task<User> GetUserInfoByToken()
+        public Task<Account> GetUserInfoByToken()
         {
             //Generate a function that can get user info from JWT Token
             throw new NotImplementedException();

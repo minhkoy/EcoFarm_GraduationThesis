@@ -10,16 +10,27 @@ using System.Threading.Tasks;
 
 namespace EcoFarm.Infrastructure.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly EcoContext _ecoContext;
 
         public UnitOfWork(EcoContext ecoContext)
         {
             _ecoContext = ecoContext;
+            Users = new GenericRepository<Account>(_ecoContext);
         }
 
-        public IGenericRepository<User> Users { get; private set; }
+        public int SaveChanges()
+        {
+            return _ecoContext.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _ecoContext.SaveChangesAsync();
+        }
+
+        public IGenericRepository<Account> Users { get; private set; }
 
         public IGenericRepository<Role> Roles { get; private set; }
 

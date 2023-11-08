@@ -5,12 +5,13 @@ namespace EcoFarm.Application.Interfaces.Repositories;
 
 public interface IUnitOfWork : IDisposable
 {
+    int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     //Task<int> SaveAndRemoveCache(CancellationToken cancellationToken, params string[] cacheKeys);
     Task Rollback();
 
     //Administration
-    IGenericRepository<User> Users { get; }
+    IGenericRepository<Account> Users { get; }
     IGenericRepository<Role> Roles { get; }
     IGenericRepository<RoleUser> RoleUsers { get; }
     IGenericRepository<SellerEnterprise> SellerEnterprises { get; }

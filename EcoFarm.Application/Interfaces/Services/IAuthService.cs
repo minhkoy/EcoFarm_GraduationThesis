@@ -10,6 +10,6 @@ namespace EcoFarm.Application.Interfaces.Services
     public interface IAuthService
     {
         //Get user info from JWT Token
-        Task<User> GetUserInfoByToken();
+        Task<Account> GetUserInfoByToken();
     }
 }

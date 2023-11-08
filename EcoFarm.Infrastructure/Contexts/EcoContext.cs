@@ -1,3 +1,4 @@
+using EcoFarm.Domain.Entities.Administration;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcoFarm.Infrastructure.Contexts;
@@ -11,4 +12,9 @@ public class EcoContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<Account> Users { get; set; }
+    //public DbSet<Role> Roles { get; set; }
+
+
 }

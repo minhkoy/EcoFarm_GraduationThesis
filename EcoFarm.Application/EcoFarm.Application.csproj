@@ -7,16 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Common\Messaging\" />
-        <Folder Include="Features\ServicePackageFeatures\Queries\" />
-      <Folder Include="Common\Exceptions\" />
-      <Folder Include="Features\UserFeatures\Queries\" />
+        <Folder Include="Common\Hubs\" />
+        <Folder Include="Features\Administration\EnterpriseManagerFeatures\Queries\" />
+        <Folder Include="Features\Administration\ServiceManagerFeatures\Queries\" />
+        <Folder Include="Features\Tasks\ServicePackageFeatures\Queries\" />
+      <Folder Include="Features\Administration\AuthenticationFeatures\Queries\" />
       <Folder Include="Services\DTOs\" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="11.7.1" />
         <PackageReference Include="MediatR" Version="12.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12" />
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.24.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />

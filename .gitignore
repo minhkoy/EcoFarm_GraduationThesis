@@ -4,3 +4,6 @@
 
 /EcoFarm.Api/appsettings.json
 /EcoFarm.Api/appsettings.Development.json
+# Ignore any files in /bin and /obj Folders
+**/bin/*
+**/obj/*

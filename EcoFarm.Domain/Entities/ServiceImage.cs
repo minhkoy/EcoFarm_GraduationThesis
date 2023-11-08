@@ -11,7 +11,12 @@ namespace EcoFarm.Domain.Entities
     [Table("SERVICE_IMAGE")]
     public class ServiceImage : BaseEntity
     {
+        public string SERVICE_ID { get; set; }
         public string DESCRIPTION { get; set; }
-        public byte[] DATA { get; set; }
+        public string IMAGE_URL { get; set; }
+
+        [ForeignKey(nameof(SERVICE_ID))]
+        [InverseProperty(nameof(ServicePackage.ServiceImages))]
+        public virtual ServicePackage Service { get; set; }
     }
 }

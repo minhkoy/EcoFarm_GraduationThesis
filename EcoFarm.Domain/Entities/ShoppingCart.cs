@@ -6,5 +6,9 @@ namespace EcoFarm.Domain.Entities;
 [Table("SHOPPING_CART")]
 public class ShoppingCart : BaseEntity
 {
-    public int? TRANSACTION_TYPE { get; set; }
+    public string USER_ID { get; set; }
+    public double? TOTAL_QUANTITY { get; set; }
+    public double? TOTAL_PRICE { get; set; }
+    [InverseProperty(nameof(CartDetail.Cart))]
+    public virtual ICollection<CartDetail> CartDetails { get; set; }
 }

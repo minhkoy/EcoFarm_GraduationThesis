@@ -8,6 +8,6 @@ public interface IEntity
     DateTime? MODIFIED_TIME { get; set; }
     string CREATED_BY { get; set; }
     string MODIFIED_BY { get; set; }
-    bool? IS_ACTIVE { get; set; }
-    bool? IS_DELETE { get; set; }
+    bool IS_ACTIVE { get; set; }
+    bool IS_DELETE { get; set; }
 }

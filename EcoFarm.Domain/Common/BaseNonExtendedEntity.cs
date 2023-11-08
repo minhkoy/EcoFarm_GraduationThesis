@@ -14,8 +14,8 @@ public abstract class BaseNonExtendedEntity : IEntity
     [Column("CREATED_BY")] public string CREATED_BY { get; set; }
     [Column("MODIFIED_TIME")] public DateTime? MODIFIED_TIME { get; set; }
     [Column("MODIFIED_BY")] public string MODIFIED_BY { get; set; }
-    [Column("IS_ACTIVE")] public bool? IS_ACTIVE { get; set; }
-    [Column("IS_DELETE")] public bool? IS_DELETE { get; set; }
+    [Column("IS_ACTIVE")] public bool IS_ACTIVE { get; set; } = true;
+    [Column("IS_DELETE")] public bool IS_DELETE { get; set; } = false;
 
     [NotMapped] public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
 

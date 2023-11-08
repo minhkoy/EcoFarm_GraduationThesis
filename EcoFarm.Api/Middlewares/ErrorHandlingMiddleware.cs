@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using EcoFarm.Application.Common.Results;
+using FluentValidation;
 using System.Text.Json;
 
 namespace EcoFarm.Api.Middlewares
@@ -23,6 +24,7 @@ namespace EcoFarm.Api.Middlewares
             {
                 _logger.LogError($"{e}");
                 ProblemDetails problemDetails = null;
+                Result<object> result = null;
                 if (e is ValidationException validationException)
                 {
                     problemDetails = new ProblemDetails(
@@ -32,6 +34,7 @@ namespace EcoFarm.Api.Middlewares
                         Detail: "Thông tin không hợp lệ, vui lòng kiểm tra lại",
                         Errors: validationException.Errors
                     );
+                    result = new BadRequestResult<object>(validationException.Message, validationException.Errors);
                 }
                 else
                 {
@@ -42,10 +45,12 @@ namespace EcoFarm.Api.Middlewares
                         Detail: $"An unexpected error has occured: {e}",
                         null
                     );
+                    _logger.LogError($"{e}");
+                    result = new UnexpectedResult<object>();
                 }
 
                 context.Response.StatusCode = problemDetails.Status;
-                await context.Response.WriteAsJsonAsync(problemDetails);
+                await context.Response.WriteAsJsonAsync(result);
             }
         }
 
