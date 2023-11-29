@@ -11,14 +11,20 @@ public interface IUnitOfWork : IDisposable
     Task Rollback();
 
     //Administration
-    IGenericRepository<Account> Users { get; }
+    IGenericRepository<Account> Accounts { get; }
+    IGenericRepository<User> Users { get; }
     IGenericRepository<Role> Roles { get; }
     IGenericRepository<RoleUser> RoleUsers { get; }
     IGenericRepository<SellerEnterprise> SellerEnterprises { get; }
     IGenericRepository<UserAddress> UserAddresses { get; }
     //Entities
     IGenericRepository<Order> Orders { get; }
-    IGenericRepository<ServiceImage> ServiceImages { get; }
-    IGenericRepository<ServicePackage> ServicePackages { get; }
+    IGenericRepository<PackageMedia> PackageMedias { get; }
+    IGenericRepository<FarmingPackage> FarmingPackages { get; }
     IGenericRepository<ShoppingCart> ShoppingCarts { get; }
+    IGenericRepository<Product> Products { get; }
+    IGenericRepository<ProductMedia> ProductMedias { get; }
+    IGenericRepository<UserPackageReview> PackageReviews { get; }
+    IGenericRepository<Notification> Notifications { get; }
+    IGenericRepository<UserRegisterPackage> UserRegisterPackages { get; }
 }

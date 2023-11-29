@@ -1,4 +1,4 @@
-﻿using EcoFarm.Application.Interfaces.Messagings;
+﻿using EcoFarm.Application.Interfaces.Messagings_Prev;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace EcoFarm.Application.Features.Administration.AuthenticationFeatures.Com
         public string Fullname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public RoleType Role { get; set; }
+        public AccountType Role { get; set; }
 
     }
 }

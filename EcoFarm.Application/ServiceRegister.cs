@@ -1,6 +1,5 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
-using EcoFarm.Application.Features.Administration.AuthenticationFeatures.Commands.Login;
 using EcoFarm.Application.Features.Tasks.ServicePackageFeatures.Commands.Create;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization.Services;
@@ -21,9 +20,9 @@ public static class ServiceRegister
         //services.Configure<RequestLocalizationOptions>
     }
 
-    public static void AddValidators(this IServiceCollection services)
-    {
-        services.AddScoped<IValidator<CreateServiceCommand>, CreateServiceValidator>();
-        services.AddScoped<IValidator<LoginCommand>, LoginValidator>();
-    }
+    //public static void AddValidators(this IServiceCollection services)
+    //{
+    //    services.AddScoped<IValidator<CreateServiceCommand>, CreateServiceValidator>();
+    //    services.AddScoped<IValidator<Login>, LoginValidator>();
+    //}
 }

@@ -10,9 +10,9 @@ namespace EcoFarm.Application.Features.Tasks.ServicePackageFeatures.Commands.Cre
 {
     public class ServiceCreatedEvent : BaseEvent
     {
-        public ServicePackage ServicePackage { get; set; }
+        public FarmingPackage ServicePackage { get; set; }
 
-        public ServiceCreatedEvent(ServicePackage servicePackage)
+        public ServiceCreatedEvent(FarmingPackage servicePackage)
         {
             ServicePackage = servicePackage;
         }

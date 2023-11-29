@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Application.Common.Results;
-using EcoFarm.Application.Interfaces.Messagings;
+using EcoFarm.Application.Interfaces.Messagings_Prev;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Options;
 using EcoFarm.Domain.Entities.Administration;
@@ -52,7 +52,7 @@ namespace EcoFarm.Application.Features.Administration.AuthenticationFeatures.Com
             if (validationResult.IsValid)
             {
                 //Check for existance in database
-                var people = _unitOfWork.Users
+                var people = _unitOfWork.Accounts
                     .GetQueryable()
                     .Where(x => x.USERNAME.Equals(request.UsernameOrEmail)
                     || x.EMAIL.Equals(request.UsernameOrEmail))

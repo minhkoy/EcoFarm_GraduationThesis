@@ -12,7 +12,7 @@ namespace EcoFarm.Application.Common.Results
         private readonly string _message;
         public override T Data => default;
 
-        public override IEnumerable<object> Errors => Enumerable.Empty<object>();
+        public IEnumerable<object> Errors => Enumerable.Empty<object>();
 
         public override string Message => _message ?? "Bạn không có quyền truy cập. Vui lòng liên hệ quản trị viên nếu nghi ngờ có sự nhầm lẫn";
 

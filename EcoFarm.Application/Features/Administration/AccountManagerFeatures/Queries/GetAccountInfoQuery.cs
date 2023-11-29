@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Application.Common.Results;
-using EcoFarm.Application.Interfaces.Messagings;
+using EcoFarm.Application.Interfaces.Messagings_Prev;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace EcoFarm.Application.Features.Administration.AccountManagerFeatures.Que
         public string Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public RoleType? Type { get; set; }
+        public AccountType? Type { get; set; }
     }
 
     public class GetAccountInfoResponse
@@ -25,7 +25,7 @@ namespace EcoFarm.Application.Features.Administration.AccountManagerFeatures.Que
         public string Fullname { get; set; }
         public DateOnly? DateOfBirth { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public RoleType? Type { get; set; }
+        public AccountType? Type { get; set; }
         public string TypeName { get; set; }
     }
 

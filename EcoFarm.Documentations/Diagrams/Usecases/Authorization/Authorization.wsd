@@ -1,0 +1,43 @@
+@startuml authorization
+skinparam actorStyle awesome
+:Anonymous: --> (Login)
+:Anonymous: --> (Register)
+
+:User: --> (Logout)
+:User: --> (ViewProfile)
+
+:Admin: --> (ManagerPackage)
+:Admin: --> (ManagerUser)
+:Admin: --> (ManageEnterprise)
+
+(ViewProfile) .> (EditProfile) : extends
+
+(ApprovePackage) <. (ManagerPackage) : extends
+(RejectPackage) <. (ManagerPackage) : extends
+(ManageEnterprise) .> (ApproveEnterprise) : extends
+(ManageEnterprise) .> (RejectEnterprise) : extends
+(ReadUserInfo) <. (ManagerUser) : extends
+(LockUser) <. (ManagerUser) : extends
+
+"Đăng nhập" as (Login)
+"Đăng ký" as (Register)
+"Đăng xuất" as (Logout)
+"Xem thông tin cá nhân" as (ViewProfile)
+"Cập nhật thông tin cá nhân" as (EditProfile)
+
+"Người mua" as :User:
+"Người dùng khách" as :Anonymous:
+"Người quản trị" as :Admin:
+
+"Quản lý gói" as (ManagerPackage)
+"Phê duyệt gói" as (ApprovePackage)
+"Từ chối gói" as (RejectPackage)
+
+"Quản lý người dùng" as (ManagerUser)
+"Xem thông tin người dùng" as (ReadUserInfo)
+"Khóa người dùng" as (LockUser)
+
+"Quản lý doanh nghiệp" as (ManageEnterprise)
+"Phê duyệt doanh nghiệp" as (ApproveEnterprise)
+"Từ chối doanh nghiệp" as (RejectEnterprise)
+@enduml

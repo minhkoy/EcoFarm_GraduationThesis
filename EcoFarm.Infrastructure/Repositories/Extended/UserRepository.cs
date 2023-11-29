@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TokenHandler.Interfaces;
 
 namespace EcoFarm.Infrastructure.Repositories.Extended
 {
     public class UserRepository : GenericRepository<Account>
     {
-        public UserRepository(EcoContext ecoContext) : base(ecoContext)
+        public UserRepository(EcoContext ecoContext, IAuthService authService) : base(ecoContext, authService)
         {
         }
 

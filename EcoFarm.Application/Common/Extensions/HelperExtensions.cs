@@ -48,5 +48,17 @@ namespace EcoFarm.Application.Common.Extensions
         {
             return (int)(endDate - startDate).TotalDays;
         }
+
+        public static string GetRandomString(int length)
+        {
+            var seedStr = "0123456789abcdefghijklmnopqrstuvwxyz";
+            string result = String.Empty;
+            for (int i = 1; i <= length; i++)
+            {
+                result += seedStr[new Random().Next(seedStr.Length)];
+            }
+
+            return result;
+        }
     }
 }

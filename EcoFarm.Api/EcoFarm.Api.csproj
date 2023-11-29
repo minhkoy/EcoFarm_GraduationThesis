@@ -1,9 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <NoWarn>1701;1702;1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,6 +30,7 @@
         <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
         <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
         <ProjectReference Include="..\EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj" />
+        <ProjectReference Include="..\EcoFarm.UseCases\EcoFarm.UseCases.csproj" />
     </ItemGroup>
 
 </Project>

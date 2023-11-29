@@ -3,7 +3,7 @@ namespace EcoFarm.Domain.Common.Interfaces;
 public interface IEntity
 {
     string ID { get; set; }
-    byte[] VERSION { get; set; } 
+    Guid VERSION { get; set; } 
     DateTime CREATED_TIME { get; set; }
     DateTime? MODIFIED_TIME { get; set; }
     string CREATED_BY { get; set; }

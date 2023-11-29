@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace EcoFarm.Api.Controllers;
@@ -19,6 +19,12 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Lấy thông tin thời tiết ngẫu nhiên
+    /// </summary>
+    /// <param name="date">Ngày</param>
+    /// <param name="password">Mật khẩu</param>
+    /// <returns></returns>
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get([FromQuery] DateOnly? date, [FromQuery, DataType(DataType.Password)] string password)
     {

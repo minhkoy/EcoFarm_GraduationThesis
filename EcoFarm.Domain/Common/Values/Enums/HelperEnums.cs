@@ -2,8 +2,15 @@ namespace EcoFarm.Domain.Common.Values.Enums;
 
 public class HelperEnums
 {
+    //User
+    public enum GenderEnum
+    {
+        Male = 0,
+        Female,
+        Other
+    }
     //Administration
-    public enum RoleType
+    public enum AccountType
     {
         SuperAdmin = 0,
         Admin = 1,
@@ -19,21 +26,42 @@ public class HelperEnums
         ChangePassword,
         ChangePhone,
     }
-
+    //Notification
+    public enum NotificationObjectType
+    {
+        Account = 0,
+        Package,
+        Product,
+        Order,
+        PackageReview,
+        ActivityComment,
+        Others
+    }
+    public enum NotificationActionType
+    {
+        Create = 0,
+        Update,
+        Delete,
+        Approve,
+        Reject,
+        Report,
+        Others
+    }
     //Service Packages
-    public enum ServicePackageType
+    public enum FarmingPackageType
     {
         Tourism = 1,
         Farming,
         PetCare,
+        Multiple,
         Others
     }
 
     public enum ServicePackageApprovalStatus
     {
         Pending = 1, //Waiting to be approved
-        Accepted,
-        Denied
+        Approved,
+        Rejected
     }
 
     public enum OrderStatus 
@@ -76,5 +104,18 @@ public class HelperEnums
         Forbidden,
         NotFound,
         InternalServerError
+    }
+
+    public enum EventType
+    {
+        NotifyFarmingEvent = 1,
+        UserOnline,
+
+    }
+
+    public enum CurrencyType
+    {
+        VND = 0,
+        USD
     }
 }

@@ -14,7 +14,7 @@ namespace EcoFarm.Application.Common.Results
         //Generate the result quite same as the OkResult
         public override T Data => default;
         public override ResultTypes ResultType => ResultTypes.BadRequest;
-        public override IEnumerable<object> Errors => _errors;
+        public IEnumerable<object> Errors => _errors;
         public override string Message => _message;
         public BadRequestResult() { }
         public BadRequestResult(string message, IEnumerable<object> errors)

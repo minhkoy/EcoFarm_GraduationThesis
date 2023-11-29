@@ -1,4 +1,4 @@
-﻿using EcoFarm.Application.Common.Results;
+﻿using Ardalis.Result;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,5 +10,6 @@ namespace EcoFarm.Application.Interfaces.Messagings
 {
     public interface IQuery<TResponse> : IRequest<Result<List<TResponse>>>
     {
+
     }
 }

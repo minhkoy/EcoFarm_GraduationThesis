@@ -15,7 +15,7 @@ namespace EcoFarm.Application.Common.Results
 
         public override HelperEnums.ResultTypes ResultType => HelperEnums.ResultTypes.Redirect;
 
-        public override IEnumerable<object> Errors => Enumerable.Empty<object>();
+        public IEnumerable<object> Errors => Enumerable.Empty<object>();
 
         public override string Message => _url;
 

@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Application.Common.Results;
-using EcoFarm.Application.Interfaces.Messagings;
+using EcoFarm.Application.Interfaces.Messagings_Prev;
 using EcoFarm.Application.Interfaces.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Com
         }
         public async Task<Result<bool>> Handle(RejectServiceCommand request, CancellationToken cancellationToken)
         {
-            var service = await _unitOfWork.ServicePackages
+            var service = await _unitOfWork.FarmingPackages
                 .GetQueryable()
                 .Where(x => x.ID.Equals(request.ServiceId))
                 .FirstOrDefaultAsync();
@@ -35,9 +35,9 @@ namespace EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Com
             {
                 //XXXX: Need to check more, if the service has been approved or rejected, then we can't approve it again
                 //And of course, we need to send a notification to the seller
-                service.STATUS = ServicePackageApprovalStatus.Denied;
+                service.STATUS = ServicePackageApprovalStatus.Rejected;
                 service.REJECT_REASON = request.RejectReason;
-                _unitOfWork.ServicePackages.Update(service);
+                _unitOfWork.FarmingPackages.Update(service);
                 await _unitOfWork.SaveChangesAsync();
                 return new OkResult<bool>(true);
             }

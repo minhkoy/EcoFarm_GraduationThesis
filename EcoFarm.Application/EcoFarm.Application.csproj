@@ -12,10 +12,14 @@
         <Folder Include="Features\Administration\ServiceManagerFeatures\Queries\" />
         <Folder Include="Features\Tasks\ServicePackageFeatures\Queries\" />
       <Folder Include="Features\Administration\AuthenticationFeatures\Queries\" />
+      <Folder Include="Interfaces\Services\" />
       <Folder Include="Services\DTOs\" />
+      <Folder Include="Services\Implementations\" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Ardalis.Result" Version="7.2.0" />
+        <PackageReference Include="CloudinaryDotNet" Version="1.23.0" />
         <PackageReference Include="FluentValidation" Version="11.7.1" />
         <PackageReference Include="MediatR" Version="12.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />

@@ -1,4 +1,4 @@
-﻿using EcoFarm.Application.Common.Results;
+﻿using Ardalis.Result;
 using MediatR;
 using System;
 using System.Collections.Generic;

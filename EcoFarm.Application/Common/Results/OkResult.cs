@@ -22,7 +22,7 @@ namespace EcoFarm.Application.Common.Results
         }
         public override T Data => _data;
         public override ResultTypes ResultType => ResultTypes.Ok;
-        public override IEnumerable<object> Errors => Enumerable.Empty<object>();
+        public IEnumerable<object> Errors => Enumerable.Empty<object>();
         public override string Message => string.Empty;
     }
 }

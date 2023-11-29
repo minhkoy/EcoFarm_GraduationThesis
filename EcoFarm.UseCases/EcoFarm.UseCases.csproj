@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Result" Version="7.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Accounts\Get\" />
+    <Folder Include="Enterprises\Create\" />
+    <Folder Include="Enterprises\Delete\" />
+    <Folder Include="Enterprises\Approve\" />
+    <Folder Include="Enterprises\Lock\" />
+    <Folder Include="Enterprises\Unlock\" />
+    <Folder Include="Enterprises\Update\" />
+    <Folder Include="FarmingActivities\Edit\" />
+    <Folder Include="FarmingActivities\Delete\" />
+    <Folder Include="FarmingActivities\Get\" />
+    <Folder Include="FarmingPackages\Delete\" />
+    <Folder Include="Orders\Approve\" />
+    <Folder Include="Roles\Create\" />
+    <Folder Include="Roles\Delete\" />
+    <Folder Include="ShoppingCarts\" />
+    <Folder Include="Orders\Create\" />
+    <Folder Include="Orders\Cancel\" />
+    <Folder Include="Orders\GetList\" />
+    <Folder Include="Reviews\Edit\" />
+    <Folder Include="Reviews\Delete\" />
+    <Folder Include="Users\Create\" />
+    <Folder Include="Users\Update\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
+    <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
+    <ProjectReference Include="..\EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj" />
+    <ProjectReference Include="..\TokenHandler\TokenHandler.csproj" />
+  </ItemGroup>
+
+</Project>

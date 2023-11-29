@@ -2,35 +2,99 @@
 using EcoFarm.Domain.Entities;
 using EcoFarm.Domain.Entities.Administration;
 using EcoFarm.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TokenHandler.Interfaces;
 
 namespace EcoFarm.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly EcoContext _ecoContext;
-
-        public UnitOfWork(EcoContext ecoContext)
+        public UnitOfWork(EcoContext ecoContext, IAuthService authService)
         {
             _ecoContext = ecoContext;
-            Users = new GenericRepository<Account>(_ecoContext);
+            Accounts = new GenericRepository<Account>(_ecoContext, authService);
+            Users = new GenericRepository<User>(_ecoContext, authService);
+            Roles = new GenericRepository<Role>(_ecoContext, authService);
+            RoleUsers = new GenericRepository<RoleUser>(_ecoContext, authService);
+            SellerEnterprises = new GenericRepository<SellerEnterprise>(_ecoContext, authService);
+            UserAddresses = new GenericRepository<UserAddress>(_ecoContext, authService);
+            Orders = new GenericRepository<Order>(_ecoContext, authService);
+            PackageMedias = new GenericRepository<PackageMedia>(_ecoContext, authService);
+            FarmingPackages = new GenericRepository<FarmingPackage>(_ecoContext, authService);
+            ShoppingCarts = new GenericRepository<ShoppingCart>(_ecoContext, authService);
+            Products = new GenericRepository<Product>(_ecoContext, authService);
+            ProductMedias = new GenericRepository<ProductMedia>(_ecoContext, authService);
+            PackageReviews = new GenericRepository<UserPackageReview>(_ecoContext, authService);
+            Notifications = new GenericRepository<Notification>(_ecoContext, authService);
+            UserRegisterPackages = new GenericRepository<UserRegisterPackage>(_ecoContext, authService);
+
+            //Users = new GenericRepository<Account>(_ecoContext);
         }
 
         public int SaveChanges()
         {
-            return _ecoContext.SaveChanges();
+            try
+            {
+                return _ecoContext.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                //return -1;
+                //XXXX
+                foreach (var entry in ex.Entries)
+                {
+                    var proposedValues = entry.CurrentValues;
+                    var databaseValues = entry.GetDatabaseValues();
+
+                    foreach(var property in proposedValues.Properties)
+                    {
+                        //var proposedValue = proposedValues[property];
+                        var databaseValue = databaseValues[property];
+                        proposedValues[property] = databaseValue;
+
+                    }
+                    entry.OriginalValues.SetValues(databaseValues);
+                }
+                return -1;
+            }
         }
 
         public async Task<int> SaveChangesAsync()
         {
-            return await _ecoContext.SaveChangesAsync();
+            try
+            {
+                return await _ecoContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                //return -1;
+                //XXXX
+                foreach (var entry in ex.Entries)
+                {
+                    var proposedValues = entry.CurrentValues;
+                    var databaseValues = entry.GetDatabaseValues();
+
+                    foreach (var property in proposedValues.Properties)
+                    {
+                        //var proposedValue = proposedValues[property];
+                        var databaseValue = databaseValues[property];
+                        proposedValues[property] = databaseValue;
+
+                    }
+                    entry.OriginalValues.SetValues(databaseValues);
+                }
+                return -1;
+            }
         }
 
-        public IGenericRepository<Account> Users { get; private set; }
+        public IGenericRepository<Account> Accounts { get; private set; }
+        public IGenericRepository<User> Users { get; private set; }
 
         public IGenericRepository<Role> Roles { get; private set; }
 
@@ -42,11 +106,21 @@ namespace EcoFarm.Infrastructure.Repositories
 
         public IGenericRepository<Order> Orders { get; private set; }
 
-        public IGenericRepository<ServiceImage> ServiceImages { get; private set; }
+        public IGenericRepository<PackageMedia> PackageMedias { get; private set; }
 
-        public IGenericRepository<ServicePackage> ServicePackages { get; private set; }
+        public IGenericRepository<FarmingPackage> FarmingPackages { get; private set; }
 
         public IGenericRepository<ShoppingCart> ShoppingCarts { get; private set; }
+        
+        public IGenericRepository<Product> Products { get; private set; }
+
+        public IGenericRepository<ProductMedia> ProductMedias { get; private set; }
+
+        public IGenericRepository<UserPackageReview> PackageReviews { get; private set; }
+
+        public IGenericRepository<Notification> Notifications { get; private set; }
+
+        public IGenericRepository<UserRegisterPackage> UserRegisterPackages { get; private set; }
 
         public void Dispose()
         {

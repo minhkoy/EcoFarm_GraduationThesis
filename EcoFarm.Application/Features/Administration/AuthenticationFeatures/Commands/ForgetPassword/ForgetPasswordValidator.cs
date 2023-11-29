@@ -36,7 +36,7 @@ namespace EcoFarm.Application.Features.Administration.AuthenticationFeatures.Com
         private bool IsExistUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username)) { return true; }
-            var existingUser = _unitOfWork.Users
+            var existingUser = _unitOfWork.Accounts
                 .GetQueryable()
                 .FirstOrDefault(x => x.USERNAME.Equals(username));
             if (existingUser is null)
@@ -49,7 +49,7 @@ namespace EcoFarm.Application.Features.Administration.AuthenticationFeatures.Com
         private bool IsExistEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) { return true; }
-            var existingUser = _unitOfWork.Users
+            var existingUser = _unitOfWork.Accounts
                 .GetQueryable()
                 .FirstOrDefault(x => x.EMAIL.Equals(email));
             if (existingUser is null)

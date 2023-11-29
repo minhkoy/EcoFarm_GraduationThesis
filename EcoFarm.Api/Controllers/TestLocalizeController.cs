@@ -1,5 +1,6 @@
 ﻿//using EcoFarm.Application.Interfaces.Localization;
 
+using EcoFarm.Api.Abstraction.Hubs;
 using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Localization;
 using EcoFarm.Application.Localization.Services;
@@ -7,6 +8,7 @@ using EcoFarm.Domain.Common.Values.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -19,7 +21,10 @@ namespace EcoFarm.Api.Controllers
         private readonly ILocalizeService _localizeService;
         private static string lang = "vi";
 
-        public TestLocalizeController(IMediator mediator, ILocalizeService localizeService) : base(mediator)
+        public TestLocalizeController(IMediator mediator, 
+            ILocalizeService localizeService, 
+            ILogger<TestLocalizeController> logger,
+            IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
         {
             _localizeService = localizeService;
             //HttpContext.Request.Headers["Accept-Language"] = "en";

@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Application.Common.Results;
-using EcoFarm.Application.Interfaces.Messagings;
+using EcoFarm.Application.Interfaces.Messagings_Prev;
 using EcoFarm.Application.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -25,13 +25,13 @@ namespace EcoFarm.Application.Features.Tasks.ServicePackageFeatures.Commands.Del
 
         public async Task<Result<bool>> Handle(DeleteServiceCommand request, CancellationToken cancellationToken)
         {
-            var service = await _unitOfWork.ServicePackages.FindAsync(request.Id);
+            var service = await _unitOfWork.FarmingPackages.FindAsync(request.Id);
             if (service == null)
                 return new BadRequestResult<bool>("Không tìm thấy dịch vụ", Enumerable.Empty<object>());
             if (service.IS_DELETE)
                 return new BadRequestResult<bool>("Dịch vụ đã bị xóa", Enumerable.Empty<object>());
             service.IS_DELETE = true;
-            _unitOfWork.ServicePackages.Remove(service);
+            _unitOfWork.FarmingPackages.Remove(service);
             await _unitOfWork.SaveChangesAsync();
             return new OkResult<bool>(true);
         }

@@ -1,31 +1,46 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
+using EcoFarm.Api.Abstraction.Hubs;
 using EcoFarm.Application.Features.Administration.AccountManagerFeatures.Queries;
+using EcoFarm.UseCases.Users.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
 namespace EcoFarm.Api.Controllers.Administration
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
-                   Roles = $"{nameof(RoleType.Admin)}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserManagerController : BaseController
     {
-        public UserManagerController(IMediator mediator) : base(mediator)
+        public UserManagerController(IMediator mediator, ILogger<UserManagerController> logger,
+            IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
         {
         }
 
 
+        //[HttpGet("[action]")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> GetListRole()
+        //{
+        //    var result = await _mediator.Send(new GetListRoleQuery());
+        //    return this.FromResult(result, _logger);
+        //}
+
+        /// <summary>
+        /// Danh sách người dùng
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetListRole()
+        public async Task<IActionResult> GetListUser([FromQuery] GetListUserQuery query)
         {
-            var result = await _mediator.Send(new GetListRoleQuery());
-            return this.FromResult(result);
+            var result = await _mediator.Send(query);
+            return this.FromResult(result, _logger);
         }
     }
 }

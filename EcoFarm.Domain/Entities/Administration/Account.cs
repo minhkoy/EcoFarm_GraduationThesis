@@ -8,32 +8,47 @@ using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 namespace EcoFarm.Domain.Entities.Administration;
 
 [Table("ACCOUNT")]
-[Index(nameof(USERNAME))]
-[Index(nameof(EMAIL))]
+[Index(nameof(USERNAME), IsUnique = true)]
 
-public class Account : BaseEntity
+public class Account : BaseNonExtendedEntity
 {
-    
+    public string NAME { get; set; }
     public string USERNAME { get; set; }
     public string EMAIL { get; set; }
-    public bool IS_EMAIL_CONFIRMED { get; set; } = false;
+    public string AVATAR_URL { get; set; }
+    /// <summary>
+    /// User password salt
+    /// </summary>
+    public string SALT { get; set; }
+    public bool IS_EMAIL_CONFIRMED { get; set; } = true; //XXX
     [JsonIgnore]
     public string HASHED_PASSWORD { get; set; }
-    public DateTime? DATE_OF_BIRTH { get; set; }
+    //public DateTime? DATE_OF_BIRTH { get; set; }
     public DateTime? LAST_LOGGED_IN { get; set; }
     public DateTime? LAST_LOGGED_OUT { get; set; }
-    public RoleType ROLE { get; set; }
+    public AccountType ACCOUNT_TYPE { get; set; }
     //[Column("")]
-
+    public string LOCKED_REASON { get; set; }
+    public string LATEST_GENERATED_TOKEN { get; set; }
     //Extended properties
     [NotMapped]
-    public string ROLE_NAME { get => EFX.Roles.dctRoles[ROLE]; }
+    public string ACCOUNT_TYPE_NAME { get => EFX.AccountTypes.dctAccountType[ACCOUNT_TYPE]; }
 
     //Inverse properties
-    [InverseProperty(nameof(Order.UserOrdered))]
-    public virtual ICollection<Order> Orders { get; set; }
-    [InverseProperty(nameof(SellerEnterprise.UserRelated))]
+    
+    [InverseProperty(nameof(SellerEnterprise.AccountInfo))]
     public virtual SellerEnterprise SellerEnterpriseInfo { get; set; }
+    [InverseProperty(nameof(User.AccountInfo))]
+    public virtual User UserInfo { get; set; }
     [InverseProperty(nameof(AccountVerify.RequestAccount))]
     public virtual ICollection<AccountVerify> AccountVerifies { get; set; }
+    [InverseProperty(nameof(RoleUser.UserOfRole))]
+    public virtual ICollection<RoleUser> RoleUsers { get; set; }
+    [InverseProperty(nameof(Notification.FromAccount))]
+    public virtual ICollection<Notification> FromNotifications { get; set; }
+
+    [InverseProperty(nameof(NotificationAccount.UserInfo))]
+    public virtual ICollection<NotificationAccount> NotificationUsers { get; set; }
+    //[InverseProperty(nameof(Notification.ToAccount))]
+    //public virtual ICollection<Notification> ToNotifications { get; set; }
 }

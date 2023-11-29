@@ -13,9 +13,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
+        <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
+        <ProjectReference Include="..\TokenHandler\TokenHandler.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
           <PrivateAssets>all</PrivateAssets>

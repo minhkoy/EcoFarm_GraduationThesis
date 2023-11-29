@@ -16,10 +16,10 @@ public class Order : BaseEntity
     public ServiceType SERVICE_TYPE { get; set; }
     //Inverse properties
     [ForeignKey(nameof(PACKAGE_ID))]
-    [InverseProperty(nameof(ServicePackage.Orders))]
-    public virtual ServicePackage Package { get; set; }
+    [InverseProperty(nameof(FarmingPackage.Orders))]
+    public virtual FarmingPackage Package { get; set; }
 
     [ForeignKey(nameof(USER_ID))]
-    [InverseProperty(nameof(Account.Orders))]
-    public virtual Account UserOrdered { get; set; }
+    [InverseProperty(nameof(User.Orders))]
+    public virtual User UserInfo { get; set; }
 }

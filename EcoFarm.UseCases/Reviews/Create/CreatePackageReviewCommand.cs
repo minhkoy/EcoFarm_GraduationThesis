@@ -1,0 +1,105 @@
+﻿using Ardalis.Result;
+using EcoFarm.Application.Interfaces.Messagings;
+using EcoFarm.Application.Interfaces.Repositories;
+using EcoFarm.Domain.Entities;
+using EcoFarm.UseCases.DTOs;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TokenHandler.Interfaces;
+using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
+
+namespace EcoFarm.UseCases.Reviews.Create
+{
+    public class CreatePackageReviewCommand : ICommand<ReviewDTO>
+    {
+        public string PackageId { get; set; }
+        public string Content { get; set; }
+        public int? Rating { get; set; }        
+    }
+
+    internal class CreatePackageReviewHandler : ICommandHandler<CreatePackageReviewCommand, ReviewDTO>
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthService _authService;
+        //private readonly IHubContext
+        public CreatePackageReviewHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        {
+            _unitOfWork = unitOfWork;
+            _authService = authService;
+        }
+        public async Task<Result<ReviewDTO>> Handle(CreatePackageReviewCommand request, CancellationToken cancellationToken)
+        {
+            var username = _authService.GetUsername();
+            var account = await _unitOfWork.Accounts
+                .GetQueryable()
+                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+            if (account is null || account.IS_DELETE)
+            {
+                return Result.Unauthorized();
+            }
+            if (!account.IS_ACTIVE || !account.IS_EMAIL_CONFIRMED || account.ACCOUNT_TYPE != AccountType.Customer)
+            {
+                return Result.Forbidden();
+            }
+            var package = await _unitOfWork.FarmingPackages
+                .FindAsync(request.PackageId);
+            if (package is null)
+            {
+                return Result.NotFound("Không tìm thấy thông tin gói farming");
+            }
+            if (!package.IS_ACTIVE)
+            {
+                return Result.Error("Gói farming tạm thời bị khóa. Vui lòng thử lại sau");
+            }
+            var packageReview = await _unitOfWork.PackageReviews
+                .GetQueryable()
+                .FirstOrDefaultAsync(x => x.PACKAGE_ID.Equals(package.ID) && x.USER_ID.Equals(account.ID));
+            if (packageReview is not null)
+            {
+                return Result.Error("Bạn đã đánh giá gói dịch vụ này rồi");
+            }
+            var user = await _unitOfWork.Users
+                .GetQueryable()
+                .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(account.ID));
+            if (user is null)
+            {
+                return Result.Forbidden();
+            }
+
+            var review = new UserPackageReview
+            {
+                ID = Guid.NewGuid().ToString(),
+                USER_ID = user.ID,
+                PACKAGE_ID = package.ID,
+                COMMENT = request.Content,
+                RATING = request.Rating,                
+            };
+
+            if (request.Rating.HasValue)
+            {
+                package.NUMBERS_OF_RATING++;
+                package.TOTAL_RATING_POINTS += request.Rating.Value;
+            }
+            
+            _unitOfWork.PackageReviews.Add(review);
+            await _unitOfWork.SaveChangesAsync();
+            
+            return Result.Success(new ReviewDTO
+            {
+                ReviewId = review.ID,
+                PackageId = review.PACKAGE_ID,
+                UserId = account.ID,
+                Username = account.USERNAME,
+                UserFullname = account.NAME,
+                //EnterpriseId = account.ID, XXX
+                Content = review.COMMENT,
+                Rating = review.RATING,
+                CreatedAt = review.CREATED_TIME,
+            }, "Thêm mới đánh giá thành công");
+        }
+    }
+}
