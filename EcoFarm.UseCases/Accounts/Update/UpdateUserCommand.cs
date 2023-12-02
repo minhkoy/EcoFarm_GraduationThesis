@@ -16,6 +16,9 @@ namespace EcoFarm.UseCases.Accounts.Update
     public class UpdateUserCommand : ICommand<UserDTO>
     {
         public string Fullname { get; set; }
+        /// <summary>
+        /// Base64 avatar image
+        /// </summary>
         public string Avatar { get; set; }
         public GenderEnum? Gender { get; set; }
         public string PhoneNumber { get; set; }
@@ -25,9 +28,10 @@ namespace EcoFarm.UseCases.Accounts.Update
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
-        public UpdateUserHandler(IUnitOfWork unitOfWork)
+        public UpdateUserHandler(IUnitOfWork unitOfWork, IAuthService authService)
         {
             _unitOfWork = unitOfWork;
+            _authService = authService;
         }
         public async Task<Result<UserDTO>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {

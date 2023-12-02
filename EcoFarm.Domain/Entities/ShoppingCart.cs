@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using EcoFarm.Domain.Common;
+using EcoFarm.Domain.Entities.Administration;
 
 namespace EcoFarm.Domain.Entities;
 
@@ -7,9 +8,12 @@ namespace EcoFarm.Domain.Entities;
 public class ShoppingCart : BaseEntity
 {
     public string USER_ID { get; set; }
-    public bool IS_PURCHASED { get; set; } = false;
-    public double? TOTAL_QUANTITY { get; set; }
-    public double? TOTAL_PRICE { get; set; }
+    public bool IS_ORDERED { get; set; } = false;
+    public int? TOTAL_QUANTITY { get; set; }
+    public decimal? TOTAL_PRICE { get; set; }
     [InverseProperty(nameof(CartDetail.Cart))]
     public virtual ICollection<CartDetail> CartDetails { get; set; }
+    [ForeignKey(nameof(USER_ID))]
+    [InverseProperty(nameof(User.ShoppingCarts))]
+    public virtual User UserInfo { get; set; }
 }

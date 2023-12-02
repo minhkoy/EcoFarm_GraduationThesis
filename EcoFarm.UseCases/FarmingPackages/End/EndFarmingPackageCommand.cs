@@ -15,6 +15,14 @@ namespace EcoFarm.UseCases.FarmingPackages.End
     public class EndFarmingPackageCommand : ICommand<bool>
     {
         public string Id { get; set; }
+        public EndFarmingPackageCommand()
+        {
+
+        }
+        public EndFarmingPackageCommand(string id)
+        {
+            Id = id;
+        }
 
     }
 
@@ -43,7 +51,7 @@ namespace EcoFarm.UseCases.FarmingPackages.End
             {
                 return Result.Unauthorized();
             }
-            if (!farmingPackage.SELLER_ENTERPRISE_ID.Equals(user.ID))
+            if (!farmingPackage.SELLER_ENTERPRISE_ID.Equals(_authService.GetAccountEntityId()))
             {
                 return Result.Forbidden();
             }

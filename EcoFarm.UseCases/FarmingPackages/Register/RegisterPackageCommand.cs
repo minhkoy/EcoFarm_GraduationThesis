@@ -14,8 +14,16 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
 {
     public class RegisterPackageCommand : ICommand<bool>
     {
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
         public string PackageId { get; set; }
+        public RegisterPackageCommand(string packageId)
+        {
+            PackageId = packageId;
+        }
+        public RegisterPackageCommand()
+        {
+
+        }
     }
 
     internal class RegisterPackageHandler : ICommandHandler<RegisterPackageCommand, bool>
@@ -65,9 +73,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
             {
                 return Result.Error("Rất tiếc, gói farming đã đóng đăng ký.");
             }
+            var userId = _authService.GetAccountEntityId();
             var userRegisterPackage = await _unitOfWork.UserRegisterPackages
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USER_ID.Equals(userAccount.ID) && x.PACKAGE_ID.Equals(package.ID));
+                .FirstOrDefaultAsync(x => x.USER_ID.Equals(userId) && x.PACKAGE_ID.Equals(package.ID));
             if (userRegisterPackage is not null)
             {
                 return Result.Error("Bạn đã đăng ký gói farming này.");
@@ -76,7 +85,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
             
             _unitOfWork.UserRegisterPackages.Add(new UserRegisterPackage
             {
-                USER_ID = _authService.GetAccountEntityId(),
+                USER_ID = userId,
                 PACKAGE_ID = package.ID, 
                 PRICE = package.PRICE,
                 CURRENCY = package.CURRENCY,

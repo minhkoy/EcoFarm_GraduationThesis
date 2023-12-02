@@ -28,7 +28,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
         public bool? IsApproved { get; set; }
         public bool? IsCloseForRegistered { get; set; }
         public int Page { get; set; } = 1;
-        public int PageSize { get; set; } = EFX.DefaultPageSize;
+        public int Limit { get; set; } = EFX.DefaultPageSize;
     }
 
     internal class GetListPackageHandler : IQueryHandler<GetListPackageQuery, FarmingPackageDTO>
@@ -86,8 +86,8 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 temp = temp.Where(x => x.CLOSE_REGISTER_TIME.HasValue && x.CLOSE_REGISTER_TIME.Value <= DateTime.Now);
             }
             var rs = await temp
-                .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize)
+                .Skip((request.Page - 1) * request.Limit)
+                .Take(request.Limit)
                 .Include(x => x.Enterprise)
                 .Select(x => new FarmingPackageDTO
             {
@@ -103,12 +103,17 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 SellerEnterpriseId = x.SELLER_ENTERPRISE_ID,
                 SellerEnterpriseName = x.Enterprise.NAME,
                 Price = x.PRICE,
+                Currency = x.CURRENCY,
                 QuantityStart = x.QUANTITY_START,
                 QuantityRegistered = x.QUANTITY_REGISTERED,
                 QuantityRemain = x.QuantityRemain,
                 RejectReason = x.REJECT_REASON,
                 ServicePackageApprovalStatus = x.STATUS,
                 PackageType = x.PACKAGE_TYPE,
+                CreatedTime = x.CREATED_TIME,
+                CreatedBy = x.CREATED_BY,
+                NumbersOfRating = x.NUMBERS_OF_RATING,
+                AverageRating = x.AverageRating,
                 
             }).ToListAsync();
             return Result.Success(rs);

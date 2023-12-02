@@ -2,6 +2,7 @@
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
+using EcoFarm.Domain.Entities;
 using EcoFarm.UseCases.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,7 +28,7 @@ namespace EcoFarm.UseCases.Products.GetList
         public decimal? MaximumPrice { get; set; }
         public CurrencyType? Currency { get; set; }
         public int? Page { get; set; }
-        public int? PageSize { get; set; }
+        public int? Limit { get; set; }
     }
     
     public class GetListProductQueryHandler : IQueryHandler<GetListProductQuery, ProductDTO>
@@ -39,8 +40,10 @@ namespace EcoFarm.UseCases.Products.GetList
         }
         public async Task<Result<List<ProductDTO>>> Handle(GetListProductQuery request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Products
-                .GetQueryable();
+            IQueryable<Product> query = _unitOfWork.Products
+                .GetQueryable()
+                .Include(x => x.Package)
+                .Include(x => x.Enterprise);
             if (!string.IsNullOrEmpty(request.Keyword))
             {
                 query = query.Where(x => x.CODE.Contains(request.Keyword));
@@ -73,9 +76,9 @@ namespace EcoFarm.UseCases.Products.GetList
             {
                 query = query.Where(x => x.CURRENCY == request.Currency.Value);
             }
-            if (!request.PageSize.HasValue)
+            if (!request.Limit.HasValue)
             {
-                request.PageSize = EFX.DefaultPageSize;
+                request.Limit = EFX.DefaultPageSize;
             }
             if (!request.Page.HasValue)
             {
@@ -83,8 +86,8 @@ namespace EcoFarm.UseCases.Products.GetList
             }
             var result = await query
                 .OrderByDescending(x => x.CREATED_TIME)
-                .Skip((request.Page.Value - 1) * request.PageSize.Value)
-                .Take(request.PageSize.Value)
+                .Skip((request.Page.Value - 1) * request.Limit.Value)
+                .Take(request.Limit.Value)
                 .Select(x => new ProductDTO
                 {
                     Id = x.ID,
@@ -94,10 +97,15 @@ namespace EcoFarm.UseCases.Products.GetList
                     PackageId = x.PACKAGE_ID,
                     Quantity = x.QUANTITY,
                     Sold = x.SOLD,
+                    QuantityRemain = x.CURRENT_QUANTITY,
+                    PackageCode = x.Package.CODE,
+                    PackageName = x.Package.NAME,
                     Price = x.PRICE,
                     PriceForRegistered = x.PRICE_FOR_REGISTERED,
                     Currency = x.CURRENCY,
                     CreatedTime = x.CREATED_TIME,
+                    SellerEnterpriseId = x.ENTERPRISE_ID,
+                    SellerEnterpriseName = x.Enterprise.NAME,
                 })
                 .ToListAsync();
             return Result<List<ProductDTO>>.Success(result);

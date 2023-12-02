@@ -21,10 +21,14 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<Order> Orders { get; }
     IGenericRepository<PackageMedia> PackageMedias { get; }
     IGenericRepository<FarmingPackage> FarmingPackages { get; }
+    IGenericRepository<FarmingPackageActivity> FarmingPackageActivties { get; }
     IGenericRepository<ShoppingCart> ShoppingCarts { get; }
     IGenericRepository<Product> Products { get; }
     IGenericRepository<ProductMedia> ProductMedias { get; }
     IGenericRepository<UserPackageReview> PackageReviews { get; }
     IGenericRepository<Notification> Notifications { get; }
     IGenericRepository<UserRegisterPackage> UserRegisterPackages { get; }
+    IGenericRepository<CartDetail> CartDetails { get; }
+    IGenericRepository<OrderProduct> OrderProducts { get; }
+    IGenericRepository<OrderTimeline> OrderTimelines { get; }
 }

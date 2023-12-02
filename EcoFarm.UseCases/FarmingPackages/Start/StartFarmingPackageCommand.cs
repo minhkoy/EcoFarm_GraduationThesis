@@ -49,7 +49,8 @@ namespace EcoFarm.UseCases.FarmingPackages.Start
             {
                 return Result.Unauthorized();
             }
-            if (!farmingPackage.SELLER_ENTERPRISE_ID.Equals(user.ID))
+            var erpId = _authService.GetAccountEntityId();
+            if (!farmingPackage.SELLER_ENTERPRISE_ID.Equals(erpId))
             {
                 return Result.Forbidden();
             }

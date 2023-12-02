@@ -10,6 +10,7 @@ export default {
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
         "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+        'node_modules/flowbite-react/lib/esm/**/*.js'
         //'node_modules/flowbite-react/lib/esm/**/*.js'
     ],
     theme: {
@@ -17,11 +18,14 @@ export default {
             // colors: {
             //     'red': '#ff7777',
             // }
+            backgroundImage: {
+                'bg-login': "url('/src/assets/backgrounds/eco-bg.jpg')",
+            }
         },
     },
     plugins: [
         
-        //require('flowbite/plugin'),
+        require('flowbite/plugin'),
     ]
     // darkMode: 'class',
     // plugins: [

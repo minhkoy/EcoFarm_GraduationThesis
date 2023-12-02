@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using EcoFarm.Application.Common.Results;
 using FluentValidation;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
 
 namespace EcoFarm.Api.Middlewares
@@ -44,7 +45,12 @@ namespace EcoFarm.Api.Middlewares
                         .WriteAsJsonAsync(Result.Invalid(errors));
                     //result = new BadRequestResult<object>(validationException.Message, validationException.Errors);
                 }
-                else
+                else if (e is SecurityTokenException)
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    //await context.Response.WriteAsJsonAsync(Result.Unauthorized());
+                }
+                else 
                 {
                     //problemDetails = new ProblemDetails(
                     //    Status: StatusCodes.Status500InternalServerError,

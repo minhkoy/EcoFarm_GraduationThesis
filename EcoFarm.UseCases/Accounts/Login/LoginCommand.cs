@@ -17,7 +17,7 @@ namespace EcoFarm.UseCases.Accounts.Login
     {
         public string UsernameOrEmail { get; set; }
         public string Password { get; set; }
-        public string PrevUrl { get; set; }
+        public bool? IsRemember { get; set; }
     }
 
     public class LoginDTO
@@ -61,6 +61,7 @@ namespace EcoFarm.UseCases.Accounts.Login
                 Username = people.USERNAME,
                 Email = people.EMAIL,
                 ExpireDateTime = DateTime.Now.AddDays(3),
+                AccountTypeName = people.ACCOUNT_TYPE_NAME,
             };
 
             switch (people.ACCOUNT_TYPE)
@@ -91,8 +92,8 @@ namespace EcoFarm.UseCases.Accounts.Login
                 default:
                     return Result.CriticalError("Lỗi khi xử lý thông tin tài khoản");
             }
-            var token = _authService.GenerateToken(account);
-            people.LAST_LOGGED_IN = DateTime.Now;
+            var token = _authService.GenerateToken(account, request.IsRemember);
+            people.LAST_LOGGED_IN = DateTime.Now.ToVnDateTime();
             people.LATEST_GENERATED_TOKEN = token;
             people.IS_EMAIL_CONFIRMED = true;
             _unitOfWork.Accounts.Update(people);

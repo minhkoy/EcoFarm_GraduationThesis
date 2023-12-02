@@ -41,7 +41,11 @@ namespace EcoFarm.UseCases.Reviews.Create
             {
                 return Result.Unauthorized();
             }
-            if (!account.IS_ACTIVE || !account.IS_EMAIL_CONFIRMED || account.ACCOUNT_TYPE != AccountType.Customer)
+            if (!account.IS_ACTIVE)
+            {
+                return Result.Error("Tài khoản đã bị khóa. Vui lòng thử lại sau.");
+            }
+            if (account.ACCOUNT_TYPE != AccountType.Customer)
             {
                 return Result.Forbidden();
             }
@@ -55,19 +59,20 @@ namespace EcoFarm.UseCases.Reviews.Create
             {
                 return Result.Error("Gói farming tạm thời bị khóa. Vui lòng thử lại sau");
             }
-            var packageReview = await _unitOfWork.PackageReviews
-                .GetQueryable()
-                .FirstOrDefaultAsync(x => x.PACKAGE_ID.Equals(package.ID) && x.USER_ID.Equals(account.ID));
-            if (packageReview is not null)
-            {
-                return Result.Error("Bạn đã đánh giá gói dịch vụ này rồi");
-            }
             var user = await _unitOfWork.Users
                 .GetQueryable()
                 .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(account.ID));
             if (user is null)
             {
                 return Result.Forbidden();
+            }
+
+            var packageReview = await _unitOfWork.PackageReviews
+                .GetQueryable()
+                .FirstOrDefaultAsync(x => x.PACKAGE_ID.Equals(package.ID) && x.USER_ID.Equals(user.ID));
+            if (packageReview is not null)
+            {
+                return Result.Error("Bạn đã đánh giá gói dịch vụ này rồi");
             }
 
             var review = new UserPackageReview
@@ -85,6 +90,7 @@ namespace EcoFarm.UseCases.Reviews.Create
                 package.TOTAL_RATING_POINTS += request.Rating.Value;
             }
             
+            _unitOfWork.FarmingPackages.Update(package);
             _unitOfWork.PackageReviews.Add(review);
             await _unitOfWork.SaveChangesAsync();
             

@@ -28,10 +28,16 @@ namespace TokenHandler.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_option.Key);
 
-            var token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", string.Empty);
-            if (string.IsNullOrEmpty(token))
+            var authHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString();
+            if (string.IsNullOrEmpty(authHeader))
             {
                 return null;
+            }
+
+            var token = authHeader.Replace("Bearer ", string.Empty);
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return null;                
             }
             try
             {
@@ -43,6 +49,7 @@ namespace TokenHandler.Services
                     ValidIssuer = _option.Issuer,
                     ValidateAudience = false,
                     ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
@@ -61,10 +68,15 @@ namespace TokenHandler.Services
             return Token.Claims.ToList();
         }
 
-        public void TestUserIdentity()
+        public string GetAccountTypeName()
         {
-
+            if (Token is null || Token.Claims is null || Token.Claims.Count() == 0)
+            {
+                return string.Empty;
+            }
+            return Token.Claims?.FirstOrDefault(x => x.Type.Equals("AccountType")).Value;
         }
+
         public DateTime GetExpireDateTime()
         {
             return default;
@@ -103,7 +115,7 @@ namespace TokenHandler.Services
             return Token.Claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid)).Value;
         }
 
-        public string GenerateToken(AccountTokenData data)
+        public string GenerateToken(AccountTokenData data, bool? isRemember)
         {
             var identity = new ClaimsIdentity(new[]
             {
@@ -111,18 +123,28 @@ namespace TokenHandler.Services
                 //new Claim(ClaimTypes.Email, data.Email),
                 new Claim(ClaimTypes.Sid, data.EntityId),
                 new Claim(ClaimTypes.NameIdentifier, data.Username),
+                new Claim("AccountType", data.AccountTypeName)
                 //new Claim(ClaimTypes.Expiration, data.ExpireDateTime.ToString()),
             }) ;
             //data.Roles.ForEach(x => identity.Claims.Append(new Claim(ClaimTypes.Role, x)));
 
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_option.Key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256); 
-            var principal = new ClaimsPrincipal(identity);
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            //var principal = new ClaimsPrincipal(identity);
+            DateTime? expiryTime = null;
+            if (isRemember.HasValue && isRemember.Value)
+            {
+                expiryTime = DateTime.Now.AddDays(30);
+            }
+            else
+            {
+                expiryTime = DateTime.Now.AddDays(1);
+            }
             var token = new JwtSecurityToken(
                 issuer: _option.Issuer,
                 audience: _option.Audience,
                 claims: identity.Claims,
-                expires: DateTime.Now.AddMonths(3),
+                expires: expiryTime,
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

@@ -11,6 +11,7 @@ namespace TokenHandler.Models
         public string EntityId { get; set; }
         public string Username { get; set; }
         public string Fullname { get; set; }
+        public string AccountTypeName { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
         public DateTime ExpireDateTime { get; set; }

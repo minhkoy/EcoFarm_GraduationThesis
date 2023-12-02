@@ -60,5 +60,11 @@ namespace EcoFarm.Application.Common.Extensions
 
             return result;
         }
+
+        public static DateTime? ToVnDateTime(this DateTime dateTime)
+        {
+            string vnTimeZoneId = "SE Asia Standard Time";
+            return TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(vnTimeZoneId));
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace EcoFarm.UseCases.Users.Get
         public bool? IsEmailConfirmed { get; set; }
         public bool? IsActive { get; set; }
         public int Page { get; set; } = 1;
-        public int PageSize { get; set; } = EFX.DefaultPageSize;
+        public int Limit { get; set; } = EFX.DefaultPageSize;
     }
     internal class GetListUserHandler : IQueryHandler<GetListUserQuery, UserDTO>
     {
@@ -49,7 +49,7 @@ namespace EcoFarm.UseCases.Users.Get
                 temp = temp.Where(x => x.AccountInfo.IS_ACTIVE == request.IsActive.Value);
             }
             var result = await temp
-                .Skip((request.Page - 1) * request.PageSize)
+                .Skip((request.Page - 1) * request.Limit)
                 .Select(x => new UserDTO
                 {
                     AccountId = x.ACCOUNT_ID,
@@ -60,7 +60,7 @@ namespace EcoFarm.UseCases.Users.Get
                     IsEmailConfirmed = x.AccountInfo.IS_EMAIL_CONFIRMED,
                     IsActive = x.AccountInfo.IS_ACTIVE,
                     DateOfBirth = x.DATE_OF_BIRTH,
-                    Gender = x.GENDER.HasValue ? EFX.GenderEnums.dctGenderEnum[x.GENDER.Value] : string.Empty,
+                    Gender = x.GENDER.HasValue ? EFX.Genders.dctGenderEnum[x.GENDER.Value] : string.Empty,
                     LockedReason = x.AccountInfo.LOCKED_REASON,
                     PhoneNumber = x.PHONE_NUMBER,
                     UserId = x.ID,

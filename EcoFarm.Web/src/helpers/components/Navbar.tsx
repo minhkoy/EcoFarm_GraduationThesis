@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ReactSVG from '../../assets/react.svg'
 import { Home } from 'lucide-react';
+import NotificationBell from './NotificationBell';
 
 const Navbar = () => {
     //const navigate = useNavigate();
@@ -10,10 +11,10 @@ const Navbar = () => {
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
                     <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <img src={ReactSVG} className="h-8" alt="Flowbite Logo" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Eco Farm</span>
+                        <span className="self-center text-green-500 text-2xl font-semibold whitespace-nowrap dark:text-white">Eco Farm</span>
                     </a>
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                        <a href="tel:5541251234" className="text-sm text-gray-500 dark:text-white hover:underline">(555) 412-1234</a>
+                        <NotificationBell />
                         <Link to="/auth/login" className="text-sm text-blue-600 dark:text-blue-500 hover:underline">Đăng nhập</Link>
                     </div>
                 </div>

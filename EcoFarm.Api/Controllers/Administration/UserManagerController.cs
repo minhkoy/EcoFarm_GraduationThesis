@@ -1,6 +1,7 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
 using EcoFarm.Api.Abstraction.Hubs;
 using EcoFarm.Application.Features.Administration.AccountManagerFeatures.Queries;
+using EcoFarm.UseCases.Accounts.Lock;
 using EcoFarm.UseCases.Users.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EcoFarm.Api.Controllers.Administration
 {
@@ -40,6 +42,18 @@ namespace EcoFarm.Api.Controllers.Administration
         public async Task<IActionResult> GetListUser([FromQuery] GetListUserQuery query)
         {
             var result = await _mediator.Send(query);
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Khóa tài khoản
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Lock([FromBody] LockAccountCommand command)
+        {
+            var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);
         }
     }

@@ -24,5 +24,9 @@ public class SellerEnterprise : BaseNonExtendedEntity
     public virtual Account AccountInfo { get; set; }
 
     [InverseProperty(nameof(FarmingPackage.Enterprise))]
-    public virtual List<FarmingPackage> EnterpiseServicePackages { get; set; }
+    public virtual ICollection<FarmingPackage> EnterpiseServicePackages { get; set; }
+    [InverseProperty(nameof(Order.EnterpriseInfo))]
+    public virtual ICollection<Order> Orders { get; set; }
+    [InverseProperty(nameof(Product.Enterprise))]
+    public virtual ICollection<Product> Products { get; set; }
 }

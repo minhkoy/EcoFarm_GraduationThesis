@@ -6,6 +6,8 @@ using EcoFarm.Application.Common.Results;
 using EcoFarm.UseCases.Accounts.Login;
 using EcoFarm.UseCases.Accounts.Logout;
 using EcoFarm.UseCases.Accounts.Signup;
+using EcoFarm.UseCases.DTOs;
+
 
 
 //using EcoFarm.Application.Features.Administration.AuthenticationFeatures.Commands.Login;
@@ -43,6 +45,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpPost("[action]")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(Result<LoginDTO>), 200)]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
             var result = await _mediator.Send(command);
@@ -56,6 +59,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpPost("[action]")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(Result<UserDTO>), 200)]
         public async Task<IActionResult> SignupAsUser([FromBody] SignupAsUserCommand command)
         {
             var result = await _mediator.Send(command);
@@ -69,6 +73,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpPost("[action]")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(Result<EnterpriseDTO>), 200)]
         public async Task<IActionResult> SignupAsEnterprise([FromBody] SignupAsEnterpriseCommand command)
         {
             var result = await _mediator.Send(command);
@@ -113,6 +118,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <returns></returns>
         [HttpPatch("[action]")]
+        [ProducesResponseType(typeof(Result<bool>), 200)]
         public async Task<IActionResult> Logout()
         {
             var result = await _mediator.Send(new LogoutAccountCommand());

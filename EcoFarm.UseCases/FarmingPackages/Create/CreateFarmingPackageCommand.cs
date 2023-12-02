@@ -89,6 +89,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 EstimatedStartTime = farmingPackage.ESTIMATED_START_TIME,
                 EstimatedEndTime = farmingPackage.ESTIMATED_END_TIME,
                 Price = farmingPackage.PRICE,
+                Currency = farmingPackage.CURRENCY,
                 QuantityStart = farmingPackage.QUANTITY_START,
                 QuantityRegistered = farmingPackage.QUANTITY_REGISTERED,
                 QuantityRemain = farmingPackage.QuantityRemain,
@@ -97,7 +98,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 SellerEnterpriseName = enterprise.NAME,
                 //SellerEnterpriseCode = enterprise.CODE,
                 ServicePackageApprovalStatus = farmingPackage.STATUS,
-                
+                CreatedTime = farmingPackage.CREATED_TIME,
+                CreatedBy = farmingPackage.CREATED_BY,
+                NumbersOfRating = farmingPackage.NUMBERS_OF_RATING,
+                AverageRating = farmingPackage.AverageRating
 
             }, "Thêm mới gói farming thành công");
             #endregion

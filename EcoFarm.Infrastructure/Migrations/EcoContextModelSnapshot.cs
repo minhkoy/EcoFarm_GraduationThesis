@@ -401,6 +401,9 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CREATED_TIME");
 
+                    b.Property<int?>("CURRENCY")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IS_ACTIVE")
                         .HasColumnType("bit")
                         .HasColumnName("IS_ACTIVE");
@@ -722,9 +725,151 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("ID");
 
+                    b.Property<string>("ADDRESS_DESCRIPTION")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADDRESS_ID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CODE")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CODE");
+
+                    b.Property<string>("CREATED_BY")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("CREATED_TIME")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATED_TIME");
+
+                    b.Property<string>("ENTERPRISE_ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IS_ACTIVE")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_ACTIVE");
+
+                    b.Property<bool>("IS_DELETE")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_DELETE");
+
+                    b.Property<string>("MODIFIED_BY")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime?>("MODIFIED_TIME")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("MODIFIED_TIME");
+
+                    b.Property<string>("NAME")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NAME");
+
+                    b.Property<string>("NOTE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PAYMENT_METHOD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("STATUS")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TOTAL_PRICE")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TOTAL_QUANTITY")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TOTAL_WEIGHT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("USER_ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("VERSION")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("VERSION");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ADDRESS_ID");
+
+                    b.HasIndex("ENTERPRISE_ID");
+
+                    b.HasIndex("USER_ID");
+
+                    b.ToTable("ORDER");
+                });
+
+            modelBuilder.Entity("EcoFarm.Domain.Entities.OrderProduct", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ID");
+
+                    b.Property<string>("CREATED_BY")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("CREATED_TIME")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATED_TIME");
+
+                    b.Property<int?>("CURRENCY")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IS_ACTIVE")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_ACTIVE");
+
+                    b.Property<bool>("IS_DELETE")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_DELETE");
+
+                    b.Property<string>("MODIFIED_BY")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime?>("MODIFIED_TIME")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("MODIFIED_TIME");
+
+                    b.Property<string>("ORDER_ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal?>("PRICE")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PRODUCT_ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("QUANTITY")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("VERSION")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("VERSION");
+
+                    b.Property<decimal?>("WEIGHT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ORDER_ID");
+
+                    b.HasIndex("PRODUCT_ID");
+
+                    b.ToTable("ORDER_PRODUCT");
+                });
+
+            modelBuilder.Entity("EcoFarm.Domain.Entities.OrderTimeline", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ID");
 
                     b.Property<string>("CREATED_BY")
                         .HasColumnType("nvarchar(max)")
@@ -750,27 +895,14 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("MODIFIED_TIME");
 
-                    b.Property<string>("NAME")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("NAME");
-
-                    b.Property<string>("NOTE")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PACKAGE_ID")
+                    b.Property<string>("ORDER_ID")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("QUANTITY")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SERVICE_TYPE")
-                        .HasColumnType("int");
 
                     b.Property<int>("STATUS")
                         .HasColumnType("int");
 
-                    b.Property<string>("USER_ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime?>("TIME")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("VERSION")
                         .IsConcurrencyToken()
@@ -779,11 +911,9 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PACKAGE_ID");
+                    b.HasIndex("ORDER_ID");
 
-                    b.HasIndex("USER_ID");
-
-                    b.ToTable("ORDER");
+                    b.ToTable("ORDER_TIMELINE");
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.PackageMedia", b =>
@@ -872,6 +1002,9 @@ namespace EcoFarm.Infrastructure.Migrations
                     b.Property<string>("DESCRIPTION")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ENTERPRISE_ID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("IS_ACTIVE")
                         .HasColumnType("bit")
                         .HasColumnName("IS_ACTIVE");
@@ -915,9 +1048,16 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("VERSION");
 
+                    b.Property<decimal>("WEIGHT")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("PACKAGE_ID");
+                    b.HasIndex("ENTERPRISE_ID");
+
+                    b.HasIndex("PACKAGE_ID")
+                        .IsUnique()
+                        .HasFilter("[PACKAGE_ID] IS NOT NULL");
 
                     b.ToTable("PRODUCT");
                 });
@@ -1010,7 +1150,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("IS_DELETE");
 
-                    b.Property<bool>("IS_PURCHASED")
+                    b.Property<bool>("IS_ORDERED")
                         .HasColumnType("bit");
 
                     b.Property<string>("MODIFIED_BY")
@@ -1025,14 +1165,14 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("NAME");
 
-                    b.Property<double?>("TOTAL_PRICE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TOTAL_PRICE")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<double?>("TOTAL_QUANTITY")
-                        .HasColumnType("float");
+                    b.Property<int?>("TOTAL_QUANTITY")
+                        .HasColumnType("int");
 
                     b.Property<string>("USER_ID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("VERSION")
                         .IsConcurrencyToken()
@@ -1040,6 +1180,8 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnName("VERSION");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("USER_ID");
 
                     b.ToTable("SHOPPING_CART");
                 });
@@ -1303,9 +1445,6 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("ID");
 
-                    b.Property<string>("ADDRESS")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CREATED_BY")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CREATED_BY");
@@ -1458,17 +1597,47 @@ namespace EcoFarm.Infrastructure.Migrations
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("EcoFarm.Domain.Entities.FarmingPackage", "Package")
+                    b.HasOne("UserAddress", "AddressInfo")
                         .WithMany("Orders")
-                        .HasForeignKey("PACKAGE_ID");
+                        .HasForeignKey("ADDRESS_ID");
+
+                    b.HasOne("SellerEnterprise", "EnterpriseInfo")
+                        .WithMany("Orders")
+                        .HasForeignKey("ENTERPRISE_ID");
 
                     b.HasOne("EcoFarm.Domain.Entities.Administration.User", "UserInfo")
                         .WithMany("Orders")
                         .HasForeignKey("USER_ID");
 
-                    b.Navigation("Package");
+                    b.Navigation("AddressInfo");
+
+                    b.Navigation("EnterpriseInfo");
 
                     b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("EcoFarm.Domain.Entities.OrderProduct", b =>
+                {
+                    b.HasOne("EcoFarm.Domain.Entities.Order", "OrderInfo")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ORDER_ID");
+
+                    b.HasOne("EcoFarm.Domain.Entities.Product", "ProductInfo")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("PRODUCT_ID");
+
+                    b.Navigation("OrderInfo");
+
+                    b.Navigation("ProductInfo");
+                });
+
+            modelBuilder.Entity("EcoFarm.Domain.Entities.OrderTimeline", b =>
+                {
+                    b.HasOne("EcoFarm.Domain.Entities.Order", "OrderInfo")
+                        .WithMany("OrderTimelines")
+                        .HasForeignKey("ORDER_ID");
+
+                    b.Navigation("OrderInfo");
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.PackageMedia", b =>
@@ -1482,9 +1651,15 @@ namespace EcoFarm.Infrastructure.Migrations
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("EcoFarm.Domain.Entities.FarmingPackage", "Package")
+                    b.HasOne("SellerEnterprise", "Enterprise")
                         .WithMany("Products")
-                        .HasForeignKey("PACKAGE_ID");
+                        .HasForeignKey("ENTERPRISE_ID");
+
+                    b.HasOne("EcoFarm.Domain.Entities.FarmingPackage", "Package")
+                        .WithOne("ProductInfo")
+                        .HasForeignKey("EcoFarm.Domain.Entities.Product", "PACKAGE_ID");
+
+                    b.Navigation("Enterprise");
 
                     b.Navigation("Package");
                 });
@@ -1496,6 +1671,15 @@ namespace EcoFarm.Infrastructure.Migrations
                         .HasForeignKey("PRODUCT_ID");
 
                     b.Navigation("OwnedProduct");
+                });
+
+            modelBuilder.Entity("EcoFarm.Domain.Entities.ShoppingCart", b =>
+                {
+                    b.HasOne("EcoFarm.Domain.Entities.Administration.User", "UserInfo")
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("USER_ID");
+
+                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.UserActivityComment", b =>
@@ -1587,6 +1771,8 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.Navigation("Orders");
 
+                    b.Navigation("ShoppingCarts");
+
                     b.Navigation("UserActivityComments");
 
                     b.Navigation("UserRegisterPackages");
@@ -1598,9 +1784,7 @@ namespace EcoFarm.Infrastructure.Migrations
                 {
                     b.Navigation("Activities");
 
-                    b.Navigation("Orders");
-
-                    b.Navigation("Products");
+                    b.Navigation("ProductInfo");
 
                     b.Navigation("ServiceImages");
 
@@ -1621,9 +1805,18 @@ namespace EcoFarm.Infrastructure.Migrations
                     b.Navigation("NotificationUsers");
                 });
 
+            modelBuilder.Entity("EcoFarm.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("OrderProducts");
+
+                    b.Navigation("OrderTimelines");
+                });
+
             modelBuilder.Entity("EcoFarm.Domain.Entities.Product", b =>
                 {
                     b.Navigation("CartDetails");
+
+                    b.Navigation("OrderProducts");
 
                     b.Navigation("ProductMedias");
                 });
@@ -1636,6 +1829,15 @@ namespace EcoFarm.Infrastructure.Migrations
             modelBuilder.Entity("SellerEnterprise", b =>
                 {
                     b.Navigation("EnterpiseServicePackages");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("UserAddress", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,15 +25,18 @@ namespace EcoFarm.Infrastructure.Repositories
             SellerEnterprises = new GenericRepository<SellerEnterprise>(_ecoContext, authService);
             UserAddresses = new GenericRepository<UserAddress>(_ecoContext, authService);
             Orders = new GenericRepository<Order>(_ecoContext, authService);
+            OrderProducts = new GenericRepository<OrderProduct>(_ecoContext, authService);
+            OrderTimelines = new GenericRepository<OrderTimeline>(_ecoContext, authService);
             PackageMedias = new GenericRepository<PackageMedia>(_ecoContext, authService);
             FarmingPackages = new GenericRepository<FarmingPackage>(_ecoContext, authService);
+            FarmingPackageActivties = new GenericRepository<FarmingPackageActivity>(_ecoContext, authService);
             ShoppingCarts = new GenericRepository<ShoppingCart>(_ecoContext, authService);
             Products = new GenericRepository<Product>(_ecoContext, authService);
             ProductMedias = new GenericRepository<ProductMedia>(_ecoContext, authService);
             PackageReviews = new GenericRepository<UserPackageReview>(_ecoContext, authService);
             Notifications = new GenericRepository<Notification>(_ecoContext, authService);
             UserRegisterPackages = new GenericRepository<UserRegisterPackage>(_ecoContext, authService);
-
+            CartDetails = new GenericRepository<CartDetail>(_ecoContext, authService);
             //Users = new GenericRepository<Account>(_ecoContext);
         }
 
@@ -110,6 +113,8 @@ namespace EcoFarm.Infrastructure.Repositories
 
         public IGenericRepository<FarmingPackage> FarmingPackages { get; private set; }
 
+        public IGenericRepository<FarmingPackageActivity> FarmingPackageActivties { get; private set; }
+
         public IGenericRepository<ShoppingCart> ShoppingCarts { get; private set; }
         
         public IGenericRepository<Product> Products { get; private set; }
@@ -121,6 +126,12 @@ namespace EcoFarm.Infrastructure.Repositories
         public IGenericRepository<Notification> Notifications { get; private set; }
 
         public IGenericRepository<UserRegisterPackage> UserRegisterPackages { get; private set; }
+
+        public IGenericRepository<CartDetail> CartDetails { get; private set; }
+
+        public IGenericRepository<OrderProduct> OrderProducts { get; private set; }
+
+        public IGenericRepository<OrderTimeline> OrderTimelines { get; private set; }
 
         public void Dispose()
         {

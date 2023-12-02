@@ -38,5 +38,7 @@ namespace EcoFarm.Domain.Entities.Administration
         public virtual ICollection<UserPackageReview> UserReviews { get; set; }
         [InverseProperty(nameof(UserRegisterPackage.UserInfo))]
         public virtual ICollection<UserRegisterPackage> UserRegisterPackages { get; set; }
+        [InverseProperty(nameof(ShoppingCart.UserInfo))]
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

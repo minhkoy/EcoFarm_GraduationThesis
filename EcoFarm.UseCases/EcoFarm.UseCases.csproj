@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\Get\" />
     <Folder Include="Enterprises\Create\" />
     <Folder Include="Enterprises\Delete\" />
     <Folder Include="Enterprises\Approve\" />
@@ -22,15 +21,10 @@
     <Folder Include="Enterprises\Update\" />
     <Folder Include="FarmingActivities\Edit\" />
     <Folder Include="FarmingActivities\Delete\" />
-    <Folder Include="FarmingActivities\Get\" />
     <Folder Include="FarmingPackages\Delete\" />
-    <Folder Include="Orders\Approve\" />
     <Folder Include="Roles\Create\" />
     <Folder Include="Roles\Delete\" />
     <Folder Include="ShoppingCarts\" />
-    <Folder Include="Orders\Create\" />
-    <Folder Include="Orders\Cancel\" />
-    <Folder Include="Orders\GetList\" />
     <Folder Include="Reviews\Edit\" />
     <Folder Include="Reviews\Delete\" />
     <Folder Include="Users\Create\" />

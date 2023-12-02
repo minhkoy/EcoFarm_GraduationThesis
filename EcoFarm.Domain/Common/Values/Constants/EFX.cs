@@ -9,12 +9,12 @@ namespace EcoFarm.Domain.Common.Values.Constants
 {
     public static class EFX
     {
-        public static int SaltLength = 24; 
+        public const int SaltLength = 24; 
         public class AccountTypes
         {
             public static string Admin = "Quản trị hệ thống";
             public static string Seller = "Tổ chức/ cá nhân cung cấp dịch vụ";
-            public static string Customer = "Người tìm dịch vụ";
+            public static string Customer = "Khách hàng";
             public static Dictionary<AccountType, string> dctAccountType = new()
             {
                 { AccountType.Admin, Admin },
@@ -23,7 +23,7 @@ namespace EcoFarm.Domain.Common.Values.Constants
             };
         }
 
-        public class GenderEnums
+        public class Genders
         {
             public static string Male = "Nam";
             public static string Female = "Nữ";
@@ -66,6 +66,30 @@ namespace EcoFarm.Domain.Common.Values.Constants
             };
         }
 
+        public class OrderStatuses
+        {
+            public static string WaitingSellerConfirm = "Chờ nhà cung cấp/ chủ trang trại xác nhận";
+            public static string SellerConfirmed = "Nhà cung cấp/ chủ trang trại đã xác nhận";
+            public static string RejectedBySeller = "Nhà cung cấp/ chủ trang trại đã từ chối";
+            public static string InProgress = "Nhà cung cấp/ chủ trang trại đang chuẩn bị hàng";
+            public static string Shipping = "Đang giao hàng";
+            public static string Shipped = "Đã giao hàng";
+            public static string Completed = "Đã nhận được hàng";
+            public static string CancelledByCustomer = "Đã hủy bởi khách hàng";
+            public static Dictionary<OrderStatus, string> dctOrderStatus = new()
+            {
+                {OrderStatus.WaitingSellerConfirm, WaitingSellerConfirm},
+                {OrderStatus.SellerConfirmed, SellerConfirmed},
+                {OrderStatus.RejectedBySeller, RejectedBySeller},
+                {OrderStatus.InProgress, InProgress },
+                {OrderStatus.Shipping, Shipping},
+                {OrderStatus.Shipped, Shipped},
+                {OrderStatus.Completed, Completed},
+                {OrderStatus.CancelledByCustomer, CancelledByCustomer}
+
+            };
+        }
+
         public class PackageApprovalStatus
         {
             public static string Pending = "Chờ duyệt";
@@ -76,6 +100,19 @@ namespace EcoFarm.Domain.Common.Values.Constants
                 {ServicePackageApprovalStatus.Pending, Pending},
                 {ServicePackageApprovalStatus.Approved, Approved},
                 {ServicePackageApprovalStatus.Rejected, Denied}
+            };
+        }
+
+        public class PaymentMethods
+        {
+            public static string Cash = "Tiền mặt";
+            public static string BankTransfer = "Chuyển khoản";
+            public static string CreditCard = "Thẻ tín dụng";
+            public static Dictionary<OrderPaymentMethod, string> dctPaymentMethod = new()
+            {
+                {OrderPaymentMethod.Cash, Cash},
+                {OrderPaymentMethod.BankTransfer, BankTransfer},
+                {OrderPaymentMethod.CreditCard, CreditCard}
             };
         }
         #region PageSizes

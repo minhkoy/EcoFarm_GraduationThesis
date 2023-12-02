@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TokenHandler.Interfaces;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
 namespace EcoFarm.UseCases.Products.Create
@@ -18,6 +19,7 @@ namespace EcoFarm.UseCases.Products.Create
     {
         public string Code { get; set; }
         public string Name { get; set; }
+        public decimal? Weight { get; set; }
         public string Description { get; set; }
         public string PackageId { get; set; }
         public int? Quantity { get; set; }
@@ -29,14 +31,22 @@ namespace EcoFarm.UseCases.Products.Create
     internal class CreateProductHandler : ICommandHandler<CreateProductCommand, ProductDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthService _authService;
 
-        public CreateProductHandler(IUnitOfWork unitOfWork)
+        public CreateProductHandler(IUnitOfWork unitOfWork, IAuthService authService)
         {
             _unitOfWork = unitOfWork;
+            _authService = authService;
         }
 
         public async Task<Result<ProductDTO>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+            var erpId = _authService.GetAccountEntityId();
+            var erp = await _unitOfWork.SellerEnterprises.FindAsync(erpId);
+            if (erp == null)
+            {
+                return Result<ProductDTO>.Forbidden();
+            }
             var pkg = await _unitOfWork.FarmingPackages.FindAsync(request.PackageId);
             if (pkg == null)
             {
@@ -58,6 +68,7 @@ namespace EcoFarm.UseCases.Products.Create
                 PRICE = request.Price,
                 PRICE_FOR_REGISTERED = request.PriceForRegistered,
                 CURRENCY = request.Currency,
+                WEIGHT = request.Weight ?? 0,
             };
             _unitOfWork.Products.Add(product);
             await _unitOfWork.SaveChangesAsync();
@@ -67,6 +78,8 @@ namespace EcoFarm.UseCases.Products.Create
                 Code = product.CODE,
                 Name = product.NAME,
                 Description = product.DESCRIPTION,
+                Weight = product.WEIGHT,
+                CreatedTime = product.CREATED_TIME,
                 PackageId = product.PACKAGE_ID,
                 PackageCode = pkg.CODE,
                 PackageName = pkg.NAME,

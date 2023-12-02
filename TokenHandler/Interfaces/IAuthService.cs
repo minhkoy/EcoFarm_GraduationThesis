@@ -18,8 +18,9 @@ namespace TokenHandler.Interfaces
         string GetUsername();
         string GetFullname();
         string GetListRole();
+        string GetAccountTypeName();
         DateTime GetExpireDateTime();
-        string GenerateToken(AccountTokenData data);
+        string GenerateToken(AccountTokenData data, bool? isRemember);
 
     }
 }

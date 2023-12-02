@@ -12,10 +12,15 @@ namespace EcoFarm.Api.Controllers.Tasks
     [ApiController]
     public class ReviewController : BaseController
     {
-        public ReviewController(IMediator mediator, ILogger logger, IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
+        public ReviewController(IMediator mediator, ILogger<ReviewController> logger, IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
         {
         }
 
+        /// <summary>
+        /// Tạo đánh giá cho gói farming
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> CreatePackageReview([FromBody] CreatePackageReviewCommand command)
         {

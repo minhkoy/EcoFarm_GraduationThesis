@@ -44,10 +44,8 @@ public class FarmingPackage : BaseEntity
     public virtual SellerEnterprise Enterprise { get; set; }
     [InverseProperty(nameof(FarmingPackageActivity.Package))]
     public virtual ICollection<FarmingPackageActivity> Activities { get; set; }
-    [InverseProperty(nameof(Order.Package))]
-    public virtual ICollection<Order> Orders { get; set; }
     [InverseProperty(nameof(Product.Package))]
-    public virtual ICollection<Product> Products { get; set; }
+    public virtual Product ProductInfo { get; set; }
     //[InverseProperty(nameof(CartDetail.Package))]
     //public virtual ICollection<CartDetail> CartDetails { get; set; }
     [InverseProperty(nameof(PackageMedia.Package))]

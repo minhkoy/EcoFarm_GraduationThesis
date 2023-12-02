@@ -71,7 +71,9 @@ public class HelperEnums
         InProgress,
         Completed,
         Shipping,
-        Shipped
+        Shipped,
+        RejectedBySeller,
+        CancelledByCustomer,
     }
 
     public enum OrderPaymentStatus

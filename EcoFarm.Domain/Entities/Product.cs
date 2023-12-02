@@ -14,7 +14,12 @@ namespace EcoFarm.Domain.Entities
     {
         public string DESCRIPTION { get; set; }
         public string PACKAGE_ID { get; set; }
+        public string ENTERPRISE_ID { get; set; }
         public int? TYPE { get; set; }
+        /// <summary>
+        /// Khối lượng sản phẩm (kg)
+        /// </summary>
+        public decimal WEIGHT { get; set; } = 0;
         public int? QUANTITY { get; set; }
         public int? SOLD { get; set; }
         public decimal? PRICE { get; set; }
@@ -22,17 +27,22 @@ namespace EcoFarm.Domain.Entities
         /// Price for user who registered the package
         /// </summary>
         public decimal? PRICE_FOR_REGISTERED { get; set; }
-        public CurrencyType? CURRENCY { get; set; }
+        public CurrencyType? CURRENCY { get; set; } = CurrencyType.VND;
 
         [NotMapped]
         public int? CURRENT_QUANTITY { get => QUANTITY - SOLD; }
 
         [ForeignKey(nameof(PACKAGE_ID))]
-        [InverseProperty(nameof(FarmingPackage.Products))]
+        [InverseProperty(nameof(FarmingPackage.ProductInfo))]
         public virtual FarmingPackage Package { get; set; }
+        [ForeignKey(nameof(ENTERPRISE_ID))]
+        [InverseProperty(nameof(SellerEnterprise.Products))]
+        public virtual SellerEnterprise Enterprise { get; set; }
         [InverseProperty(nameof(ProductMedia.OwnedProduct))]
         public virtual ICollection<ProductMedia> ProductMedias { get; set; }
         [InverseProperty(nameof(CartDetail.ProductInfo))]
         public virtual ICollection<CartDetail> CartDetails { get; set; }
+        [InverseProperty(nameof(OrderProduct.ProductInfo))]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }
