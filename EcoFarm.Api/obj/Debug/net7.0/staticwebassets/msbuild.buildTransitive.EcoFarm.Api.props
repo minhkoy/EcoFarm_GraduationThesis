@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\EcoFarm.Api.props" />
-</Project>
