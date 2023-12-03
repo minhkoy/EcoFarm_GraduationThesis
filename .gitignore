@@ -7,3 +7,6 @@
 # Ignore any files in /bin and /obj Folders
 **/bin/*
 **/obj/*
+/.vs
+/.idea/.idea.EcoFarm_GraduationThesis/.idea
+/EcoFarm.Web_Prev

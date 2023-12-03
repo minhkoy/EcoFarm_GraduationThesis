@@ -132,4 +132,16 @@
   <data name="UsernameOrPasswordEmpty" xml:space="preserve">
     <value>Tên đăng nhập/ Mật khẩu không được phép để trống</value>
   </data>
+  <data name="AccountLocked" xml:space="preserve">
+    <value>Tài khoản đã bị khóa do {0}. Vui lòng liên hệ quản trị viên nếu thấy có sự nhầm lẫn</value>
+  </data>
+  <data name="AccountNotExistedOrDeleted" xml:space="preserve">
+    <value>Tài khoản không tồn tại hoặc đã bị xóa</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Đăng nhập thành công!</value>
+  </data>
+  <data name="UsernameOrPasswordIncorrect" xml:space="preserve">
+    <value>Tên đăng nhập hoặc mật khẩu không đúng</value>
+  </data>
 </root>

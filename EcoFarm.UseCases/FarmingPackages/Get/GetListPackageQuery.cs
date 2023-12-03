@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
@@ -83,7 +84,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             }
             if (request.IsCloseForRegistered.HasValue && request.IsCloseForRegistered.Value)
             {
-                temp = temp.Where(x => x.CLOSE_REGISTER_TIME.HasValue && x.CLOSE_REGISTER_TIME.Value <= DateTime.Now);
+                temp = temp.Where(x => x.CLOSE_REGISTER_TIME.HasValue && x.CLOSE_REGISTER_TIME.Value <= DateTime.Now.ToVnDateTime());
             }
             var rs = await temp
                 .Skip((request.Page - 1) * request.Limit)

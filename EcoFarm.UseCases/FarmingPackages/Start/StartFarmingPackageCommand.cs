@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.UseCases.DTOs;
@@ -60,7 +61,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Start
                 return Result<FarmingPackageDTO>.Error("Gói farming đã bắt đầu");
             }
 
-            farmingPackage.START_TIME = DateTime.Now;
+            farmingPackage.START_TIME = DateTime.Now.ToVnDateTime();
             _unitOfWork.FarmingPackages.Update(farmingPackage);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage($"Bắt đầu gói farming thành công vào lúc {farmingPackage.START_TIME}");

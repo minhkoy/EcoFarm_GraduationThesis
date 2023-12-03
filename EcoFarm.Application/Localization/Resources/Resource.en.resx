@@ -132,4 +132,16 @@
   <data name="UsernameOrPasswordEmpty" xml:space="preserve">
     <value>Username/ Password cannot be empty</value>
   </data>
+  <data name="AccountLocked" xml:space="preserve">
+    <value>Account is locked because of {0}. Please contact the administrator if there is something wrong.</value>
+  </data>
+  <data name="AccountNotExistedOrDeleted" xml:space="preserve">
+    <value>Account does not exist or has been deleted</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Login successful!</value>
+  </data>
+  <data name="UsernameOrPasswordIncorrect" xml:space="preserve">
+    <value>Username or password is incorrect</value>
+  </data>
 </root>

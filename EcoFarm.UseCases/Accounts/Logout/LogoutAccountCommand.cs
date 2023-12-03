@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using MediatR;
@@ -46,7 +47,7 @@ namespace EcoFarm.UseCases.Accounts.Logout
                 return Result<bool>.Error($"Đã đăng xuất tài khoản {username}");
             }
 
-            account.LAST_LOGGED_OUT = DateTime.Now;
+            account.LAST_LOGGED_OUT = DateTime.Now.ToVnDateTime();
             _unitOfWork.Accounts.Update(account);
             await _unitOfWork.SaveChangesAsync();
 

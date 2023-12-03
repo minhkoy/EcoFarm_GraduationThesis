@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcoFarm.Domain.Common.Values.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -61,9 +62,9 @@ namespace EcoFarm.Application.Common.Extensions
             return result;
         }
 
-        public static DateTime? ToVnDateTime(this DateTime dateTime)
+        public static DateTime ToVnDateTime(this DateTime dateTime)
         {
-            string vnTimeZoneId = "SE Asia Standard Time";
+            string vnTimeZoneId = EFX.Timezone_VN;
             return TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(vnTimeZoneId));
         }
     }

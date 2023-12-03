@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using System;
@@ -37,7 +38,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Approve
                 var package = await _unitOfWork.FarmingPackages.FindAsync(request.Id);
                 if (package == null)
                     return Result<bool>.NotFound("Không tìm thấy gói farming");
-                package.APPROVE_OR_REJECT_TIME = DateTime.Now;
+                package.APPROVE_OR_REJECT_TIME = DateTime.Now.ToVnDateTime();
                 package.APPROVE_OR_REJECT_BY = _authService.GetUsername();
                 package.STATUS = ServicePackageApprovalStatus.Approved;
 

@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using System;
@@ -32,7 +33,7 @@ namespace EcoFarm.UseCases.FarmingPackages.CloseRegister
             var package = await _unitOfWork.FarmingPackages.FindAsync(request.Id);
             if (package == null)
                 return Result<bool>.NotFound("Không tìm thấy gói farming");
-            package.CLOSE_REGISTER_TIME = DateTime.Now;
+            package.CLOSE_REGISTER_TIME = DateTime.Now.ToVnDateTime();
             _unitOfWork.FarmingPackages.Update(package);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage("Kết thúc đăng ký gói farming thành công");

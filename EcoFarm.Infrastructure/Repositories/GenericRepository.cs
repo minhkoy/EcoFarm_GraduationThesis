@@ -1,4 +1,5 @@
-﻿using EcoFarm.Application.Interfaces.Repositories;
+﻿using EcoFarm.Application.Common.Extensions;
+using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Interfaces;
 using EcoFarm.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -53,9 +54,9 @@ namespace EcoFarm.Infrastructure.Repositories
             //var user = _authService.GetUserInfoByToken().Result;
             var username = _authService.GetUsername();
             entity.CREATED_BY = username;
-            entity.CREATED_TIME = DateTime.Now;
+            entity.CREATED_TIME = DateTime.Now.ToVnDateTime();
             entity.MODIFIED_BY = username;
-            entity.MODIFIED_TIME = DateTime.Now;
+            entity.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             _ecoContext.Set<T>().Add(entity);
         }
 
@@ -64,9 +65,9 @@ namespace EcoFarm.Infrastructure.Repositories
             //var user = await _authService.GetUserInfoByToken();
             var username = _authService.GetUsername();
             entity.CREATED_BY = username;
-            entity.CREATED_TIME = DateTime.Now;
+            entity.CREATED_TIME = DateTime.Now.ToVnDateTime();
             entity.MODIFIED_BY = username;
-            entity.MODIFIED_TIME = DateTime.Now;
+            entity.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             await _ecoContext.Set<T>().AddAsync(entity, cancellationToken);
         }
 
@@ -77,9 +78,9 @@ namespace EcoFarm.Infrastructure.Repositories
                 //var user = _authService.GetUserInfoByToken().Result;
                 var username = _authService.GetUsername();
                 x.CREATED_BY = username;
-                x.CREATED_TIME = DateTime.Now;
+                x.CREATED_TIME = DateTime.Now.ToVnDateTime();
                 x.MODIFIED_BY = username;
-                x.MODIFIED_TIME = DateTime.Now;
+                x.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             });
             _ecoContext.Set<T>().AddRange(entities);
         }
@@ -91,9 +92,9 @@ namespace EcoFarm.Infrastructure.Repositories
                 //var user = await _authService.GetUserInfoByToken();
                 var username = _authService.GetUsername();
                 x.CREATED_BY = username;
-                x.CREATED_TIME = DateTime.Now;
+                x.CREATED_TIME = DateTime.Now.ToVnDateTime();
                 x.MODIFIED_BY = username;
-                x.MODIFIED_TIME = DateTime.Now;
+                x.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             });
             await _ecoContext.Set<T>().AddRangeAsync(entities, cancellationToken);
         }
@@ -115,7 +116,7 @@ namespace EcoFarm.Infrastructure.Repositories
             var username = _authService.GetUsername();
             entity.IS_DELETE = true;
             entity.MODIFIED_BY = username;
-            entity.MODIFIED_TIME = DateTime.Now;
+            entity.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             _ecoContext.Set<T>().Update(entity);
             //_ecoContext.Set<T>().Remove(entity);
         }
@@ -127,7 +128,7 @@ namespace EcoFarm.Infrastructure.Repositories
                 var username = _authService.GetUsername();
                 x.IS_DELETE = true;
                 x.MODIFIED_BY = username;
-                x.MODIFIED_TIME = DateTime.Now;
+                x.MODIFIED_TIME = DateTime.Now.ToVnDateTime();
             });
             _ecoContext.Set<T>().UpdateRange(entities);
             //_ecoContext.Set<T>().RemoveRange(entities);

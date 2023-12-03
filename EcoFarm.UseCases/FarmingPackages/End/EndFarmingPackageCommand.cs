@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.UseCases.DTOs;
@@ -65,7 +66,7 @@ namespace EcoFarm.UseCases.FarmingPackages.End
                 return Result.Error("Gói farming đã kết thúc");
             }
 
-            farmingPackage.END_TIME = DateTime.Now;
+            farmingPackage.END_TIME = DateTime.Now.ToVnDateTime();
             _unitOfWork.FarmingPackages.Update(farmingPackage);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage($"Kết thúc gói farming thành công vào {farmingPackage.END_TIME}");

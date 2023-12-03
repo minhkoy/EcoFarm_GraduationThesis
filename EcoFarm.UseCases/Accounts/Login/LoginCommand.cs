@@ -1,7 +1,9 @@
 ﻿using Ardalis.Result;
 using EcoFarm.Application.Common.Extensions;
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
+using EcoFarm.Application.Localization;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,9 +30,11 @@ namespace EcoFarm.UseCases.Accounts.Login
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
-        public LoginHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        private readonly ILocalizeService _localizeService;
+        public LoginHandler(IUnitOfWork unitOfWork, IAuthService authService, ILocalizeService localizeService)
         {
             _unitOfWork = unitOfWork;
+            _localizeService = localizeService;
             _authService = authService;
 
         }
@@ -43,16 +47,16 @@ namespace EcoFarm.UseCases.Accounts.Login
                     .FirstOrDefaultAsync();
             if (people is null)
             {
-                return Result.Error("Tài khoản hoặc mật khẩu không đúng!");
+                return Result.Error(_localizeService.GetMessage(Application.Localization.LocalizationEnum.UsernameOrPasswordIncorrect));
             }
             var hashedPassword = HelperExtensions.HmacSha256ToHexString(request.Password, people.SALT);
             if (string.Compare(hashedPassword, people.HASHED_PASSWORD) != 0)
             {
-                return Result.Error("Tài khoản hoặc mật khẩu không đúng!");
+                return Result.Error(_localizeService.GetMessage(Application.Localization.LocalizationEnum.UsernameOrPasswordIncorrect));
             }
             if (people.IS_ACTIVE == false)
             {
-                return Result.Error($"Tài khoản của bạn đã bị khóa do {people.LOCKED_REASON}! Vui lòng liên hệ quản trị viên nếu có sự nhầm lẫn");
+                return Result.Error(string.Format(_localizeService.GetMessage(LocalizationEnum.AccountLocked), people.LOCKED_REASON));
             }
             
             AccountTokenData account = new AccountTokenData
@@ -72,7 +76,7 @@ namespace EcoFarm.UseCases.Accounts.Login
                         .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(people.ID));
                     if (erp is null)
                     {
-                        return Result.Error("Tài khoản không tồn tại hoặc đã bị xóa");
+                        return Result.Error(_localizeService.GetMessage(LocalizationEnum.AccountNotExistedOrDeleted));
                     }
                     account.EntityId = erp.ID;
                     break;
@@ -82,7 +86,7 @@ namespace EcoFarm.UseCases.Accounts.Login
                         .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(people.ID));
                     if (user is null)
                     {
-                        return Result.Error("Tài khoản không tồn tại hoặc đã bị xóa");
+                        return Result.Error(_localizeService.GetMessage(LocalizationEnum.AccountNotExistedOrDeleted));
                     }
                     account.EntityId = user.ID;
                     break;
@@ -98,7 +102,7 @@ namespace EcoFarm.UseCases.Accounts.Login
             people.IS_EMAIL_CONFIRMED = true;
             _unitOfWork.Accounts.Update(people);
             await _unitOfWork.SaveChangesAsync();
-            return Result.Success(new LoginDTO { AccessToken = token }, "Đăng nhập thành công");
+            return Result.Success(new LoginDTO { AccessToken = token }, _localizeService.GetMessage(Application.Localization.LocalizationEnum.LoginSuccessful));
         }
     }
 }

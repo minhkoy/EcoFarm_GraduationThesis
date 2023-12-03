@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
@@ -58,7 +59,7 @@ namespace EcoFarm.UseCases.Orders.Cancel
             }
             if (order.STATUS != OrderStatus.WaitingSellerConfirm
                 || order.STATUS != OrderStatus.SellerConfirmed
-                || order.STATUS != OrderStatus.InProgress)
+                || order.STATUS != OrderStatus.Preparing)
             {
                 return Result.Error("Đơn hàng không thể hủy");
             }
@@ -67,7 +68,7 @@ namespace EcoFarm.UseCases.Orders.Cancel
             {
                 ORDER_ID = order.ID,
                 STATUS = OrderStatus.CancelledByCustomer,
-                TIME = DateTime.Now
+                TIME = DateTime.Now.ToVnDateTime()
             };
             _unitOfWork.Orders.Update(order);
             _unitOfWork.OrderTimelines.Add(orderTimeline);

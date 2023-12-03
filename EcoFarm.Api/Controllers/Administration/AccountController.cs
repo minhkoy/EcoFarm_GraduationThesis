@@ -1,6 +1,7 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
 using EcoFarm.Api.Abstraction.Hubs;
 using EcoFarm.UseCases.Accounts.Get;
+using EcoFarm.UseCases.Accounts.Lock;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,18 @@ namespace EcoFarm.Api.Controllers.Administration
         public async Task<IActionResult> GetListAccountType()
         {
             var result = await _mediator.Send(new GetListAccountTypeQuery());
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Khóa tài khoản
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        public async Task<IActionResult> LockAccount([FromBody] LockAccountCommand command)
+        {
+            var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);
         }
     }

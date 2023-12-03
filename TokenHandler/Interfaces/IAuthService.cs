@@ -21,6 +21,5 @@ namespace TokenHandler.Interfaces
         string GetAccountTypeName();
         DateTime GetExpireDateTime();
         string GenerateToken(AccountTokenData data, bool? isRemember);
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,7 @@ namespace EcoFarm.UseCases.Enterprises.Reject
                 return Result.Error($"Doanh nghiệp bị khóa vì ${account.LOCKED_REASON}. Vui lòng thử lại sau.");
             }
             enterprise.IS_APPROVED = false;
-            enterprise.APPROVED_OR_REJECTED_TIME = DateTime.Now;
+            enterprise.APPROVED_OR_REJECTED_TIME = DateTime.Now.ToVnDateTime();
             enterprise.REJECT_REASON = request.RejectReason;
 
             _unitOfWork.SellerEnterprises.Update(enterprise);

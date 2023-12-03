@@ -74,11 +74,10 @@ namespace EcoFarm.UseCases.UserAddresses.Create
             {
                 Id = userAddress.ID,
                 UserId = userAddress.USER_ID,
-                AddressId = userAddress.ID,
                 AddressDescription = userAddress.DESCRIPTION,
                 ReceiverName = userAddress.RECEIVER_NAME,
                 AddressPhone = userAddress.PHONE_NUMBER,
-                IsMain = userAddress.IS_MAIN,
+                IsPrimary = userAddress.IS_MAIN,
             }, "Thêm mới địa chỉ thành công");
         }
     }

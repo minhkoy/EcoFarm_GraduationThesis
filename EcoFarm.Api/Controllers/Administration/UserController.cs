@@ -1,7 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
 using EcoFarm.Api.Abstraction.Hubs;
-using EcoFarm.Application.Features.Administration.AccountManagerFeatures.Queries;
-using EcoFarm.UseCases.Accounts.Lock;
 using EcoFarm.UseCases.Users.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,9 +15,9 @@ namespace EcoFarm.Api.Controllers.Administration
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class UserManagerController : BaseController
+    public class UserController : BaseController
     {
-        public UserManagerController(IMediator mediator, ILogger<UserManagerController> logger,
+        public UserController(IMediator mediator, ILogger<UserController> logger,
             IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
         {
         }
@@ -45,16 +43,5 @@ namespace EcoFarm.Api.Controllers.Administration
             return this.FromResult(result, _logger);
         }
 
-        /// <summary>
-        /// Khóa tài khoản
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Lock([FromBody] LockAccountCommand command)
-        {
-            var result = await _mediator.Send(command);
-            return this.FromResult(result, _logger);
-        }
     }
 }

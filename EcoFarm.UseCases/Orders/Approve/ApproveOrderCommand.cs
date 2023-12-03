@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
@@ -65,7 +66,7 @@ namespace EcoFarm.UseCases.Orders.Approve
             {
                 ORDER_ID = order.ID,
                 STATUS = OrderStatus.SellerConfirmed,
-                TIME = DateTime.Now
+                TIME = DateTime.Now.ToVnDateTime()
             };
             _unitOfWork.Orders.Update(order);
             _unitOfWork.OrderTimelines.Add(orderTimeline);

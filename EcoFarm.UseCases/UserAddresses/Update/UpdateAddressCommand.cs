@@ -58,8 +58,7 @@ namespace EcoFarm.UseCases.UserAddresses.Update
                 AddressDescription = address.DESCRIPTION,
                 ReceiverName = address.RECEIVER_NAME,
                 AddressPhone = address.PHONE_NUMBER,
-                AddressId = address.ID,
-                IsMain = address.IS_MAIN,
+                IsPrimary = address.IS_MAIN,
             }, "Cập nhật địa chỉ thành công");
         }
     }

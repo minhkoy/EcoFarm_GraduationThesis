@@ -10,6 +10,11 @@ namespace EcoFarm.Domain.Common.Values.Constants
     public static class EFX
     {
         public const int SaltLength = 24; 
+        //Timezone
+        /// <summary>
+        /// VN timezone
+        /// </summary>
+        public const string Timezone_VN = "SE Asia Standard Time";
         public class AccountTypes
         {
             public static string Admin = "Quản trị hệ thống";
@@ -71,20 +76,20 @@ namespace EcoFarm.Domain.Common.Values.Constants
             public static string WaitingSellerConfirm = "Chờ nhà cung cấp/ chủ trang trại xác nhận";
             public static string SellerConfirmed = "Nhà cung cấp/ chủ trang trại đã xác nhận";
             public static string RejectedBySeller = "Nhà cung cấp/ chủ trang trại đã từ chối";
-            public static string InProgress = "Nhà cung cấp/ chủ trang trại đang chuẩn bị hàng";
+            public static string Preparing = "Nhà cung cấp/ chủ trang trại đang chuẩn bị hàng";
             public static string Shipping = "Đang giao hàng";
             public static string Shipped = "Đã giao hàng";
-            public static string Completed = "Đã nhận được hàng";
+            public static string Received = "Đã nhận được hàng";
             public static string CancelledByCustomer = "Đã hủy bởi khách hàng";
             public static Dictionary<OrderStatus, string> dctOrderStatus = new()
             {
                 {OrderStatus.WaitingSellerConfirm, WaitingSellerConfirm},
                 {OrderStatus.SellerConfirmed, SellerConfirmed},
                 {OrderStatus.RejectedBySeller, RejectedBySeller},
-                {OrderStatus.InProgress, InProgress },
+                {OrderStatus.Preparing, Preparing },
                 {OrderStatus.Shipping, Shipping},
                 {OrderStatus.Shipped, Shipped},
-                {OrderStatus.Completed, Completed},
+                {OrderStatus.Received, Received},
                 {OrderStatus.CancelledByCustomer, CancelledByCustomer}
 
             };

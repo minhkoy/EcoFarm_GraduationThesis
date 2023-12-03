@@ -68,8 +68,8 @@ public class HelperEnums
     {
         WaitingSellerConfirm = 1,
         SellerConfirmed,
-        InProgress,
-        Completed,
+        Preparing,
+        Received,
         Shipping,
         Shipped,
         RejectedBySeller,

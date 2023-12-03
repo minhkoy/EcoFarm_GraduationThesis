@@ -57,8 +57,7 @@ namespace EcoFarm.UseCases.UserAddresses.Get
                     AddressDescription = x.DESCRIPTION,
                     ReceiverName = x.RECEIVER_NAME,
                     AddressPhone = x.PHONE_NUMBER,
-                    AddressId = x.ID,
-                    IsMain = x.IS_MAIN,
+                    IsPrimary = x.IS_MAIN,
                     CreatedAt = x.CREATED_TIME,
                     ModifiedAt = x.MODIFIED_TIME,
                 })

@@ -32,5 +32,12 @@ namespace EcoFarm.Application.Localization
         #region General messages
         Successful,
         #endregion
+
+        #region Login
+        LoginSuccessful,
+        UsernameOrPasswordIncorrect,
+        AccountLocked,
+        AccountNotExistedOrDeleted
+        #endregion
     }
 }

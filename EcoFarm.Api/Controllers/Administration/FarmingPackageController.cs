@@ -109,7 +109,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> CloseRegister([FromRoute] string id)
         {
             var result = await _mediator.Send(new CloseRegisterPackageCommand(id));
@@ -120,7 +120,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <param name="id">Id gói farming</param>
         /// <returns></returns>
-        [HttpPost("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Start([FromRoute] string id)
         {
             var result = await _mediator.Send(new StartFarmingPackageCommand(id));
@@ -142,7 +142,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> End([FromRoute] string id)
         {
             var result = await _mediator.Send(new EndFarmingPackageCommand(id));
@@ -154,7 +154,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Approve([FromRoute] string id)
         {
             return await base.ResultFromMediator<ApprovePackageCommand, bool>(new ApprovePackageCommand(id));
@@ -168,7 +168,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> Reject([FromBody] RejectServiceCommand command)
         {
             var result = await _mediator.Send(command);

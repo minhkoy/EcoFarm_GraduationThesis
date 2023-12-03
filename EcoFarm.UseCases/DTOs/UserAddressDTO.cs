@@ -10,11 +10,10 @@ namespace EcoFarm.UseCases.DTOs
     {
         public string Id { get; set; }
         public string UserId { get; set; }
-        public string AddressId { get; set; }
         public string AddressDescription { get; set; }
         public string ReceiverName { get; set; }
         public string AddressPhone { get; set; }
-        public bool? IsMain { get; set; }
+        public bool? IsPrimary { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
     }
