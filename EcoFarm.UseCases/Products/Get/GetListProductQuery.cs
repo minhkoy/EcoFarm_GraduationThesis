@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
-namespace EcoFarm.UseCases.Products.GetList
+namespace EcoFarm.UseCases.Products.Get
 {
     public class GetListProductQuery : IQuery<ProductDTO>
     {
@@ -30,7 +30,7 @@ namespace EcoFarm.UseCases.Products.GetList
         public int? Page { get; set; }
         public int? Limit { get; set; }
     }
-    
+
     public class GetListProductQueryHandler : IQueryHandler<GetListProductQuery, ProductDTO>
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -16,6 +16,8 @@ namespace EcoFarm.UseCases.DTOs
         public string EnterpriseId { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
+        
+        public DateTime? ModifiedAt { get; set; }
         public int? Rating { get; set; }
 
     }

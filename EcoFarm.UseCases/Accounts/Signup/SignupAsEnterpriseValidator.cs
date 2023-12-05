@@ -30,7 +30,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
         {
             var existedAccount = _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefault(x => x.USERNAME.Equals(username));
+                .FirstOrDefault(x => string.Equals(x.USERNAME, username));
             return (existedAccount is null);
         }
     }

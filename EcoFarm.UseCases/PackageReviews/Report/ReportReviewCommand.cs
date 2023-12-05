@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TokenHandler.Interfaces;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
-namespace EcoFarm.UseCases.Reviews.Report
+namespace EcoFarm.UseCases.PackageReviews.Report
 {
     public class ReportReviewCommand : ICommand<bool>
     {
@@ -32,7 +32,7 @@ namespace EcoFarm.UseCases.Reviews.Report
             var username = _authService.GetUsername();
             var account = _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefault(x => x.USERNAME.Equals(username));
+                .FirstOrDefault(x => string.Equals(x.USERNAME, username));
             if (account is null || account.IS_DELETE)
             {
                 return Result.Unauthorized();
@@ -54,7 +54,7 @@ namespace EcoFarm.UseCases.Reviews.Report
                 FROM_ACCOUNT_TYPE = account.ACCOUNT_TYPE,
                 //TO_ACCOUNT_TYPE = AccountType.Admin,
                 CONTENT = request.Reason,
-                
+
                 OBJECT_TYPE = NotificationObjectType.PackageReview,
                 ACTION_TYPE = NotificationActionType.Report,
             };

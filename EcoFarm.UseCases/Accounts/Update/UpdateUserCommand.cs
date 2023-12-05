@@ -42,7 +42,7 @@ namespace EcoFarm.UseCases.Accounts.Update
             }
             var userAccount = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (userAccount.ACCOUNT_TYPE != AccountType.Customer)
             {
                 return Result.Forbidden();

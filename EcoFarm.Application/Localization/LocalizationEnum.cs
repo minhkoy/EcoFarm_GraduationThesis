@@ -33,11 +33,22 @@ namespace EcoFarm.Application.Localization
         Successful,
         #endregion
 
-        #region Login
+        #region Authentication & Accounts
         LoginSuccessful,
         UsernameOrPasswordIncorrect,
         AccountLocked,
-        AccountNotExistedOrDeleted
+        AccountNotExistedOrDeleted,
+        PasswordIncorrect,
+        ChangePasswordSuccessful,
+        #endregion
+
+        #region Review Package
+        CreateReviewSuccessful,
+        UpdateReviewSuccessful,
+        PackageNotFound,
+        PackageReviewed,
+        PackageReviewNotFound,
+        RatingInvalid,
         #endregion
     }
 }

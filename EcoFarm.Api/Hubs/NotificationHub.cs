@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.SignalR;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
-namespace EcoFarm.Api.Abstraction.Hubs
+namespace EcoFarm.Api.Hubs
 {
     [Authorize]
     public class NotificationHub : Hub
     {
-        
+
         public async Task SendMessage(string user, string message)
         {
             var user1 = Context.UserIdentifier;
@@ -19,6 +19,6 @@ namespace EcoFarm.Api.Abstraction.Hubs
             await Clients.User(userId).SendAsync("ReceiveNotification", user, message);
         }
 
-        
+
     }
 }

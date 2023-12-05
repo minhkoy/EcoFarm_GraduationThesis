@@ -37,7 +37,7 @@ namespace EcoFarm.UseCases.Accounts.Logout
             }
             var account = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (account is null || account.IS_DELETE)
             {
                 return Result<bool>.Error("Thông tin tài khoản không chính xác");

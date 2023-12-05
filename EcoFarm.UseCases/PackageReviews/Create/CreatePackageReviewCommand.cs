@@ -1,6 +1,8 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
+using EcoFarm.Application.Localization;
 using EcoFarm.Domain.Entities;
 using EcoFarm.UseCases.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -12,31 +14,33 @@ using System.Threading.Tasks;
 using TokenHandler.Interfaces;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
-namespace EcoFarm.UseCases.Reviews.Create
+namespace EcoFarm.UseCases.PackageReviews.Create
 {
     public class CreatePackageReviewCommand : ICommand<ReviewDTO>
     {
         public string PackageId { get; set; }
         public string Content { get; set; }
-        public int? Rating { get; set; }        
+        public int? Rating { get; set; }
     }
 
     internal class CreatePackageReviewHandler : ICommandHandler<CreatePackageReviewCommand, ReviewDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
+        private readonly ILocalizeService _localizeService;
         //private readonly IHubContext
-        public CreatePackageReviewHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        public CreatePackageReviewHandler(IUnitOfWork unitOfWork, IAuthService authService, ILocalizeService localizeService)
         {
             _unitOfWork = unitOfWork;
             _authService = authService;
+            _localizeService = localizeService;
         }
         public async Task<Result<ReviewDTO>> Handle(CreatePackageReviewCommand request, CancellationToken cancellationToken)
         {
             var username = _authService.GetUsername();
             var account = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (account is null || account.IS_DELETE)
             {
                 return Result.Unauthorized();
@@ -53,7 +57,7 @@ namespace EcoFarm.UseCases.Reviews.Create
                 .FindAsync(request.PackageId);
             if (package is null)
             {
-                return Result.NotFound("Không tìm thấy thông tin gói farming");
+                return Result.NotFound(_localizeService.GetMessage(LocalizationEnum.PackageNotFound));
             }
             if (!package.IS_ACTIVE)
             {
@@ -72,7 +76,7 @@ namespace EcoFarm.UseCases.Reviews.Create
                 .FirstOrDefaultAsync(x => x.PACKAGE_ID.Equals(package.ID) && x.USER_ID.Equals(user.ID));
             if (packageReview is not null)
             {
-                return Result.Error("Bạn đã đánh giá gói dịch vụ này rồi");
+                return Result.Error(_localizeService.GetMessage(LocalizationEnum.PackageReviewed));
             }
 
             var review = new UserPackageReview
@@ -81,7 +85,7 @@ namespace EcoFarm.UseCases.Reviews.Create
                 USER_ID = user.ID,
                 PACKAGE_ID = package.ID,
                 COMMENT = request.Content,
-                RATING = request.Rating,                
+                RATING = request.Rating,
             };
 
             if (request.Rating.HasValue)
@@ -89,11 +93,11 @@ namespace EcoFarm.UseCases.Reviews.Create
                 package.NUMBERS_OF_RATING++;
                 package.TOTAL_RATING_POINTS += request.Rating.Value;
             }
-            
+
             _unitOfWork.FarmingPackages.Update(package);
             _unitOfWork.PackageReviews.Add(review);
             await _unitOfWork.SaveChangesAsync();
-            
+
             return Result.Success(new ReviewDTO
             {
                 ReviewId = review.ID,

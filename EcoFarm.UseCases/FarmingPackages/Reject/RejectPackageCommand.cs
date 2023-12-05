@@ -31,7 +31,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Reject
             var username = _authService.GetUsername();
             var account = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (account is null)
             {
                 return Result.Unauthorized();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
-namespace EcoFarm.Api.Abstraction.Hubs
+namespace EcoFarm.Api.Hubs
 {
     public class UserConnectionHub : Hub
     {

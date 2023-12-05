@@ -29,8 +29,6 @@
     <Folder Include="Roles\Create\" />
     <Folder Include="Roles\Delete\" />
     <Folder Include="ShoppingCarts\" />
-    <Folder Include="Reviews\Edit\" />
-    <Folder Include="Reviews\Delete\" />
     <Folder Include="Users\Create\" />
     <Folder Include="Users\Update\" />
   </ItemGroup>

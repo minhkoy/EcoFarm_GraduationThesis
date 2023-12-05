@@ -1,5 +1,6 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Accounts.ChangePassword;
 using EcoFarm.UseCases.Accounts.Get;
 using EcoFarm.UseCases.Accounts.Lock;
 using MediatR;
@@ -39,6 +40,18 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpPatch]
         public async Task<IActionResult> LockAccount([FromBody] LockAccountCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Thay đổi mật khẩu
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {
             var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);

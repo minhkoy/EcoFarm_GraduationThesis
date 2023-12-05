@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.Application.Interfaces.Messagings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

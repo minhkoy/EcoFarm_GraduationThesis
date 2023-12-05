@@ -144,4 +144,28 @@
   <data name="UsernameOrPasswordIncorrect" xml:space="preserve">
     <value>Username or password is incorrect</value>
   </data>
+  <data name="ChangePasswordSuccessful" xml:space="preserve">
+    <value>Your password has been successfully changed</value>
+  </data>
+  <data name="CreateReviewSuccessful" xml:space="preserve">
+    <value>Creating review successful!</value>
+  </data>
+  <data name="PackageNotFound" xml:space="preserve">
+    <value>Farming package is not found</value>
+  </data>
+  <data name="PackageReviewed" xml:space="preserve">
+    <value>You have reviewed this package</value>
+  </data>
+  <data name="PackageReviewNotFound" xml:space="preserve">
+    <value>Review not found</value>
+  </data>
+  <data name="PasswordIncorrect" xml:space="preserve">
+    <value>Your password is incorrect. Please try again</value>
+  </data>
+  <data name="RatingInvalid" xml:space="preserve">
+    <value>Rating point is invalid. Must be between 1 and 5</value>
+  </data>
+  <data name="UpdateReviewSuccessful" xml:space="preserve">
+    <value>Updating review successful!</value>
+  </data>
 </root>

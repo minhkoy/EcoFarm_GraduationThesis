@@ -13,7 +13,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Tên không được để trống")
+                //.NotEmpty().WithMessage("Tên không được để trống")
                 .MaximumLength(60).WithMessage("Tên không được quá 60 ký tự");
             RuleFor(x => x.Username)
                 .NotEmpty().WithMessage("Tên đăng nhập không được để trống")

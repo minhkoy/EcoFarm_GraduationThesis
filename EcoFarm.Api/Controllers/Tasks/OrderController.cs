@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.UseCases.Orders.Approve;
 using EcoFarm.UseCases.Orders.Cancel;
 using EcoFarm.UseCases.Orders.Create;

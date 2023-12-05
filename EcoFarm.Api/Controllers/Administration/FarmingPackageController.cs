@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.Application.Common.Results;
 using EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Commands.Approve;
 using EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Commands.Reject;
@@ -52,6 +52,18 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetListMyRegisteredPackage([FromQuery] GetListMyRegisteredPackageQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Lấy ra duy nhất một gói farming theo id hoặc code
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] GetSinglePackageQuery query)
         {
             var result = await _mediator.Send(query);
             return this.FromResult(result, _logger);

@@ -42,7 +42,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
             var username = _authService.GetUsername();
             var account = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (account is null)// || !account.LATEST_GENERATED_TOKEN.Equals(_authService.Token) )
             {
                 return Result.Unauthorized();

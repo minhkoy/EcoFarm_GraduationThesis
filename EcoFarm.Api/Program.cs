@@ -1,5 +1,5 @@
 using EcoFarm.Api.Abstraction.Behaviors;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.Api.Middlewares;
 using EcoFarm.Application;
 using EcoFarm.Application.Interfaces.Localization;

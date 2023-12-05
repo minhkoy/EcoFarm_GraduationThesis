@@ -1,8 +1,8 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.UseCases.Products.Create;
 using EcoFarm.UseCases.Products.Delete;
-using EcoFarm.UseCases.Products.GetList;
+using EcoFarm.UseCases.Products.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +45,12 @@ namespace EcoFarm.Api.Controllers.Tasks
             return this.FromResult(result, _logger);
         }
 
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> GetListByCategory([FromQuery] GetListProductByCategoryQuery command)
+        //{
+        //    var result = await _mediator.Send(command);
+        //    return this.FromResult(result, _logger);
+        //}
         /// <summary>
         /// Xóa sản phẩm
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.UseCases.UserAddresses.Create;
 using EcoFarm.UseCases.UserAddresses.Delete;
 using EcoFarm.UseCases.UserAddresses.Get;

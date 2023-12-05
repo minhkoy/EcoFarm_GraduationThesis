@@ -20,7 +20,7 @@ namespace EcoFarm.Infrastructure.Repositories.Extended
         public async Task<Account> GetUserByUsername(string username)
         {
             return await _ecoContext.Users
-                .Where(x => x.USERNAME.Equals(username))
+                .Where(x => string.Equals(x.USERNAME, username))
                 .FirstOrDefaultAsync();
         }
 

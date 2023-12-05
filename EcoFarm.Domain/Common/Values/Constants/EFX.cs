@@ -15,13 +15,22 @@ namespace EcoFarm.Domain.Common.Values.Constants
         /// VN timezone
         /// </summary>
         public const string Timezone_VN = "SE Asia Standard Time";
+        public class SignalREvents
+        {
+            public static string ReceiveMessage = "ReceiveMessage";
+            public static string SendMessage = "SendMessage";
+            public static string Notification = "Notification";
+            public static string NewConnection = "NewConnection";
+        }
         public class AccountTypes
         {
+            public static string SuperAdmin = "Tổng quản trị hệ thống";
             public static string Admin = "Quản trị hệ thống";
             public static string Seller = "Tổ chức/ cá nhân cung cấp dịch vụ";
             public static string Customer = "Khách hàng";
             public static Dictionary<AccountType, string> dctAccountType = new()
             {
+                { AccountType.SuperAdmin, SuperAdmin },
                 { AccountType.Admin, Admin },
                 { AccountType.Seller, Seller },
                 { AccountType.Customer, Customer }

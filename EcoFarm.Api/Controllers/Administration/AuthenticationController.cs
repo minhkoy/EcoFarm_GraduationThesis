@@ -1,7 +1,7 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Abstraction.Hubs;
+using EcoFarm.Api.Hubs;
 using EcoFarm.Application.Common.Results;
 using EcoFarm.UseCases.Accounts.Login;
 using EcoFarm.UseCases.Accounts.Logout;

@@ -10,3 +10,5 @@
 /.vs
 /.idea/.idea.EcoFarm_GraduationThesis/.idea
 /EcoFarm.Web_Prev
+/EcoFarm.Api/.config
+/EcoFarm.Api/Properties/PublishProfiles

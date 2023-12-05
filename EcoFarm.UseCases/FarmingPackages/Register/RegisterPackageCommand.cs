@@ -44,7 +44,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
             }
             var userAccount = await _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefaultAsync(x => x.USERNAME.Equals(username));
+                .FirstOrDefaultAsync(x => string.Equals(x.USERNAME, username));
             if (userAccount is null)
             {
                 return Result.Error("Tên đăng nhập không chính xác");
