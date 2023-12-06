@@ -9,7 +9,6 @@ namespace EcoFarm.UseCases.DTOs
     public class EnterpriseDTO : AccountDTO
     {
         public string EnterpriseId { get; set; }
-        public string EnterpriseName { get; set; }
         public string Address { get; set; }
         public string TaxCode { get; set; }
         public string Description { get; set; }

@@ -105,7 +105,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Update
                 Enterprise = new EnterpriseDTO
                 {
                     EnterpriseId = enterprise.ID,
-                    EnterpriseName = enterprise.NAME,
+                    FullName = enterprise.NAME,
                 },
                 //SellerEnterpriseCode = enterprise.CODE,
                 ServicePackageApprovalStatus = farmingPackage.STATUS,

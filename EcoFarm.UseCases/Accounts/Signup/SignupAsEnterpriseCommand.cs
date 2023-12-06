@@ -65,7 +65,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
             return Result.Success(new EnterpriseDTO
             {
                 EnterpriseId = newEnterprise.ID,
-                EnterpriseName = newEnterprise.NAME,
+                FullName = newEnterprise.NAME,
                 Address = newEnterprise.ADDRESS,
                 TaxCode = newEnterprise.TAX_CODE,
                 Description = newEnterprise.DESCRIPTION,

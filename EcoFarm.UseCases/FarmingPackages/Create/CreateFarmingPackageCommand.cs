@@ -97,7 +97,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 Enterprise = new()
                 {
                     EnterpriseId = enterprise.ID,
-                    EnterpriseName = enterprise.NAME,
+                    FullName = enterprise.NAME,
                     Username = account.USERNAME,
                 },
                 

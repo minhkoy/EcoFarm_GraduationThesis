@@ -82,7 +82,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                     Enterprise = new EnterpriseDTO
                     {
                         EnterpriseId = x.PackageInfo.Enterprise.ID,
-                        EnterpriseName = x.PackageInfo.Enterprise.NAME,
+                        FullName = x.PackageInfo.Enterprise.NAME,
                     },
                     CloseRegisterTime = x.PackageInfo.CLOSE_REGISTER_TIME,
                     StartTime = x.PackageInfo.START_TIME,

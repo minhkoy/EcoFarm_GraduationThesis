@@ -104,7 +104,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 Enterprise = new EnterpriseDTO
                 {
                     EnterpriseId = x.Enterprise.ID,
-                    EnterpriseName = x.Enterprise.NAME,
+                    FullName = x.Enterprise.NAME,
                 },
                 Price = x.PRICE,
                 Currency = x.CURRENCY,

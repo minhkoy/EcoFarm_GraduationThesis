@@ -37,7 +37,8 @@ namespace EcoFarm.UseCases.DTOs
         {
             get
             {
-                return string.Empty;
+                if (!ServicePackageApprovalStatus.HasValue) return string.Empty;
+                return EFX.PackageApprovalStatus.dctServicePackageApprovalStatus.GetValueOrDefault(ServicePackageApprovalStatus.Value);
             }
         }
         public FarmingPackageType? PackageType { get; set; }

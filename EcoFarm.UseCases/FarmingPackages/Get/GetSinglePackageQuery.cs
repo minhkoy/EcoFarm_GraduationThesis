@@ -67,7 +67,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 Enterprise = new EnterpriseDTO
                 {
                     EnterpriseId = enterprise.ID,
-                    EnterpriseName = enterprise.NAME,
+                    FullName = enterprise.NAME,
                 },
                 RegisteredUsers = users.ToList(),
                 Price = pkg.PRICE,

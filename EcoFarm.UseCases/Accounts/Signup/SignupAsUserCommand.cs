@@ -84,7 +84,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
                 IsActive = account.IS_ACTIVE,
                 LockedReason = string.Empty,
                 AvatarUrl = account.AVATAR_URL,
-                Id = user.ID,
+                UserId = user.ID,
                 Gender = user.GENDER,
                 GenderName = user.GENDER.HasValue ? EFX.Genders.dctGenderEnum[user.GENDER.Value] : string.Empty,
                 PhoneNumber = user.PHONE_NUMBER,
