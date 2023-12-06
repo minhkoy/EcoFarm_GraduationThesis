@@ -100,6 +100,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                     EnterpriseName = enterprise.NAME,
                     Username = account.USERNAME,
                 },
+                
                 //SellerEnterpriseCode = enterprise.CODE,
                 ServicePackageApprovalStatus = farmingPackage.STATUS,
                 CreatedTime = farmingPackage.CREATED_TIME,

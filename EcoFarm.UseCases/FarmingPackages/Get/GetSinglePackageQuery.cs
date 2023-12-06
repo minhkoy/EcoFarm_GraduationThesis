@@ -3,6 +3,7 @@ using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.Domain.Entities;
+using EcoFarm.Domain.Entities.Administration;
 using EcoFarm.UseCases.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -46,6 +47,16 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 return Result.NotFound();
             }
+            var enterprise = await _unitOfWork.SellerEnterprises.FindAsync(pkg.SELLER_ENTERPRISE_ID);
+            IQueryable<UserDTO> users = _unitOfWork.UserRegisterPackages
+                .GetQueryable()
+                .Include(x => x.UserInfo)
+                .Select(x => new UserDTO
+                {
+                    AccountId = x.UserInfo.ACCOUNT_ID,
+                    FullName = x.UserInfo.NAME,
+                    RegisteredTime = x.REGISTER_TIME
+                });
             return Result<FarmingPackageDTO>.Success(new FarmingPackageDTO {
                 Id = pkg.ID,
                 Code = pkg.CODE,
@@ -53,6 +64,12 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 Description = pkg.DESCRIPTION,
                 EstimatedStartTime = pkg.ESTIMATED_START_TIME,
                 EstimatedEndTime = pkg.ESTIMATED_END_TIME,
+                Enterprise = new EnterpriseDTO
+                {
+                    EnterpriseId = enterprise.ID,
+                    EnterpriseName = enterprise.NAME,
+                },
+                RegisteredUsers = users.ToList(),
                 Price = pkg.PRICE,
                 QuantityStart = pkg.QUANTITY_START,
                 QuantityRegistered = pkg.QUANTITY_REGISTERED,
