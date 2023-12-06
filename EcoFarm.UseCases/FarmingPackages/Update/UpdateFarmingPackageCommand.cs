@@ -115,7 +115,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Update
                 RegisteredUsers = await registeredUser
                 .Include(x => x.UserInfo)
                 .ThenInclude(x => x.AccountInfo)
-                .Select(x => new UserDTO
+                .Select(x => new FarmingPackageDTO.RegisteredUser
                 {
                     AccountId = x.UserInfo.ACCOUNT_ID,
                     FullName = x.UserInfo.NAME,

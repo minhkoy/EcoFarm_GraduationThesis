@@ -14,7 +14,6 @@ namespace EcoFarm.UseCases.DTOs
         public GenderEnum? Gender { get; set; }
         public string GenderName { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public DateTime? RegisteredTime { get; set; }
 
     }
 }

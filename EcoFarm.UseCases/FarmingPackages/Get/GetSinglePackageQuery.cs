@@ -48,10 +48,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 return Result.NotFound();
             }
             var enterprise = await _unitOfWork.SellerEnterprises.FindAsync(pkg.SELLER_ENTERPRISE_ID);
-            IQueryable<UserDTO> users = _unitOfWork.UserRegisterPackages
+            IQueryable<FarmingPackageDTO.RegisteredUser> users = _unitOfWork.UserRegisterPackages
                 .GetQueryable()
                 .Include(x => x.UserInfo)
-                .Select(x => new UserDTO
+                .Select(x => new FarmingPackageDTO.RegisteredUser
                 {
                     AccountId = x.UserInfo.ACCOUNT_ID,
                     FullName = x.UserInfo.NAME,

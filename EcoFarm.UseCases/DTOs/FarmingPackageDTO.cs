@@ -50,16 +50,13 @@ namespace EcoFarm.UseCases.DTOs
             }
         }
         public string ServiceTypeName { get; set; }
-        public List<UserDTO> RegisteredUsers { get; set; } = new();
+        public List<RegisteredUser> RegisteredUsers { get; set; } = new();
         public int? NumbersOfRating { get; set; }
 
         public decimal? AverageRating { get; set; }
 
-        public class RegisteredUser
+        public class RegisteredUser : UserDTO
         {
-            public string AccountId { get; set; }
-            public string Username { get; set; }
-            public string Name { get; set; }
             public DateTime? RegisteredTime { get; set; }
         }
     }
