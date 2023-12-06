@@ -36,7 +36,8 @@ namespace EcoFarm.UseCases.UserAddresses.Get
         public async Task<Result<List<UserAddressDTO>>> Handle(GetListUserAddressQuery request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.UserAddresses
-                .GetQueryable();
+                .GetQueryable()
+                .Where(x => string.Equals(x.USER_ID, _authService.GetAccountEntityId()));
             if (!string.IsNullOrEmpty(request.UserId))
             {
                 query = query.Where(x => string.Equals(x.USER_ID, request.UserId));

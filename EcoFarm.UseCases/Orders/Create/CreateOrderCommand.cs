@@ -1,5 +1,6 @@
 ﻿using Ardalis.Result;
 using EcoFarm.Application.Common.Extensions;
+using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
@@ -40,10 +41,13 @@ namespace EcoFarm.UseCases.Orders.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
-        public CreateOrderHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        private readonly ILocalizeService _localizeService;
+        public CreateOrderHandler(IUnitOfWork unitOfWork, IAuthService authService,
+            ILocalizeService localizeService)
         {
             _unitOfWork = unitOfWork;
             _authService = authService;
+            _localizeService = localizeService;
         }
 
 
@@ -54,6 +58,15 @@ namespace EcoFarm.UseCases.Orders.Create
             if (string.Compare(accountType, EFX.AccountTypes.Customer) != 0)
             {
                 return Result.Forbidden();
+            }
+            var user = await _unitOfWork.Users.FindAsync(userId);
+            if (user is null)
+            {
+                return Result.Forbidden();
+            }
+            if (user.IS_ACTIVE)
+            {
+                return Result.Error(_localizeService.GetMessage(Application.Localization.LocalizationEnum.AccountLocked));
             }
             //XXX: Bỏ qua logic validator
             var address = await _unitOfWork.UserAddresses.FindAsync(request.AddressId);
@@ -118,8 +131,8 @@ namespace EcoFarm.UseCases.Orders.Create
                 await _unitOfWork.SaveChangesAsync();
                 return Result.Success(new OrderDTO
                 {
-                    Id = newOrder.ID,
-                    Code = newOrder.CODE,
+                    OrderId = newOrder.ID,
+                    OrderCode = newOrder.CODE,
                     Name = newOrder.NAME,
                     UserId = newOrder.USER_ID,
                     AddressId = newOrder.ADDRESS_ID,

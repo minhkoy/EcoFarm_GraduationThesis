@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Entities;
@@ -91,6 +92,13 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
                 CURRENCY = package.CURRENCY,
 
             });
+
+            package.QUANTITY_REGISTERED++;
+            if (package.QuantityRemain <= 0)
+            {
+                package.CLOSE_REGISTER_TIME = DateTime.Now.ToVnDateTime();
+            }
+            _unitOfWork.FarmingPackages.Update(package);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage("Đăng ký gói farming thành công. Bạn sẽ nhận được thông tin từ các hoạt động mới nhất của gói farming này.");
             //if (package.STATUS i)

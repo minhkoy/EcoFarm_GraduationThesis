@@ -111,10 +111,13 @@ namespace EcoFarm.UseCases.FarmingPackages.Update
                 CloseRegisterTime = farmingPackage.CLOSE_REGISTER_TIME,
                 RegisteredUsers = await registeredUser
                 .Include(x => x.UserInfo)
-                .Select(x => new FarmingPackageDTO.RegisteredUser
+                .ThenInclude(x => x.AccountInfo)
+                .Select(x => new UserDTO
                 {
                     AccountId = x.UserInfo.ACCOUNT_ID,
-                    Name = x.UserInfo.NAME,
+                    FullName = x.UserInfo.NAME,
+                    Username = x.UserInfo.AccountInfo.USERNAME,
+                    RegisteredTime = x.REGISTER_TIME,
                 })
                 .ToListAsync()
             }, "Cập nhật thông tin gói thành công");

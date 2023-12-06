@@ -16,8 +16,9 @@ namespace EcoFarm.UseCases.DTOs
         public DateTime? CreatedTime { get; set; }
         public string CreatedBy { get; set; }
         public string SellerEnterpriseId { get; set; }
-        public string SellerEnterpriseCode { get; set; }
+        //public string SellerEnterpriseCode { get; set; }
         public string SellerEnterpriseName { get; set; }
+        public EnterpriseDTO Enterprise { get; set; }
         public string Description { get; set; }
         public DateTime? EstimatedStartTime { get; set; }
         public DateTime? EstimatedEndTime { get; set; }
@@ -49,7 +50,7 @@ namespace EcoFarm.UseCases.DTOs
             }
         }
         public string ServiceTypeName { get; set; }
-        public List<RegisteredUser> RegisteredUsers { get; set; } = new();
+        public List<UserDTO> RegisteredUsers { get; set; } = new();
         public int? NumbersOfRating { get; set; }
 
         public decimal? AverageRating { get; set; }

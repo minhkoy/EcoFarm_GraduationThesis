@@ -64,7 +64,7 @@ namespace EcoFarm.UseCases.Users.Get
                     GenderName = x.GENDER.HasValue ? EFX.Genders.dctGenderEnum[x.GENDER.Value] : string.Empty,
                     LockedReason = x.AccountInfo.LOCKED_REASON,
                     PhoneNumber = x.PHONE_NUMBER,
-                    UserId = x.ID,
+                    Id = x.ID,
                     Username = x.AccountInfo.USERNAME,
 
                 })

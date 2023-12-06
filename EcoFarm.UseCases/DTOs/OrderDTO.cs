@@ -8,10 +8,10 @@ using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
 namespace EcoFarm.UseCases.DTOs
 {
-    public class OrderDTO
+    public class OrderDTO : EnterpriseDTO
     {
-        public string Id { get; set; }
-        public string Code { get; set; }
+        public string OrderId { get; set; }
+        public string OrderCode { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
         public string Note { get; set; }

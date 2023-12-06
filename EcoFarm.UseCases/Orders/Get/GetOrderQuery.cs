@@ -43,8 +43,8 @@ namespace EcoFarm.UseCases.Orders.Get
                 }
                 return Result.Success(new OrderDTO
                 {
-                    Id = order.ID,
-                    Code = order.CODE,
+                    OrderId = order.ID,
+                    OrderCode = order.CODE,
                     CreatedAt = order.CREATED_TIME,
                     AddressId = order.ADDRESS_ID,
                     AddressDescription = order.ADDRESS_DESCRIPTION,
@@ -65,8 +65,8 @@ namespace EcoFarm.UseCases.Orders.Get
                 }
                 return Result.Success(new OrderDTO
                 {
-                    Id = order.ID,
-                    Code = order.CODE,
+                    OrderId = order.ID,
+                    OrderCode = order.CODE,
                     CreatedAt = order.CREATED_TIME,
                     AddressId = order.ADDRESS_ID,
                     AddressDescription = order.ADDRESS_DESCRIPTION,

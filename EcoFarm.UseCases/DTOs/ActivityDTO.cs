@@ -18,6 +18,8 @@ namespace EcoFarm.UseCases.DTOs
         public string CreatedTime { get; set; }
         public string CreatedBy { get; set; }
         public string MediaUrls { get; set; }
+        public FarmingPackageDTO Package { get; set; }
+        
 
     }
 }

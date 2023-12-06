@@ -33,7 +33,7 @@ namespace EcoFarm.Api.Controllers.Tasks
         }
 
         /// <summary>
-        /// Lấy danh sách địa chỉ
+        /// Lấy danh sách địa chỉ của người dùng 
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>

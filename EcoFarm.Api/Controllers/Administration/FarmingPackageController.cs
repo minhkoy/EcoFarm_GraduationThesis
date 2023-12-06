@@ -39,6 +39,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetList([FromQuery] GetListPackageQuery query)
         {
             var result = await _mediator.Send(query);
@@ -63,6 +64,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery] GetSinglePackageQuery query)
         {
             var result = await _mediator.Send(query);

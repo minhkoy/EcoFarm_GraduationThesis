@@ -1,5 +1,6 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
 using EcoFarm.Api.Hubs;
+using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.UseCases.Accounts.ChangePassword;
 using EcoFarm.UseCases.Accounts.Get;
 using EcoFarm.UseCases.Accounts.Lock;
@@ -27,6 +28,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = nameof(EFX.AccountTypes.Admin))]
         public async Task<IActionResult> GetListAccountType()
         {
             var result = await _mediator.Send(new GetListAccountTypeQuery());

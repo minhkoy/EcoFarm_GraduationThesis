@@ -64,8 +64,8 @@ namespace EcoFarm.UseCases.Accounts.Signup
             await _unitOfWork.SaveChangesAsync();
             return Result.Success(new EnterpriseDTO
             {
-                Id = newEnterprise.ID,
-                Name = newEnterprise.NAME,
+                EnterpriseId = newEnterprise.ID,
+                EnterpriseName = newEnterprise.NAME,
                 Address = newEnterprise.ADDRESS,
                 TaxCode = newEnterprise.TAX_CODE,
                 Description = newEnterprise.DESCRIPTION,
@@ -73,7 +73,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
                 Hotline = newEnterprise.HOTLINE,
                 AccountEmail = newAccount.EMAIL,
                 AccountId = newAccount.ID,
-                AccountUsername = newAccount.USERNAME,
+                Username = newAccount.USERNAME,
             });
         }
     }

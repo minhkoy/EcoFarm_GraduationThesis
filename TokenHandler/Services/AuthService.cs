@@ -123,7 +123,8 @@ namespace TokenHandler.Services
                 //new Claim(ClaimTypes.Email, data.Email),
                 new Claim(ClaimTypes.Sid, data.EntityId),
                 new Claim(ClaimTypes.NameIdentifier, data.Username),
-                new Claim("AccountType", data.AccountTypeName)
+                new Claim("AccountType", data.AccountTypeName),
+                new Claim(ClaimTypes.Role, data.AccountTypeName),
                 //new Claim(ClaimTypes.Expiration, data.ExpireDateTime.ToString()),
             }) ;
             //data.Roles.ForEach(x => identity.Claims.Append(new Claim(ClaimTypes.Role, x)));
