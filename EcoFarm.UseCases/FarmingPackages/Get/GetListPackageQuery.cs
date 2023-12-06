@@ -101,8 +101,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 StartTime = x.START_TIME,
                 EndTime = x.END_TIME,
                 CloseRegisterTime = x.CLOSE_REGISTER_TIME,
-                SellerEnterpriseId = x.SELLER_ENTERPRISE_ID,
-                SellerEnterpriseName = x.Enterprise.NAME,
+                Enterprise = new EnterpriseDTO
+                {
+                    EnterpriseId = x.Enterprise.ID,
+                    EnterpriseName = x.Enterprise.NAME,
+                },
                 Price = x.PRICE,
                 Currency = x.CURRENCY,
                 QuantityStart = x.QUANTITY_START,

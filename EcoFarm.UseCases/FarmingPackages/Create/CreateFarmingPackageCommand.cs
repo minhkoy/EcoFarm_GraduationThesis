@@ -94,8 +94,12 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 QuantityRegistered = farmingPackage.QUANTITY_REGISTERED,
                 QuantityRemain = farmingPackage.QuantityRemain,
                 PackageType = farmingPackage.PACKAGE_TYPE,
-                SellerEnterpriseId = farmingPackage.SELLER_ENTERPRISE_ID,
-                SellerEnterpriseName = enterprise.NAME,
+                Enterprise = new()
+                {
+                    EnterpriseId = enterprise.ID,
+                    EnterpriseName = enterprise.NAME,
+                    Username = account.USERNAME,
+                },
                 //SellerEnterpriseCode = enterprise.CODE,
                 ServicePackageApprovalStatus = farmingPackage.STATUS,
                 CreatedTime = farmingPackage.CREATED_TIME,

@@ -45,7 +45,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             var temp = _unitOfWork.UserRegisterPackages
                 .GetQueryable()
                 .Include(x => x.PackageInfo)
-                .Include(x => x.PackageInfo.Enterprise)
+                .ThenInclude(x => x.Enterprise)
                 .Where(x => x.USER_ID.Equals(userId));
             if (!string.IsNullOrEmpty(request.Keyword))
             {
@@ -79,8 +79,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                     Code = x.PackageInfo.CODE,
                     Name = x.PackageInfo.NAME,
                     Description = x.PackageInfo.DESCRIPTION,
-                    SellerEnterpriseId = x.PackageInfo.SELLER_ENTERPRISE_ID,
-                    SellerEnterpriseName = x.PackageInfo.Enterprise.NAME,
+                    Enterprise = new EnterpriseDTO
+                    {
+                        EnterpriseId = x.PackageInfo.Enterprise.ID,
+                        EnterpriseName = x.PackageInfo.Enterprise.NAME,
+                    },
                     CloseRegisterTime = x.PackageInfo.CLOSE_REGISTER_TIME,
                     StartTime = x.PackageInfo.START_TIME,
                     EndTime = x.PackageInfo.END_TIME,

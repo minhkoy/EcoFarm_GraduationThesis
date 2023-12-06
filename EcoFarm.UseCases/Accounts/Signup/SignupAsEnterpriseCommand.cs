@@ -71,7 +71,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
                 Description = newEnterprise.DESCRIPTION,
                 AvatarUrl = newEnterprise.AVATAR_URL,
                 Hotline = newEnterprise.HOTLINE,
-                AccountEmail = newAccount.EMAIL,
+                Email = newAccount.EMAIL,
                 AccountId = newAccount.ID,
                 Username = newAccount.USERNAME,
             });

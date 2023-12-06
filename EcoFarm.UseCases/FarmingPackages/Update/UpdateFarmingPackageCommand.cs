@@ -102,8 +102,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Update
                 QuantityRegistered = farmingPackage.QUANTITY_REGISTERED,
                 QuantityRemain = farmingPackage.QuantityRemain,
                 PackageType = farmingPackage.PACKAGE_TYPE,
-                SellerEnterpriseId = farmingPackage.SELLER_ENTERPRISE_ID,
-                SellerEnterpriseName = enterprise.NAME,
+                Enterprise = new EnterpriseDTO
+                {
+                    EnterpriseId = enterprise.ID,
+                    EnterpriseName = enterprise.NAME,
+                },
                 //SellerEnterpriseCode = enterprise.CODE,
                 ServicePackageApprovalStatus = farmingPackage.STATUS,
                 StartTime = farmingPackage.START_TIME,

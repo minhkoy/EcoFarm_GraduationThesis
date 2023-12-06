@@ -10,11 +10,9 @@ namespace EcoFarm.UseCases.DTOs
     {
         public string EnterpriseId { get; set; }
         public string EnterpriseName { get; set; }
-        public string AccountEmail { get; set; }
         public string Address { get; set; }
         public string TaxCode { get; set; }
         public string Description { get; set; }
         public string Hotline { get; set; }
-        public AccountDTO AccountInfo { get; set; }
     }
 }
