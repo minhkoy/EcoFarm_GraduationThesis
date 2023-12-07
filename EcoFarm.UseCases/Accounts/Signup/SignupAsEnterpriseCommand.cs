@@ -52,7 +52,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
             };
             SellerEnterprise newEnterprise = new()
             {
-                NAME = request.Name,
+                NAME = request.Name ?? string.Empty,
                 ADDRESS = request.Address,
                 TAX_CODE = request.TaxCode,
                 DESCRIPTION = request.Description,

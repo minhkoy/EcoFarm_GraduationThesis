@@ -20,7 +20,8 @@ namespace EcoFarm.UseCases.Accounts.Signup
                 .NotEmpty().WithMessage("Tên đăng nhập không được để trống")
                 .Must(NotExistUsername).WithMessage("Tên đăng nhập đã tồn tại");
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Mật khẩu không được để trống");
+                .NotEmpty().WithMessage("Mật khẩu không được để trống")
+                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$").WithMessage("Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số");
             //RuleFor(x => x.Email)
             //    .NotEmpty().WithMessage("Email không được để trống")
             //    .Matches(Regex.);

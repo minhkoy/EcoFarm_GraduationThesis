@@ -38,7 +38,7 @@ namespace EcoFarm.Application.Features.Administration.AuthenticationFeatures.Com
             if (string.IsNullOrWhiteSpace(username)) { return true; }
             var existingUser = _unitOfWork.Accounts
                 .GetQueryable()
-                .FirstOrDefault(x => x.USERNAME.Equals(username));
+                .FirstOrDefault(x => string.Equals(x.USERNAME, username));
             if (existingUser is null)
             {
                 return false;

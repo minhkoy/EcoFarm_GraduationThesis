@@ -119,7 +119,7 @@ namespace TokenHandler.Services
         {
             var identity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, data.Fullname),
+                new Claim(ClaimTypes.Name, data.Fullname ?? string.Empty),
                 //new Claim(ClaimTypes.Email, data.Email),
                 new Claim(ClaimTypes.Sid, data.EntityId),
                 new Claim(ClaimTypes.NameIdentifier, data.Username),

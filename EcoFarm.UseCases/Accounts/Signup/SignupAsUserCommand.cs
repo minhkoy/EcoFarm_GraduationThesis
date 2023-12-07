@@ -76,7 +76,7 @@ namespace EcoFarm.UseCases.Accounts.Signup
             {
                 AccountId = account.ID,
                 FullName = account.NAME,
-                Username = account.USERNAME,
+                Username = account.USERNAME ?? string.Empty,
                 Email = account.EMAIL,
                 IsEmailConfirmed = account.IS_EMAIL_CONFIRMED,
                 DateOfBirth = user.DATE_OF_BIRTH,
