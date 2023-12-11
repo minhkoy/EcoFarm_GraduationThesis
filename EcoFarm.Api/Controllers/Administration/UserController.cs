@@ -22,7 +22,22 @@ namespace EcoFarm.Api.Controllers.Administration
         {
         }
 
-
+        /// <summary>
+        /// Lấy thông tin người dùng đang đăng nhập (user) 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetMyUserInfo()
+        {
+            var result = await _mediator.Send(new GetMyUserInfoQuery());
+            return this.FromResult(result, _logger);
+        }
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> Get([FromQuery] GetUserQuery query)
+        //{
+        //    var result = await _mediator.Send(query);
+        //    return this.FromResult(result, _logger);
+        //}
         //[HttpGet("[action]")]
         //[AllowAnonymous]
         //public async Task<IActionResult> GetListRole()

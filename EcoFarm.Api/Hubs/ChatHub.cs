@@ -9,9 +9,11 @@ namespace EcoFarm.Api.Hubs
     public class ChatHub : Hub
     {
         private readonly IAuthService _authService;
-        public ChatHub(IAuthService authService)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public ChatHub(IAuthService authService, IHttpContextAccessor httpContextAccessor)
         {
             _authService = authService;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public override Task OnConnectedAsync()
         {
@@ -21,6 +23,7 @@ namespace EcoFarm.Api.Hubs
             //identity.AddClaim(new Claim(ClaimTypes.Name, _authService.GetFullname()));
             //var principal = new ClaimsPrincipal(identity);
             Context.User.AddIdentity(identity);
+            Console.WriteLine("Token: " + httpContextAccessor.HttpContext.Request.Headers["Authorization"]);
             return base.OnConnectedAsync();
         }
 
@@ -31,7 +34,7 @@ namespace EcoFarm.Api.Hubs
 
         public async Task SendMessage(SendMessageRequest request)
         {
-            await Clients.User(request.ToUsername).SendAsync(EFX.SignalREvents.SendMessage, request.Message);
+            await Clients.All/*User(request.ToUsername)*/.SendAsync(EFX.SignalREvents.ReceiveMessage, $"{Context.User.FindFirst(ClaimTypes.NameIdentifier).Value}: {request.Message}");// request.Message);
         }
     }
 }

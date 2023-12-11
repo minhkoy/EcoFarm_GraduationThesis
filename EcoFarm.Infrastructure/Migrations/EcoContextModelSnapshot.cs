@@ -18,9 +18,10 @@ namespace EcoFarm.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.ActivityMedia", b =>
                 {
@@ -81,7 +82,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("ACTIVITY_ID");
 
-                    b.ToTable("ACTIVITY_MEDIA");
+                    b.ToTable("ACTIVITY_MEDIA", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Administration.Account", b =>
@@ -161,7 +162,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[USERNAME] IS NOT NULL");
 
-                    b.ToTable("ACCOUNT");
+                    b.ToTable("ACCOUNT", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Administration.AccountVerify", b =>
@@ -221,7 +222,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("ACCOUNT_ID");
 
-                    b.ToTable("ACCOUNT_VERIFY");
+                    b.ToTable("ACCOUNT_VERIFY", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Administration.Role", b =>
@@ -272,7 +273,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ROLE");
+                    b.ToTable("ROLE", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Administration.RoleUser", b =>
@@ -322,7 +323,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("ROLE_USER");
+                    b.ToTable("ROLE_USER", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Administration.User", b =>
@@ -381,7 +382,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[ACCOUNT_ID] IS NOT NULL");
 
-                    b.ToTable("USER");
+                    b.ToTable("USER", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.CartDetail", b =>
@@ -440,7 +441,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("PRODUCT_ID");
 
-                    b.ToTable("CART_DETAIL");
+                    b.ToTable("CART_DETAIL", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.FarmingPackage", b =>
@@ -547,7 +548,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("SELLER_ENTERPRISE_ID");
 
-                    b.ToTable("FARMING_PACKAGE");
+                    b.ToTable("FARMING_PACKAGE", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.FarmingPackageActivity", b =>
@@ -603,7 +604,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("PACKAGE_ID");
 
-                    b.ToTable("FARMING_PACKAGE_ACTIVITY");
+                    b.ToTable("FARMING_PACKAGE_ACTIVITY", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Notification", b =>
@@ -660,7 +661,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("FROM_ACCOUNT_ID");
 
-                    b.ToTable("NOTIFICATION");
+                    b.ToTable("NOTIFICATION", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.NotificationAccount", b =>
@@ -716,7 +717,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("TO_ACCOUNT_ID");
 
-                    b.ToTable("NOTIFICATION_ACCOUNT");
+                    b.ToTable("NOTIFICATION_ACCOUNT", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Order", b =>
@@ -800,7 +801,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("ORDER");
+                    b.ToTable("ORDER", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.OrderProduct", b =>
@@ -862,7 +863,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("PRODUCT_ID");
 
-                    b.ToTable("ORDER_PRODUCT");
+                    b.ToTable("ORDER_PRODUCT", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.OrderTimeline", b =>
@@ -913,7 +914,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("ORDER_ID");
 
-                    b.ToTable("ORDER_TIMELINE");
+                    b.ToTable("ORDER_TIMELINE", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.PackageMedia", b =>
@@ -975,7 +976,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("PACKAGE_ID");
 
-                    b.ToTable("PACKAGE_MEDIA");
+                    b.ToTable("PACKAGE_MEDIA", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.Product", b =>
@@ -1059,7 +1060,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[PACKAGE_ID] IS NOT NULL");
 
-                    b.ToTable("PRODUCT");
+                    b.ToTable("PRODUCT", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.ProductMedia", b =>
@@ -1121,7 +1122,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("PRODUCT_ID");
 
-                    b.ToTable("PRODUCT_MEDIA");
+                    b.ToTable("PRODUCT_MEDIA", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.ShoppingCart", b =>
@@ -1183,7 +1184,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("SHOPPING_CART");
+                    b.ToTable("SHOPPING_CART", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.UserActivityComment", b =>
@@ -1241,7 +1242,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[ACTIVITY_ID] IS NOT NULL AND [USER_ID] IS NOT NULL");
 
-                    b.ToTable("USER_ACTIVITY_COMMENT");
+                    b.ToTable("USER_ACTIVITY_COMMENT", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.UserPackageReview", b =>
@@ -1300,7 +1301,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("USER_PACKAGE_REVIEW");
+                    b.ToTable("USER_PACKAGE_REVIEW", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.UserRegisterPackage", b =>
@@ -1359,7 +1360,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("USER_REGISTER_PACKAGE");
+                    b.ToTable("USER_REGISTER_PACKAGE", (string)null);
                 });
 
             modelBuilder.Entity("SellerEnterprise", b =>
@@ -1436,7 +1437,7 @@ namespace EcoFarm.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[ACCOUNT_ID] IS NOT NULL");
 
-                    b.ToTable("SELLER_ENTERPRISE");
+                    b.ToTable("SELLER_ENTERPRISE", (string)null);
                 });
 
             modelBuilder.Entity("UserAddress", b =>
@@ -1493,7 +1494,7 @@ namespace EcoFarm.Infrastructure.Migrations
 
                     b.HasIndex("USER_ID");
 
-                    b.ToTable("USER_ADDRESS");
+                    b.ToTable("USER_ADDRESS", (string)null);
                 });
 
             modelBuilder.Entity("EcoFarm.Domain.Entities.ActivityMedia", b =>

@@ -47,11 +47,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 temp = temp.Where(x => x.SELLER_ENTERPRISE_ID.Equals(request.EnterpriseId));
             }
-            if (request.PriceFrom.HasValue)
-            {
+            if (request.PriceFrom.HasValue && request.PriceFrom.Value > 0)
+            { 
                 temp = temp.Where(x => x.PRICE >= request.PriceFrom.Value);
             }
-            if (request.PriceTo.HasValue)
+            if (request.PriceTo.HasValue && request.PriceTo.Value > 0)
             {
                 temp = temp.Where(x => x.PRICE <= request.PriceTo.Value);
             }
@@ -59,11 +59,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 temp = temp.Where(x => x.CODE.Contains(request.Keyword) || x.NAME.Contains(request.Keyword));
             }
-            if (request.IsStarted.HasValue)
+            if (request.IsStarted.HasValue && request.IsStarted.Value)
             {
                 temp = temp.Where(x => x.START_TIME.HasValue);
             }
-            if (request.IsEnded.HasValue)
+            if (request.IsEnded.HasValue && request.IsEnded.Value)
             {
                 temp = temp.Where(x => x.END_TIME.HasValue);
             }

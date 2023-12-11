@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TokenHandler.Interfaces;
 
 namespace EcoFarm.UseCases.FarmingPackages.Get
 {
@@ -23,9 +24,11 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
     internal class GetSinglePackageQueryHandler : IQuerySingleHandler<GetSinglePackageQuery, FarmingPackageDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public GetSinglePackageQueryHandler(IUnitOfWork unitOfWork)
+        private readonly IAuthService _authService;
+        public GetSinglePackageQueryHandler(IUnitOfWork unitOfWork, IAuthService authService)
         {
             _unitOfWork = unitOfWork;
+            _authService = authService;
         }
         public async Task<Result<FarmingPackageDTO>> Handle(GetSinglePackageQuery request, CancellationToken cancellationToken)
         {
@@ -51,12 +54,22 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             IQueryable<FarmingPackageDTO.RegisteredUser> users = _unitOfWork.UserRegisterPackages
                 .GetQueryable()
                 .Include(x => x.UserInfo)
+                .Where(x => string.Equals(x.PACKAGE_ID, pkg.ID))
                 .Select(x => new FarmingPackageDTO.RegisteredUser
                 {
+                    UserId = x.USER_ID,
                     AccountId = x.UserInfo.ACCOUNT_ID,
                     FullName = x.UserInfo.NAME,
                     RegisteredTime = x.REGISTER_TIME
                 });
+            var isRegistered = false;
+            if (users
+                .AsEnumerable()
+                .Any(x => string.Equals(x.UserId, _authService.GetAccountEntityId())))
+            {
+                isRegistered = true;
+            }
+            //Console.WriteLine(isRegistered);
             return Result<FarmingPackageDTO>.Success(new FarmingPackageDTO {
                 Id = pkg.ID,
                 Code = pkg.CODE,
@@ -77,6 +90,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 CloseRegisterTime = pkg.CLOSE_REGISTER_TIME,
                 PackageType = pkg.PACKAGE_TYPE,
                 ServicePackageApprovalStatus = pkg.STATUS,
+                NumbersOfRating = pkg.NUMBERS_OF_RATING,
+                AverageRating = pkg.AverageRating,
+                IsRegisteredByCurrentUser = isRegistered,
+                
             });
         }
     }

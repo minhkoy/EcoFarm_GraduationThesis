@@ -56,6 +56,8 @@ namespace EcoFarm.UseCases.DTOs
 
         public decimal? AverageRating { get; set; }
 
+        public bool IsRegisteredByCurrentUser { get; set; }
+
         public class RegisteredUser : UserDTO
         {
             public DateTime? RegisteredTime { get; set; }

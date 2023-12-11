@@ -24,6 +24,7 @@
     <Folder Include="FarmingPackages\Delete\" />
     <Folder Include="Orders\MarkPreparing\" />
     <Folder Include="Orders\CompletePreparation\" />
+    <Folder Include="Orders\NewFolder\" />
     <Folder Include="Orders\Update\" />
     <Folder Include="Orders\Reject\" />
     <Folder Include="Roles\Create\" />

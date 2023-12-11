@@ -30,7 +30,10 @@ using static System.Net.Mime.MediaTypeNames;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(o =>
+{
+    o.EnableDetailedErrors = true;
+});
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(EcoFarm.UseCases.AssemblyReference).Assembly);
@@ -149,11 +152,13 @@ builder.Services.AddSwaggerGen(s =>
 });
 builder.Services.AddDbContext<EcoContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"), 
-        b => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnStr"),
+        b =>
+        {
             b.MigrationsAssembly("EcoFarm.Infrastructure");
             b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
         });
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
 });
 //builder.Services.AddValidators();
 builder.Services.AddSingleton<ErrorHandlingMiddleware>();
@@ -164,9 +169,9 @@ builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseSwagger();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
     app.UseSwaggerUI();
 }
 
@@ -181,5 +186,6 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.MapHub<NotificationHub>("/notification");
 app.MapHub<UserConnectionHub>("/user-connection");
+app.MapHub<ChatHub>("/chat");
 
 app.Run();

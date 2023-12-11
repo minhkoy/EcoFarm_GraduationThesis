@@ -47,17 +47,17 @@ namespace EcoFarm.UseCases.PackageReviews.Get
             {
                 query = query.Where(x => string.Equals(x.PACKAGE_ID, request.PackageId));
             }
-            else
-            {
-                if (!string.Equals(_authService.GetAccountTypeName(), EFX.AccountTypes.Admin)
-                    || !string.Equals(_authService.GetAccountTypeName(), EFX.AccountTypes.SuperAdmin))
-                {
-                    return Result.Forbidden();
-                }
-            }
+            //else
+            //{
+            //    if (!string.Equals(_authService.GetAccountTypeName(), EFX.AccountTypes.Admin)
+            //        || !string.Equals(_authService.GetAccountTypeName(), EFX.AccountTypes.SuperAdmin))
+            //    {
+            //        return Result.Forbidden();
+            //    }
+            //}
             if (request.Rating.HasValue)
             {
-                if (request.Rating.Value < 0 || request.Rating.Value > 5)
+                if (request.Rating.Value < -1 || request.Rating.Value > 5)
                 {
                     return Result.Error(_localizeService.GetMessage(LocalizationEnum.RatingInvalid));
                 }

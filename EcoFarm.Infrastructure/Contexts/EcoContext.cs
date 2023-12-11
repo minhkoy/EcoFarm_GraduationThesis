@@ -8,6 +8,10 @@ public class EcoContext : DbContext
     public EcoContext() { }
     public EcoContext(DbContextOptions<EcoContext> options) : base(options) { }
 
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseNpgsql();
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         foreach (var property in modelBuilder.Model.GetEntityTypes()
@@ -16,6 +20,16 @@ public class EcoContext : DbContext
         {
             property.SetColumnType("decimal(18,2)");
         }
+
+        //foreach (var property in modelBuilder.Model.GetEntityTypes()
+        //        .SelectMany(t => t.GetProperties())
+        //        .Where(p => p.ClrType == typeof(string)))
+        //{
+        //    property.SetColumnType("varchar(256)");
+        //}
+
+
+        //modelBuilder.Entity<Account>
     }
 
     public DbSet<Account> Users { get; set; }
