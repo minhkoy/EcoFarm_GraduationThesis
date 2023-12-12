@@ -39,6 +39,7 @@ namespace EcoFarm.Api.Controllers.Tasks
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetList([FromQuery] GetListProductQuery command)
         {
             var result = await _mediator.Send(command);

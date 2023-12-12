@@ -88,7 +88,7 @@ namespace EcoFarm.UseCases.PackageReviews.Create
                 RATING = request.Rating,
             };
 
-            if (request.Rating.HasValue)
+            if (request.Rating.HasValue && request.Rating.Value >= 1 && request.Rating.Value <= 5)
             {
                 package.NUMBERS_OF_RATING++;
                 package.TOTAL_RATING_POINTS += request.Rating.Value;
