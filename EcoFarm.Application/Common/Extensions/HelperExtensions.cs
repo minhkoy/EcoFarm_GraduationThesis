@@ -65,7 +65,8 @@ namespace EcoFarm.Application.Common.Extensions
         public static DateTime ToVnDateTime(this DateTime dateTime)
         {
             string vnTimeZoneId = EFX.Timezone_VN;
-            return TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(vnTimeZoneId));
+            return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(vnTimeZoneId));
+
         }
     }
 }

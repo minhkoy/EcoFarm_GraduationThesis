@@ -14,7 +14,7 @@ namespace EcoFarm.Api.Controllers.Administration
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class EnterpriseController : BaseController
     {
-        public EnterpriseController(IMediator mediator, ILogger logger, IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
+        public EnterpriseController(IMediator mediator, ILogger<EnterpriseController> logger, IHubContext<NotificationHub> hubContext) : base(mediator, logger, hubContext)
         {
         }
 

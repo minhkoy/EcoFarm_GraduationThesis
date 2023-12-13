@@ -28,8 +28,8 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
         public bool? IsActive { get; set; }
         public bool? IsApproved { get; set; }
         public bool? IsCloseForRegistered { get; set; }
-        public int Page { get; set; } = 1;
-        public int Limit { get; set; } = EFX.DefaultPageSize;
+        public int? Page { get; set; }
+        public int? Limit { get; set; }
     }
 
     internal class GetListPackageHandler : IQueryHandler<GetListPackageQuery, FarmingPackageDTO>
@@ -86,9 +86,17 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 temp = temp.Where(x => x.CLOSE_REGISTER_TIME.HasValue && x.CLOSE_REGISTER_TIME.Value <= DateTime.Now.ToVnDateTime());
             }
+            if (!request.Limit.HasValue)
+            {
+                request.Limit = EFX.DefaultPageSize;
+            }
+            if (!request.Page.HasValue)
+            {
+                request.Page = 1;
+            }
             var rs = await temp
-                .Skip((request.Page - 1) * request.Limit)
-                .Take(request.Limit)
+                .Skip((request.Page.Value - 1) * request.Limit.Value)
+                .Take(request.Limit.Value)
                 .Include(x => x.Enterprise)
                 .Select(x => new FarmingPackageDTO
             {

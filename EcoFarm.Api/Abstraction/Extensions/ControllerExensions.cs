@@ -28,10 +28,10 @@ namespace EcoFarm.Api.Abstraction.Extensions
                     message = "Xử lý thành công";
                 }
                 logger.LogInformation(message);
-                if (typeof(T) == typeof(bool))
-                {
-                    return controller.NoContent();
-                }
+                //if (typeof(T) == typeof(bool))
+                //{
+                //    return controller.NoContent();
+                //}
                 switch (controller.Request.Method)
                 {
                     case nameof(HttpMethod.Post):

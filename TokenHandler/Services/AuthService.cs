@@ -47,7 +47,8 @@ namespace TokenHandler.Services
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidIssuer = _option.Issuer,
-                    ValidateAudience = false,
+                    ValidateAudience = true,
+                    ValidAudience = _option.Audience,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);

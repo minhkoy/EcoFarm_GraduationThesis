@@ -2,6 +2,17 @@ namespace EcoFarm.Domain.Common.Values.Enums;
 
 public class HelperEnums
 {
+    //Query orders
+    public enum QueryOrderEnum
+    {
+        Name = 0,
+        Price,
+        QuantityRemain,
+        Sold,
+        CreatedTime,
+        Rating,
+    }
+
     //User
     public enum GenderEnum
     {

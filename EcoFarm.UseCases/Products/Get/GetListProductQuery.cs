@@ -46,7 +46,7 @@ namespace EcoFarm.UseCases.Products.Get
                 .Include(x => x.Enterprise);
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.CODE.Contains(request.Keyword));
+                query = query.Where(x => x.CODE.Contains(request.Keyword) || x.NAME.Contains(request.Keyword));
             }
             if (request.IsActive.HasValue)
             {
@@ -56,19 +56,19 @@ namespace EcoFarm.UseCases.Products.Get
             {
                 query = query.Where(x => x.PACKAGE_ID == request.PackageId);
             }
-            if (request.MinimumQuantity.HasValue)
+            if (request.MinimumQuantity.HasValue && request.MinimumQuantity.Value > 0)
             {
-                query = query.Where(x => x.QUANTITY >= request.MinimumQuantity.Value);
+                query = query.Where(x => x.CURRENT_QUANTITY >= request.MinimumQuantity.Value);
             }
-            if (request.MaximumQuantity.HasValue)
+            if (request.MaximumQuantity.HasValue && request.MaximumQuantity.Value > 0)
             {
-                query = query.Where(x => x.QUANTITY <= request.MaximumQuantity.Value);
+                query = query.Where(x => x.CURRENT_QUANTITY <= request.MaximumQuantity.Value);
             }
-            if (request.MinimumPrice.HasValue)
+            if (request.MinimumPrice.HasValue && request.MinimumPrice.Value > 0)
             {
                 query = query.Where(x => x.PRICE >= request.MinimumPrice.Value);
             }
-            if (request.MaximumPrice.HasValue)
+            if (request.MaximumPrice.HasValue && request.MaximumPrice.Value > 0)
             {
                 query = query.Where(x => x.PRICE <= request.MaximumPrice.Value);
             }
