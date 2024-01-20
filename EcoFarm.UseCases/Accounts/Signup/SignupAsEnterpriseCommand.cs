@@ -49,9 +49,12 @@ namespace EcoFarm.UseCases.Accounts.Signup
                 IS_DELETE = false,
                 ACCOUNT_TYPE = AccountType.Seller,
                 LATEST_GENERATED_TOKEN = Guid.NewGuid().ToString(),
+                NAME = request.Name ?? string.Empty,
             };
             SellerEnterprise newEnterprise = new()
             {
+                ACCOUNT_ID = newAccount.ID,
+                
                 NAME = request.Name ?? string.Empty,
                 ADDRESS = request.Address,
                 TAX_CODE = request.TaxCode,

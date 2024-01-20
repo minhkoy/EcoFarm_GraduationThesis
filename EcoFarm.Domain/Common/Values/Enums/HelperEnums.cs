@@ -37,6 +37,18 @@ public class HelperEnums
         ChangePassword,
         ChangePhone,
     }
+    //Package
+    public enum PackageStatus
+    {
+        NotStarted,
+        Started,
+        Ended
+    }
+    public enum PackageRegisterStatus
+    {
+        OpenForRegister = 0,
+        ClosedForRegister,
+    }
     //Notification
     public enum NotificationObjectType
     {
@@ -75,7 +87,7 @@ public class HelperEnums
         Rejected
     }
 
-    public enum OrderStatus 
+    public enum OrderStatus
     {
         WaitingSellerConfirm = 1,
         SellerConfirmed,
@@ -130,5 +142,23 @@ public class HelperEnums
     {
         VND = 0,
         USD
+    }
+
+    public enum SortingPackageType
+    {
+        MostRegister = 0,
+        MostRegisterInWeek,
+        Newest,
+        MostComment,
+        MostCommentInWeek,
+        MostRecentActivity,
+        MostRating,
+    }
+
+    public enum SortingProductType
+    {
+        MostSold = 0,
+        MostSoldInWeek,
+        Newest,
     }
 }

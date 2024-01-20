@@ -54,7 +54,7 @@ namespace EcoFarm.UseCases.Orders.MarkReceived
             }
             if (order.STATUS != OrderStatus.Shipped)
             {
-                return Result.Error("Đơn hàng chưa ở trạng thái đã vận chuyển đến");
+                return Result.Error("Đơn hàng chưa ở trạng thái {1}", EFX.OrderStatuses.Shipped);
             }
             order.STATUS = OrderStatus.Received;
             OrderTimeline orderTimeline = new()

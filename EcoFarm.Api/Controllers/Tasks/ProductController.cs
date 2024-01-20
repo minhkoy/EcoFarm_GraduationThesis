@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.Products.Create;
 using EcoFarm.UseCases.Products.Delete;
 using EcoFarm.UseCases.Products.Get;
@@ -40,7 +40,7 @@ namespace EcoFarm.Api.Controllers.Tasks
         /// <returns></returns>
         [HttpGet("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetList([FromQuery] GetListProductQuery command)
+        public async Task<IActionResult> Get([FromQuery] GetListProductQuery command)
         {
             var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);

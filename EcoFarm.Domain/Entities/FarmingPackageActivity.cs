@@ -13,6 +13,7 @@ namespace EcoFarm.Domain.Entities
     public class FarmingPackageActivity : BaseEntity
     {
         public string PACKAGE_ID { get; set; }
+        public string SHORT_DESCRIPTION { get; set; }
         public string DESCRIPTION { get; set; }
         [ForeignKey(nameof(PACKAGE_ID))]
         [InverseProperty(nameof(FarmingPackage.Activities))]

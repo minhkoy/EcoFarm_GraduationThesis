@@ -14,7 +14,7 @@ namespace EcoFarm.Api.Abstraction.Behaviors
         public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var json = JsonSerializer.Serialize(request);
-            _logger.LogInformation("Dữ liệu gửi api: {req}", json);
+            _logger.LogInformation("[{date}] Dữ liệu gửi api: {req}", DateTime.Now, json);
             return next();
         }
     }

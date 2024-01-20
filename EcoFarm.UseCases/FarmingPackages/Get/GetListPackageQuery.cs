@@ -30,6 +30,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
         public bool? IsCloseForRegistered { get; set; }
         public int? Page { get; set; }
         public int? Limit { get; set; }
+        public int SortingPackageOrder { get; set; } = (int)SortingPackageType.Newest;
     }
 
     internal class GetListPackageHandler : IQueryHandler<GetListPackageQuery, FarmingPackageDTO>
@@ -94,6 +95,39 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 request.Page = 1;
             }
+            switch (request.SortingPackageOrder)
+            {
+                case (int)SortingPackageType.MostRegister:
+                    temp = temp.OrderByDescending(x => x.QUANTITY_REGISTERED);
+                    break;
+                case (int)SortingPackageType.MostRegisterInWeek:
+                    temp = temp.Include(x => x.UserRegisterPackages)
+                        //.Where(x => x.UserRegisterPackages.Any(y => y.REGISTER_TIME >= DateTime.Now.AddDays(-7)))
+                        .OrderByDescending(x => x.UserRegisterPackages.Count(y => y.REGISTER_TIME >= DateTime.Now.AddDays(-7)));
+                    break;
+                case (int)SortingPackageType.Newest:
+                    temp = temp.OrderByDescending(x => x.CREATED_TIME);
+                    break;
+                case (int)SortingPackageType.MostComment:
+                    temp = temp.OrderByDescending(x => x.NUMBERS_OF_RATING);
+                    break;
+                case (int)SortingPackageType.MostCommentInWeek:
+                    temp = temp.Include(x => x.UserRegisterPackages)
+                        //.Where(x => x.UserRegisterPackages.Any(y => y.REGISTER_TIME >= DateTime.Now.AddDays(-7)))
+                        .OrderByDescending(x => x.UserRegisterPackages.Count(y => y.REGISTER_TIME >= DateTime.Now.AddDays(-7)));
+                    break;
+                case (int)SortingPackageType.MostRecentActivity:
+                    temp = temp
+                        .Include(x => x.Activities)
+                        .OrderByDescending(x => x.Activities.Max(t => t.CREATED_TIME));
+                    break;
+                case (int)SortingPackageType.MostRating:
+                    temp = temp.OrderByDescending(x => x.NUMBERS_OF_RATING == 0 ? 0 : Math.Round(x.TOTAL_RATING_POINTS * 1.00M / x.NUMBERS_OF_RATING, 2));
+                    break;
+                default:
+                    temp = temp.OrderByDescending(x => x.CREATED_TIME);
+                    break;
+            }
             var rs = await temp
                 .Skip((request.Page.Value - 1) * request.Limit.Value)
                 .Take(request.Limit.Value)
@@ -126,7 +160,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 CreatedBy = x.CREATED_BY,
                 NumbersOfRating = x.NUMBERS_OF_RATING,
                 AverageRating = x.AverageRating,
-                
+                AvatarUrl = x.AVATAR_URL
             }).ToListAsync();
             return Result.Success(rs);
         }

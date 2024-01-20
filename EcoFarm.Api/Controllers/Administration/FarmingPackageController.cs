@@ -1,9 +1,7 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
 using EcoFarm.Application.Common.Results;
-using EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Commands.Approve;
-using EcoFarm.Application.Features.Administration.ServiceManagerFeatures.Commands.Reject;
 using EcoFarm.Domain.Common.Values.Constants;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.FarmingActivities.Create;
 using EcoFarm.UseCases.FarmingPackages.Approve;
 using EcoFarm.UseCases.FarmingPackages.CloseRegister;
@@ -11,6 +9,7 @@ using EcoFarm.UseCases.FarmingPackages.Create;
 using EcoFarm.UseCases.FarmingPackages.End;
 using EcoFarm.UseCases.FarmingPackages.Get;
 using EcoFarm.UseCases.FarmingPackages.Register;
+using EcoFarm.UseCases.FarmingPackages.Reject;
 using EcoFarm.UseCases.FarmingPackages.Start;
 using EcoFarm.UseCases.FarmingPackages.Update;
 using MediatR;
@@ -183,7 +182,7 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPatch]
-        public async Task<IActionResult> Reject([FromBody] RejectServiceCommand command)
+        public async Task<IActionResult> Reject([FromBody] RejectPackageCommand command)
         {
             var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);

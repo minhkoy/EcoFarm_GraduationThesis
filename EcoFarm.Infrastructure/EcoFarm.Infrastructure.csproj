@@ -7,14 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\" />
       <Folder Include="Interfaces\" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
-        <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
-        <ProjectReference Include="..\TokenHandler\TokenHandler.csproj" />
+      <Folder Include="Services\DTOs\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -30,6 +24,10 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
     </ItemGroup>
 
 </Project>

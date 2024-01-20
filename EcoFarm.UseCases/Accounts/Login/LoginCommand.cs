@@ -4,6 +4,11 @@ using EcoFarm.Application.Interfaces.Localization;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization;
+using EcoFarm.Domain.Common.Values.Enums;
+using EcoFarm.UseCases.Common.Hubs;
+using Hangfire;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,17 +30,25 @@ namespace EcoFarm.UseCases.Accounts.Login
     public class LoginDTO
     {
         public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public string AccountType { get; set; }
     }
     internal class LoginHandler : ICommandHandler<LoginCommand, LoginDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
         private readonly ILocalizeService _localizeService;
-        public LoginHandler(IUnitOfWork unitOfWork, IAuthService authService, ILocalizeService localizeService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHubContext<NotificationHub> _notificationHub;
+        public LoginHandler(IUnitOfWork unitOfWork, IAuthService authService, ILocalizeService localizeService,
+            IHttpContextAccessor httpContextAccessor,
+            IHubContext<NotificationHub> notificationHub)
         {
             _unitOfWork = unitOfWork;
             _localizeService = localizeService;
             _authService = authService;
+            _httpContextAccessor = httpContextAccessor;
+            _notificationHub = notificationHub;
 
         }
         public async Task<Result<LoginDTO>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -70,7 +83,7 @@ namespace EcoFarm.UseCases.Accounts.Login
 
             switch (people.ACCOUNT_TYPE)
             {
-                case Domain.Common.Values.Enums.HelperEnums.AccountType.Seller: 
+                case HelperEnums.AccountType.Seller: 
                     var erp = await _unitOfWork.SellerEnterprises
                         .GetQueryable()
                         .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(people.ID));
@@ -80,7 +93,7 @@ namespace EcoFarm.UseCases.Accounts.Login
                     }
                     account.EntityId = erp.ID;
                     break;
-                case Domain.Common.Values.Enums.HelperEnums.AccountType.Customer:
+                case HelperEnums.AccountType.Customer:
                     var user = await _unitOfWork.Users
                         .GetQueryable()
                         .FirstOrDefaultAsync(x => x.ACCOUNT_ID.Equals(people.ID));
@@ -90,7 +103,7 @@ namespace EcoFarm.UseCases.Accounts.Login
                     }
                     account.EntityId = user.ID;
                     break;
-                case Domain.Common.Values.Enums.HelperEnums.AccountType.Admin:
+                case HelperEnums.AccountType.Admin:
                     account.EntityId = people.ID;
                     break;
                 default:
@@ -102,7 +115,9 @@ namespace EcoFarm.UseCases.Accounts.Login
             people.IS_EMAIL_CONFIRMED = true;
             _unitOfWork.Accounts.Update(people);
             await _unitOfWork.SaveChangesAsync();
-            return Result.Success(new LoginDTO { AccessToken = token }, _localizeService.GetMessage(Application.Localization.LocalizationEnum.LoginSuccessful));
+            await _notificationHub.Clients.All.SendAsync("ReceiveNotification", "Đăng nhập thành công");
+            //BackgroundJob.Schedule(() => Task.Run(Console.WriteLine("XXXY")) , DateTime.Now) ;
+            return Result.Success(new LoginDTO { AccessToken = token, AccountType = people.ACCOUNT_TYPE.ToString() }, _localizeService.GetMessage(Application.Localization.LocalizationEnum.LoginSuccessful));
         }
     }
 }

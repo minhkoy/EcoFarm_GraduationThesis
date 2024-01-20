@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.Enterprises.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,6 +26,18 @@ namespace EcoFarm.Api.Controllers.Administration
         public async Task<IActionResult> GetMyInfo()
         {
             var result = await _mediator.Send(new GetMyEnterpriseInfoQuery());
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Lấy danh sách các doanh nghiệp
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] GetListEnterpriseQuery query)
+        {
+            var result = await _mediator.Send(query);
             return this.FromResult(result, _logger);
         }
         //[HttpGet]

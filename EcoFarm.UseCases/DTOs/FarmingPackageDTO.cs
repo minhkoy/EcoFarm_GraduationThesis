@@ -26,6 +26,46 @@ namespace EcoFarm.UseCases.DTOs
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public decimal? Price { get; set; }
+
+        public PackageStatus PackageStatus
+        {
+            get
+            {
+                if (!StartTime.HasValue)
+                {
+                    return PackageStatus.NotStarted;
+                }
+                if (StartTime.HasValue && !EndTime.HasValue)
+                {
+                    return PackageStatus.Started;
+                }
+                return PackageStatus.Ended;
+            }
+        }
+        public string PackageStatusName { get
+            {
+                return EFX.PackageStatuses.dctPackageStatus.GetValueOrDefault(PackageStatus);
+            } 
+        }
+
+        public PackageRegisterStatus PackageRegisterStatus
+        {
+            get
+            {
+                if (!CloseRegisterTime.HasValue)
+                {
+                    return PackageRegisterStatus.OpenForRegister;
+                }
+                return PackageRegisterStatus.ClosedForRegister;
+            }
+        }
+        public string PackageRegisterStatusName
+        {
+            get
+            {
+                return EFX.PackageRegisterStatuses.dctPackageRegisterStatus.GetValueOrDefault(PackageRegisterStatus);
+            }
+        }
         public CurrencyType? Currency { get; set; }
         public string CurrencyName { get => Currency.HasValue ? Currency.Value.ToString() : string.Empty; }
         public int? QuantityStart { get; set; }
@@ -57,6 +97,8 @@ namespace EcoFarm.UseCases.DTOs
         public decimal? AverageRating { get; set; }
 
         public bool IsRegisteredByCurrentUser { get; set; }
+        public string AvatarUrl { get; set; }
+        public List<ReviewDTO> Reviews { get; set; }
 
         public class RegisteredUser : UserDTO
         {

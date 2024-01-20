@@ -31,4 +31,5 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<CartDetail> CartDetails { get; }
     IGenericRepository<OrderProduct> OrderProducts { get; }
     IGenericRepository<OrderTimeline> OrderTimelines { get; }
+    IGenericRepository<ActivityMedia> ActivityMedias { get; }
 }

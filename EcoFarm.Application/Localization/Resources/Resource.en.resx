@@ -168,4 +168,7 @@
   <data name="UpdateReviewSuccessful" xml:space="preserve">
     <value>Updating review successful!</value>
   </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>The order is not found</value>
+  </data>
 </root>

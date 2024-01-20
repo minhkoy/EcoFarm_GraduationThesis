@@ -15,15 +15,14 @@ namespace EcoFarm.UseCases.Products.Create
             RuleLevelCascadeMode = CascadeMode.Stop;
             RuleFor(x => x.Code)
                 .NotEmpty().WithMessage("Mã sản phẩm không được để trống")
-                .MinimumLength(3).WithMessage("Mã sản phẩm có độ dài ít nhất 3 ký tự")
-                .MaximumLength(10).WithMessage("Mã sản phẩm có độ dài tối đa 20 ký tự");
+                .MaximumLength(10).WithMessage("Mã sản phẩm có độ dài tối đa 10 ký tự");
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Tên sản phẩm không được để trống")
-                .MinimumLength(5).WithMessage("Tên sản phẩm có độ dài ít nhất 5 ký tự");
+                .MaximumLength(100).WithMessage("Tên sản phẩm có độ dài tối đa 100 ký tự");
             RuleFor(x => x.Description)
                 .NotEmpty().WithMessage("Mô tả sản phẩm không được để trống");
-            RuleFor(x => x)
-                .Must(MustHaveCurrency).WithMessage("Mệnh giá không được để trống.");
+            //RuleFor(x => x)
+            //    .Must(MustHaveCurrency).WithMessage("Mệnh giá không được để trống.");
         }
 
         public bool MustHaveCurrency(CreateProductCommand command)

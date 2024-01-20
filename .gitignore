@@ -12,3 +12,4 @@
 /EcoFarm.Web_Prev
 /EcoFarm.Api/.config
 /EcoFarm.Api/Properties/PublishProfiles
+/EcoFarm.Api/Abstraction/Behaviors/HasScopeHandler.cs

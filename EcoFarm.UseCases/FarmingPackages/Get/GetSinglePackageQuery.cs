@@ -48,7 +48,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             }
             if (pkg is null)
             {
-                return Result.NotFound();
+                return Result.Success(new FarmingPackageDTO());
             }
             var enterprise = await _unitOfWork.SellerEnterprises.FindAsync(pkg.SELLER_ENTERPRISE_ID);
             IQueryable<FarmingPackageDTO.RegisteredUser> users = _unitOfWork.UserRegisterPackages
@@ -69,6 +69,12 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
             {
                 isRegistered = true;
             }
+
+            var reviews = await _unitOfWork.PackageReviews
+                .GetQueryable()
+                .Include(x => x.UserInfo)
+                .Where(x => string.Equals(x.PACKAGE_ID, pkg.ID))
+                .ToListAsync();
             //Console.WriteLine(isRegistered);
             return Result<FarmingPackageDTO>.Success(new FarmingPackageDTO {
                 Id = pkg.ID,
@@ -93,7 +99,23 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 NumbersOfRating = pkg.NUMBERS_OF_RATING,
                 AverageRating = pkg.AverageRating,
                 IsRegisteredByCurrentUser = isRegistered,
-                
+                StartTime = pkg.START_TIME,
+                CreatedBy = pkg.CREATED_BY,
+                CreatedTime = pkg.CREATED_TIME,
+                EndTime = pkg.END_TIME,
+                SellerEnterpriseId = pkg.SELLER_ENTERPRISE_ID,
+                SellerEnterpriseName = enterprise.NAME,
+                AvatarUrl = pkg.AVATAR_URL,
+                RejectReason = pkg.REJECT_REASON,
+                Reviews = reviews.Select(x => new ReviewDTO
+                {
+                    
+                    ReviewId = x.ID,
+                    Content = x.COMMENT,
+                    Rating = x.RATING,
+                    UserId = x.USER_ID,
+                    UserFullname = x.UserInfo.NAME,
+                }).ToList()
             });
         }
     }

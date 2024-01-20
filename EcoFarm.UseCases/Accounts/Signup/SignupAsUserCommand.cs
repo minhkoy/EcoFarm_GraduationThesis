@@ -5,10 +5,12 @@ using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.Domain.Entities.Administration;
 using EcoFarm.UseCases.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
@@ -24,6 +26,8 @@ namespace EcoFarm.UseCases.Accounts.Signup
         public DateTime? DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }
         public GenderEnum? Gender { get; set; }
+
+        public IFormFile Avatar { get; set; }
 
     }
 

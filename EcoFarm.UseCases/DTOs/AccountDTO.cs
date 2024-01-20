@@ -18,5 +18,9 @@ namespace EcoFarm.UseCases.DTOs
         public bool? IsActive { get; set; }
         public string LockedReason { get; set; }
         public string AvatarUrl { get; set; }
+        /// <summary>
+        /// Get user/erp id
+        /// </summary>
+        public string AccountEntityId { get; set; }
     }
 }

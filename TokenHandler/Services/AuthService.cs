@@ -15,6 +15,7 @@ namespace TokenHandler.Services
         private IHttpContextAccessor _httpContextAccessor;
         private readonly JwtOptionConfig _option;
         public JwtSecurityToken Token { get; set; } = new JwtSecurityToken();
+        //public JwtSecurityToken SignalRToken { get; set; } = new JwtSecurityToken();
         public AuthService(IHttpContextAccessor httpContextAccessor,
             IOptions<JwtOptionConfig> option)
         {
@@ -28,13 +29,26 @@ namespace TokenHandler.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_option.Key);
 
-            var authHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString();
-            if (string.IsNullOrEmpty(authHeader))
+            if (_httpContextAccessor.HttpContext is null)
             {
                 return null;
             }
+            string token = string.Empty;
+            var authHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString();
+            var signalRToken = _httpContextAccessor.HttpContext.Request.Query["access_token"].ToString();
+            if (string.IsNullOrEmpty(authHeader) && string.IsNullOrEmpty(signalRToken))
+            {
+                return null;
+            }
+            if (string.IsNullOrEmpty(authHeader) && !string.IsNullOrEmpty(signalRToken))
+            {
+                token = signalRToken.Replace("Bearer ", string.Empty);
+            }
+            else if (!string.IsNullOrEmpty(authHeader) && string.IsNullOrEmpty(signalRToken))
+            {
+                token = authHeader.Replace("Bearer ", string.Empty);
+            }
 
-            var token = authHeader.Replace("Bearer ", string.Empty);
             if (string.IsNullOrWhiteSpace(token))
             {
                 return null;                
@@ -148,7 +162,15 @@ namespace TokenHandler.Services
                 claims: identity.Claims,
                 expires: expiryTime,
                 signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var stringToken = new JwtSecurityTokenHandler().WriteToken(token);
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("ecofarm-token", stringToken, new CookieOptions
+            {
+                Expires = expiryTime,
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            });
+            return stringToken;
         }
     }
 }

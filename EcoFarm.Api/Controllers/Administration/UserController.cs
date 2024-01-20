@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.Users.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

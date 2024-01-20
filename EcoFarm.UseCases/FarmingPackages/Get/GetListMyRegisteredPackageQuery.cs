@@ -46,7 +46,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 .GetQueryable()
                 .Include(x => x.PackageInfo)
                 .ThenInclude(x => x.Enterprise)
-                .Where(x => x.USER_ID.Equals(userId));
+                .Where(x => x.USER_ID.Equals(userId) && !x.PackageInfo.IS_DELETE);
             if (!string.IsNullOrEmpty(request.Keyword))
             {
                 temp = temp.Where(x => x.PackageInfo.NAME.Contains(request.Keyword));
@@ -71,6 +71,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                 }
             }
             var result = await temp
+                .OrderByDescending(x => x.REGISTER_TIME)
                 .Skip((request.Page - 1) * request.Limit)
                 .Take(request.Limit)
                 .Select(x => new FarmingPackageDTO
@@ -95,7 +96,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Get
                     EstimatedEndTime = x.PackageInfo.ESTIMATED_END_TIME,
                     NumbersOfRating = x.PackageInfo.NUMBERS_OF_RATING,
                     PackageType = x.PackageInfo.PACKAGE_TYPE,
-                    
+                    AvatarUrl = x.PackageInfo.AVATAR_URL,
                     CreatedTime = x.PackageInfo.CREATED_TIME,
 
                 }).ToListAsync();

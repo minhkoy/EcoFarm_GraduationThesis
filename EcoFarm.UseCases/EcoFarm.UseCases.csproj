@@ -13,32 +13,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\BackgroundJobs\RecurringJobs\" />
     <Folder Include="Enterprises\Create\" />
     <Folder Include="Enterprises\Delete\" />
     <Folder Include="Enterprises\Approve\" />
     <Folder Include="Enterprises\Lock\" />
     <Folder Include="Enterprises\Unlock\" />
     <Folder Include="Enterprises\Update\" />
-    <Folder Include="FarmingActivities\Edit\" />
     <Folder Include="FarmingActivities\Delete\" />
     <Folder Include="FarmingPackages\Delete\" />
-    <Folder Include="Orders\MarkPreparing\" />
-    <Folder Include="Orders\CompletePreparation\" />
-    <Folder Include="Orders\NewFolder\" />
+    <Folder Include="Orders\NewFolder1\" />
     <Folder Include="Orders\Update\" />
     <Folder Include="Orders\Reject\" />
     <Folder Include="Roles\Create\" />
     <Folder Include="Roles\Delete\" />
-    <Folder Include="ShoppingCarts\" />
+    <Folder Include="Statstics\GetEnterpriseStats\" />
     <Folder Include="Users\Create\" />
     <Folder Include="Users\Update\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EcoFarm.Application\EcoFarm.Application.csproj" />
-    <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
     <ProjectReference Include="..\EcoFarm.Infrastructure\EcoFarm.Infrastructure.csproj" />
-    <ProjectReference Include="..\TokenHandler\TokenHandler.csproj" />
   </ItemGroup>
 
 </Project>

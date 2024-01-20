@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcoFarm.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace EcoFarm.UseCases.DTOs
         public string PackageId { get; set; }
         public string PackageCode { get; set; }
         public string PackageName { get; set; }
+        public bool? IsUserRegisteredPackage { get; set; }
         public int? Quantity { get; set; }
         public int? Sold { get; set; }
         public int? QuantityRemain { get; set; }
@@ -26,5 +28,6 @@ namespace EcoFarm.UseCases.DTOs
         public DateTime CreatedTime { get; set; }
         public string SellerEnterpriseId { get; set; }
         public string SellerEnterpriseName { get; set; }
+        public List<ProductMediaDTO> Medias { get; set; } 
     }
 }

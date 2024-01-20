@@ -1,5 +1,5 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.PackageReviews.Create;
 using EcoFarm.UseCases.PackageReviews.Delete;
 using EcoFarm.UseCases.PackageReviews.Edit;

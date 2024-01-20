@@ -1,0 +1,23 @@
+{
+  "and": "và",
+  "error": "Đã xảy ra lỗi",
+  "experience": "trải nghiệm",
+  "explore": "khám phá",
+  "homepage": "trang chủ",
+  "login": "đăng nhập",
+  "notification": "thông báo",
+  "now": "ngay",
+  "or": "hoặc",
+  "packages": "gói farming",
+  "profile": "tài khoản",
+  "reset-password": "Thay đổi mật khẩu",
+  "search": "Tìm kiếm",
+  "sign-up": "đăng ký",
+  "username": "tài khoản",
+  "validation": {
+    "date": {
+      "isInValid": "Định dạng ngày không hợp lệ",
+      "isRequired": "Vui lòng nhập ngày"
+    }
+  }
+}

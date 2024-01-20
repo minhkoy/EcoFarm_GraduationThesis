@@ -2,7 +2,10 @@
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Entities;
+using EcoFarm.Infrastructure.Services.Interfaces;
+using EcoFarm.UseCases.Common.BackgroundJobs.BatchJobs;
 using EcoFarm.UseCases.DTOs;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,6 +26,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
         public DateTime? EstimatedEndTime { get; set; }
         public decimal? Price { get; set; }
         public int? Quantity { get; set; }
+        public string Avatar { get; set; }
         public FarmingPackageType? ServiceType { get; set; }
         public bool? IsAutoCloseRegister { get; set; }
     }
@@ -31,10 +35,13 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
-        public CreateFarmingPackageHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        private readonly ICloudinaryService _cloudinaryService;
+        public CreateFarmingPackageHandler(IUnitOfWork unitOfWork, IAuthService authService,
+            ICloudinaryService cloudinaryService)
         {
             _unitOfWork = unitOfWork;
             _authService = authService;
+            _cloudinaryService = cloudinaryService;
         }
         public async Task<Result<FarmingPackageDTO>> Handle(CreateFarmingPackageCommand request, CancellationToken cancellationToken)
         {
@@ -65,6 +72,8 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
             }
             #endregion
             #region Create
+            var avatarUrl = _cloudinaryService.UploadBase64Image(request.Avatar);
+
             var farmingPackage = new FarmingPackage
             {
                 CODE = request.Code,
@@ -77,9 +86,14 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 PACKAGE_TYPE = request.ServiceType.Value,
                 SELLER_ENTERPRISE_ID = enterprise.ID,
                 IS_AUTO_CLOSE_REGISTER = request.IsAutoCloseRegister ?? false,
+                AVATAR_URL = avatarUrl
             };
             _unitOfWork.FarmingPackages.Add(farmingPackage);
             await _unitOfWork.SaveChangesAsync();
+            if (request.IsAutoCloseRegister.HasValue && request.IsAutoCloseRegister.Value && request.EstimatedStartTime.HasValue)
+            {
+                BackgroundJob.Schedule<AutoCloseRegisterPackageJob>(x => x.Run(farmingPackage.ID, request.EstimatedStartTime.Value), request.EstimatedStartTime.Value);
+            }
             return Result.Success(new FarmingPackageDTO
             {
                 Id = farmingPackage.ID,
@@ -106,7 +120,8 @@ namespace EcoFarm.UseCases.FarmingPackages.Create
                 CreatedTime = farmingPackage.CREATED_TIME,
                 CreatedBy = farmingPackage.CREATED_BY,
                 NumbersOfRating = farmingPackage.NUMBERS_OF_RATING,
-                AverageRating = farmingPackage.AverageRating
+                AverageRating = farmingPackage.AverageRating,
+
 
             }, "Thêm mới gói farming thành công");
             #endregion

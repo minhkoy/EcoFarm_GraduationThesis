@@ -20,8 +20,8 @@ namespace EcoFarm.Domain.Entities
         /// Khối lượng sản phẩm (kg)
         /// </summary>
         public decimal WEIGHT { get; set; } = 0;
-        public int? QUANTITY { get; set; }
-        public int? SOLD { get; set; }
+        public int? QUANTITY { get; set; } = 0;
+        public int? SOLD { get; set; } = 0;
         public decimal? PRICE { get; set; }
         /// <summary>
         /// Price for user who registered the package
@@ -30,7 +30,7 @@ namespace EcoFarm.Domain.Entities
         public CurrencyType? CURRENCY { get; set; } = CurrencyType.VND;
 
         [NotMapped]
-        public int? CURRENT_QUANTITY { get => QUANTITY - SOLD; }
+        public int? CURRENT_QUANTITY { get => QUANTITY ?? 0 - SOLD ?? 0; }
 
         [ForeignKey(nameof(PACKAGE_ID))]
         [InverseProperty(nameof(FarmingPackage.ProductInfo))]

@@ -1,0 +1,16 @@
+{
+  "info": {
+    "farm-package": "thông tin {{total}} gói farming",
+    "name": "Tên gói farming"
+  },
+  "notFound": {
+    "package": "Không tìm thấy gói"
+  },
+  "query-param": {
+    "from-price": "giá từ...",
+    "is-ended": "đã kết thúc",
+    "is-started": "đã bắt đầu",
+    "range-price": "khoảng giá",
+    "to-price": "giá đến..."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "error": {
+    "rating_out_of_range": "Điểm đánh giá chỉ được có giá trị từ {{fromRating}} đến {{toRating}}"
+  },
+  "success": "Đánh giá thành công"
+}

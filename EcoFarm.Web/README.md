@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+# Do an tot nghiep - Eco Farm
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## This project stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Core: [Nextjs framework](https://nextjs.org/) + [Typescript](https://www.typescriptlang.org/)
+- Styling: [Tailwind css](https://tailwindcss.com/) + [NextUi](https://nextui.org/)
+- Icons: [Lucide Icons](https://lucide.dev/icons/)
+- Library validation [Zod](https://zod.dev/)
+- I18n supported with [Next-i18n](https://github.com/i18next/next-i18next)
+- Client side state management with [Redux toolkit](https://redux-toolkit.js.org/)
+- Async state management with [React Query](https://tanstack.com/query/latest)
+- Fetching data with [Axios](https://axios-http.com/)
+- Others:
+  - Beautiful toaster [Sonner](https://sonner.emilkowal.ski/)
+  - Customized [React DayPicker](https://react-day-picker.js.org/)
+  - Date library with [Date-fns](https://date-fns.org/)

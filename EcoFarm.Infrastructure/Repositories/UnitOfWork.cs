@@ -37,6 +37,7 @@ namespace EcoFarm.Infrastructure.Repositories
             Notifications = new GenericRepository<Notification>(_ecoContext, authService);
             UserRegisterPackages = new GenericRepository<UserRegisterPackage>(_ecoContext, authService);
             CartDetails = new GenericRepository<CartDetail>(_ecoContext, authService);
+            ActivityMedias = new GenericRepository<ActivityMedia>(_ecoContext, authService);
             //Users = new GenericRepository<Account>(_ecoContext);
         }
 
@@ -132,6 +133,8 @@ namespace EcoFarm.Infrastructure.Repositories
         public IGenericRepository<OrderProduct> OrderProducts { get; private set; }
 
         public IGenericRepository<OrderTimeline> OrderTimelines { get; private set; }
+
+        public IGenericRepository<ActivityMedia> ActivityMedias { get; private set; }
 
         public void Dispose()
         {

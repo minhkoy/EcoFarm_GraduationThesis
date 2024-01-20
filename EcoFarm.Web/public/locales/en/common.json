@@ -1,0 +1,23 @@
+{
+  "and": "and",
+  "error": "Error occured",
+  "experience": "experience",
+  "explore": "explore",
+  "homepage": "homepage",
+  "login": "login",
+  "notification": "notification",
+  "now": "now",
+  "or": "or",
+  "packages": "farming packages",
+  "profile": "profile",
+  "reset-password": "reset password",
+  "search": "Search",
+  "sign-up": "sign up",
+  "username": "username",
+  "validation": {
+    "date": {
+      "isInValid": "date is invalid",
+      "isRequired": "date is required"
+    }
+  }
+}

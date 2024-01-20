@@ -4,7 +4,9 @@ using Ardalis.Result;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Entities;
+using EcoFarm.Infrastructure.Services.Interfaces;
 using EcoFarm.UseCases.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,7 @@ namespace EcoFarm.UseCases.Products.Create
         public int? Quantity { get; set; }
         public decimal? Price { get; set; }
         public decimal? PriceForRegistered { get; set; }
+        public string Avatar { get; set; }
         public CurrencyType? Currency { get; set; }
     }
 
@@ -32,11 +35,14 @@ namespace EcoFarm.UseCases.Products.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
+        private readonly ICloudinaryService _cloudinaryService;
 
-        public CreateProductHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        public CreateProductHandler(IUnitOfWork unitOfWork, IAuthService authService,
+            ICloudinaryService cloudinaryService)
         {
             _unitOfWork = unitOfWork;
             _authService = authService;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<Result<ProductDTO>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -47,22 +53,34 @@ namespace EcoFarm.UseCases.Products.Create
             {
                 return Result<ProductDTO>.Forbidden();
             }
-            var pkg = await _unitOfWork.FarmingPackages.FindAsync(request.PackageId);
-            if (pkg == null)
+            FarmingPackage pkg = null;
+            if (!string.IsNullOrEmpty(request.PackageId))
             {
-                return Result<ProductDTO>.NotFound("Không tìm thấy thông tin gói farming");
-            }
-            if (!pkg.IS_ACTIVE)
-            {
-                return Result<ProductDTO>.Error("Gói farming đã bị khóa");
+                pkg = await _unitOfWork.FarmingPackages.FindAsync(request.PackageId);
+                if (pkg == null)
+                {
+                    return Result<ProductDTO>.NotFound("Không tìm thấy thông tin gói farming");
+                }
+                if (!pkg.IS_ACTIVE)
+                {
+                    return Result<ProductDTO>.Error("Gói farming đã bị khóa");
+                }
             }
 
+            var existedProduct = await _unitOfWork.Products
+                .GetQueryable()
+                .AnyAsync(x => string.Equals(x.ENTERPRISE_ID, erpId) && string.Equals(x.CODE, request.Code));
+            if (existedProduct)
+            {
+                return Result.Error($"Đã tồn tại gói farming với mã {request.Code}");
+            }
             var product = new Product
             {
                 CODE = request.Code,
                 NAME = request.Name,
                 DESCRIPTION = request.Description,
                 PACKAGE_ID = request.PackageId,
+                ENTERPRISE_ID = _authService.GetAccountEntityId(),
                 QUANTITY = request.Quantity,
                 SOLD = 0,
                 PRICE = request.Price,
@@ -71,6 +89,17 @@ namespace EcoFarm.UseCases.Products.Create
                 WEIGHT = request.Weight ?? 0,
             };
             _unitOfWork.Products.Add(product);
+
+            var imageUrl = _cloudinaryService.UploadBase64Image(request.Avatar);
+            if (!string.IsNullOrEmpty(imageUrl))
+            {
+                _unitOfWork.ProductMedias.Add(new ProductMedia
+                {
+                    PRODUCT_ID = product.ID,
+                    MEDIA_TYPE = "img",
+                    MEDIA_URL = imageUrl,
+                });
+            }
             await _unitOfWork.SaveChangesAsync();
             return Result<ProductDTO>.Success(new ProductDTO
             {
@@ -81,8 +110,8 @@ namespace EcoFarm.UseCases.Products.Create
                 Weight = product.WEIGHT,
                 CreatedTime = product.CREATED_TIME,
                 PackageId = product.PACKAGE_ID,
-                PackageCode = pkg.CODE,
-                PackageName = pkg.NAME,
+                PackageCode = pkg?.CODE,
+                PackageName = pkg?.NAME,
                 Quantity = product.QUANTITY,
                 Sold = product.SOLD,
                 Price = product.PRICE,

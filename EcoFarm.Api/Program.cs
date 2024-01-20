@@ -1,5 +1,4 @@
 using EcoFarm.Api.Abstraction.Behaviors;
-using EcoFarm.Api.Hubs;
 using EcoFarm.Api.Middlewares;
 using EcoFarm.Application;
 using EcoFarm.Application.Interfaces.Localization;
@@ -7,10 +6,13 @@ using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Application.Localization.Services;
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.Domain.Common.Values.Options;
+using EcoFarm.Infrastructure;
 using EcoFarm.Infrastructure.Contexts;
 using EcoFarm.Infrastructure.Repositories;
 using EcoFarm.UseCases;
+using EcoFarm.UseCases.Common.Hubs;
 using FluentValidation;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +24,7 @@ using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using System.Threading.RateLimiting;
 using TokenHandler.Interfaces;
 using TokenHandler.Models;
 using TokenHandler.Services;
@@ -37,8 +40,6 @@ builder.Services.AddSignalR(o =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(EcoFarm.UseCases.AssemblyReference).Assembly);
-    //cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    //cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 });
 builder.Services.AddCors(options =>
 {
@@ -46,7 +47,31 @@ builder.Services.AddCors(options =>
     policy.AllowAnyHeader()
     .AllowAnyMethod()
     .AllowAnyOrigin());
-    //.WithExposedHeaders("*"));
+});
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("EachUserRequestPolicy", httpContext =>
+        RateLimitPartition.GetSlidingWindowLimiter(
+            partitionKey: httpContext.User.Identity.Name,
+            factory: _ => new SlidingWindowRateLimiterOptions
+            {
+                PermitLimit = 120,
+                Window = TimeSpan.FromMinutes(1),
+                SegmentsPerWindow = 2
+            }
+    ));
+    options.AddPolicy("EachIPRequestPolicy", httpContext => 
+        RateLimitPartition.GetSlidingWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress.ToString(),
+            factory: _ => new SlidingWindowRateLimiterOptions
+            {
+                PermitLimit = 90,
+                Window = TimeSpan.FromMinutes(1.5),
+                SegmentsPerWindow = 3
+                
+            }
+    ));
 });
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestBehavior<,>));
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -93,6 +118,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddTransient<ILocalizeService, LocalizeService>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddInfrastructure();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -100,6 +126,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            NameClaimType = "nameidentifier",
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
@@ -152,7 +179,7 @@ builder.Services.AddSwaggerGen(s =>
 });
 builder.Services.AddDbContext<EcoContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnStr"),
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"),
         b =>
         {
             b.MigrationsAssembly("EcoFarm.Infrastructure");
@@ -161,6 +188,9 @@ builder.Services.AddDbContext<EcoContext>(options =>
     //options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
 });
 //builder.Services.AddValidators();
+builder.Services.AddHangfire(options => options.UseSqlServerStorage(
+    builder.Configuration.GetConnectionString("ConnStr")));
+builder.Services.AddHangfireServer();
 builder.Services.AddSingleton<ErrorHandlingMiddleware>();
 builder.Services.Configure<JwtOption>(builder.Configuration.GetSection(nameof(JwtOption)));
 builder.Services.Configure<JwtOptionConfig>(builder.Configuration.GetSection(nameof(JwtOptionConfig)));
@@ -176,6 +206,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAnyCorsPolicy");
+app.UseRateLimiter();
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 app.UseHttpsRedirection();
 
@@ -184,8 +215,9 @@ app.UseAuthorization();
 //app.UseMiddleware<AuthenticationMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
-app.MapHub<NotificationHub>("/notification");
-app.MapHub<UserConnectionHub>("/user-connection");
-app.MapHub<ChatHub>("/chat");
+app.MapHub<NotificationHub>("hubs/notification");
+app.MapHub<UserConnectionHub>("/hubs/user-connection");
+app.MapHub<ChatHub>("/hubs/chat");
+app.UseHangfireDashboard();
 
 app.Run();

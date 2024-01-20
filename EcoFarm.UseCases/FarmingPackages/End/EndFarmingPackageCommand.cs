@@ -67,6 +67,10 @@ namespace EcoFarm.UseCases.FarmingPackages.End
             }
 
             farmingPackage.END_TIME = DateTime.Now.ToVnDateTime();
+            if (!farmingPackage.CLOSE_REGISTER_TIME.HasValue)
+            {
+                farmingPackage.CLOSE_REGISTER_TIME = DateTime.Now.ToVnDateTime();
+            }
             _unitOfWork.FarmingPackages.Update(farmingPackage);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage($"Kết thúc gói farming thành công vào {farmingPackage.END_TIME}");

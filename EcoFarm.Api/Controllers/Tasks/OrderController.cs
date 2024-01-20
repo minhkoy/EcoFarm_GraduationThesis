@@ -1,9 +1,12 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
+using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.Orders.Approve;
 using EcoFarm.UseCases.Orders.Cancel;
 using EcoFarm.UseCases.Orders.Create;
 using EcoFarm.UseCases.Orders.Get;
+using EcoFarm.UseCases.Orders.MarkPreparing;
+using EcoFarm.UseCases.Orders.MarkPreparingCompleted;
+using EcoFarm.UseCases.Orders.MarkReceived;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -35,14 +38,25 @@ namespace EcoFarm.Api.Controllers.Tasks
         }
 
         /// <summary>
+        /// Danh sách đơn hàng mà NCC/ chủ trang trại quản lý hoặc của người dùng thực hiện
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetList([FromQuery] GetListOrderQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return this.FromResult(result, _logger);
+        }
+        /// <summary>
         /// Nhà cung cấp/ chủ nông trại xác nhận đơn hàng
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPatch]
-        public async Task<IActionResult> Approve([FromBody] ApproveOrderCommand command)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Approve([FromRoute] string id)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new ApproveOrderCommand(id));
             return this.FromResult(result, _logger);
         }
 
@@ -71,9 +85,50 @@ namespace EcoFarm.Api.Controllers.Tasks
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetOrder([FromQuery] GetOrderQuery query)
+        public async Task<IActionResult> Get([FromQuery] GetOrderQuery query)
         {
             var result = await _mediator.Send(query);
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Đánh dấu đơn hàng đang được chuẩn bị
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> MarkPreparing([FromRoute] string id)
+        {
+            var result = await _mediator.Send(new MarkPreparingCommand(id));
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Đánh dấu đơn hàng đã chuẩn bị xong và bắt đầu bàn giao vận chuyển
+        /// </summary>
+        /// <param name="id"></param>
+        /// <remarks>
+        /// Description:
+        /// 
+        /// - Do chưa áp dụng vận chuyển, tạm thời coi như trạng thái đơn là Đã giao hàng
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> MarkPreparingCompleted([FromRoute] string id)
+        {
+            var result = await _mediator.Send(new MarkPreparingCompletedCommand(id));
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Đánh dấu đơn hàng đã nhận
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> MarkReceived([FromRoute] string id)
+        {
+            var result = await _mediator.Send(new MarkReceivedOrderCommand(id));
             return this.FromResult(result, _logger);
         }
     }

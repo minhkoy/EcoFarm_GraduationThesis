@@ -15,7 +15,7 @@ namespace EcoFarm.UseCases.UserAddresses.Get
 {
     public class GetListUserAddressQuery : IQuery<UserAddressDTO>
     {
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
         /// <summary>
         /// Keyword to search for user address description & receiver name
         /// </summary>
@@ -38,10 +38,10 @@ namespace EcoFarm.UseCases.UserAddresses.Get
             var query = _unitOfWork.UserAddresses
                 .GetQueryable()
                 .Where(x => string.Equals(x.USER_ID, _authService.GetAccountEntityId()));
-            if (!string.IsNullOrEmpty(request.UserId))
-            {
-                query = query.Where(x => string.Equals(x.USER_ID, request.UserId));
-            }
+            //if (!string.IsNullOrEmpty(request.UserId))
+            //{
+            //    query = query.Where(x => string.Equals(x.USER_ID, request.UserId));
+            //}
             if (!string.IsNullOrEmpty(request.Keyword))
             {
                 query = query.Where(x => x.DESCRIPTION.Contains(request.Keyword)
@@ -49,6 +49,7 @@ namespace EcoFarm.UseCases.UserAddresses.Get
             }
             var result = await query
                 .OrderByDescending(x => x.IS_MAIN)
+                .ThenByDescending(x => x.CREATED_TIME)
                 .Skip((request.Page - 1) * request.Limit)
                 .Take(request.Limit)
                 .Select(x => new UserAddressDTO

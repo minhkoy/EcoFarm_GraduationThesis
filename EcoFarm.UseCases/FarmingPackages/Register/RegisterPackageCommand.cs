@@ -2,6 +2,7 @@
 using EcoFarm.Application.Common.Extensions;
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
+using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TokenHandler.Interfaces;
+using static EcoFarm.Domain.Common.Values.Enums.HelperEnums;
 
 namespace EcoFarm.UseCases.FarmingPackages.Register
 {
@@ -38,6 +40,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Register
         }
         public async Task<Result<bool>> Handle(RegisterPackageCommand request, CancellationToken cancellationToken)
         {
+            if (!string.Equals(_authService.GetAccountTypeName(), AccountType.Customer.ToString()))
+            {
+                return Result.Forbidden();
+            }
             var username = _authService.GetUsername();
             if (username is null)
             {

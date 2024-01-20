@@ -1,0 +1,16 @@
+{
+  "info": {
+    "farm-package": "Information of {{total}} farming packages",
+    "name": "Farming package name"
+  },
+  "notFound": {
+    "package": "package not found"
+  },
+  "query-param": {
+    "from-price": "price from...",
+    "is-ended": "ended",
+    "is-started": "started",
+    "range-price": "price range",
+    "to-price": "price to..."
+  }
+}

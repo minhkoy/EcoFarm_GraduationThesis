@@ -9,12 +9,12 @@ namespace EcoFarm.Domain.Common.Values.Constants
 {
     public static class EFX
     {
-        public const int SaltLength = 24; 
+        public static readonly int SaltLength = 24;
         //Timezone
         /// <summary>
         /// VN timezone
         /// </summary>
-        public const string Timezone_VN = "SE Asia Standard Time";
+        public static readonly string Timezone_VN = "SE Asia Standard Time";
         public class SignalREvents
         {
             public static string ReceiveMessage = "ReceiveMessage";
@@ -24,10 +24,10 @@ namespace EcoFarm.Domain.Common.Values.Constants
         }
         public class AccountTypes
         {
-            public static string SuperAdmin = "Tổng quản trị hệ thống";
-            public static string Admin = "Quản trị hệ thống";
-            public static string Seller = "Tổ chức/ cá nhân cung cấp dịch vụ";
-            public static string Customer = "Khách hàng";
+            public const string SuperAdmin = "SuperAdmin";
+            public const string Admin = "Admin";
+            public const string Seller = "Seller";
+            public const string Customer = "Customer";
             public static Dictionary<AccountType, string> dctAccountType = new()
             {
                 { AccountType.SuperAdmin, SuperAdmin },
@@ -37,6 +37,32 @@ namespace EcoFarm.Domain.Common.Values.Constants
             };
         }
 
+        public class PackageStatuses
+        {
+            //public static string OpeningForRegister = "Đang mở đăng ký";
+            //public static string ClosedForRegister = "Đã đóng đăng ký";
+            public static string NotStarted = "Chưa bắt đầu";
+            public static string Started = "Đã bắt đầu";
+            public static string Ended = "Đã kết thúc";
+            public static Dictionary<PackageStatus, string> dctPackageStatus = new()
+            {
+                //{ PackageStatus.OpeningForRegister, OpeningForRegister },
+                //{ PackageStatus.ClosedForRegister, ClosedForRegister },
+                { PackageStatus.NotStarted, NotStarted },
+                { PackageStatus.Started, Started },
+                { PackageStatus.Ended, Ended }
+            };
+        }
+        public class PackageRegisterStatuses
+        {
+            public static string OpenForRegistered = "Đang mở đăng ký";
+            public static string ClosedForRegister = "Đã đóng đăng ký";
+            public static Dictionary<PackageRegisterStatus, string> dctPackageRegisterStatus = new()
+            {
+                { PackageRegisterStatus.OpenForRegister, OpenForRegistered },
+                { PackageRegisterStatus.ClosedForRegister, ClosedForRegister }
+            };
+        }
         public class Genders
         {
             public static string Male = "Nam";

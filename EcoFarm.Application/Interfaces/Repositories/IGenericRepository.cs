@@ -23,6 +23,9 @@ public interface IGenericRepository<T> where T : class, IEntity
 
     void Remove(T entity);
     void RemoveRange(IEnumerable<T> entities);
+
+    void ForceRemove(T entity);
+    void ForceRemoveRange(IEnumerable<T> entities);
     void RemoveRange(Expression<Func<T, bool>> predicate);
 
     Task<int> CountAsync();

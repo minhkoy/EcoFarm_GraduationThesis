@@ -7,20 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Common\Hubs\" />
-        <Folder Include="Features\Administration\EnterpriseManagerFeatures\Queries\" />
-        <Folder Include="Features\Administration\ServiceManagerFeatures\Queries\" />
-        <Folder Include="Features\Tasks\ServicePackageFeatures\Queries\" />
-      <Folder Include="Features\Administration\AuthenticationFeatures\Queries\" />
+      <Compile Remove="Features\**" />
+      <Compile Remove="Interfaces\Messagings_Prev\**" />
+      <EmbeddedResource Remove="Features\**" />
+      <EmbeddedResource Remove="Interfaces\Messagings_Prev\**" />
+      <None Remove="Features\**" />
+      <None Remove="Interfaces\Messagings_Prev\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Folder Include="Interfaces\Services\" />
-      <Folder Include="Services\DTOs\" />
-      <Folder Include="Services\Implementations\" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Ardalis.Result" Version="7.2.0" />
         <PackageReference Include="CloudinaryDotNet" Version="1.23.0" />
         <PackageReference Include="FluentValidation" Version="11.7.1" />
+        <PackageReference Include="Hangfire" Version="1.8.6" />
         <PackageReference Include="MediatR" Version="12.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12" />
@@ -30,6 +33,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EcoFarm.Domain\EcoFarm.Domain.csproj" />
+      <ProjectReference Include="..\TokenHandler\TokenHandler.csproj" />
     </ItemGroup>
 
 </Project>

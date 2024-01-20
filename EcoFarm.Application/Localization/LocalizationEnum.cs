@@ -50,5 +50,9 @@ namespace EcoFarm.Application.Localization
         PackageReviewNotFound,
         RatingInvalid,
         #endregion
+
+        #region Order
+        OrderNotFound,
+        #endregion
     }
 }

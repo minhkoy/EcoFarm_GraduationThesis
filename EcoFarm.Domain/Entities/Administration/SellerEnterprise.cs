@@ -10,7 +10,7 @@ public class SellerEnterprise : BaseNonExtendedEntity
     public string ACCOUNT_ID { get; set; }
     public string DESCRIPTION { get; set; }
     public string TAX_CODE { get; set; }
-    public bool? IS_APPROVED { get; set; }
+    public bool? IS_APPROVED { get; set; } = true;
     public string APPROVED_OR_REJECTED_BY { get; set; }
     public DateTime? APPROVED_OR_REJECTED_TIME { get; set; }
     public string REJECT_REASON { get; set; }

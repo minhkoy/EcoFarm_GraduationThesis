@@ -39,7 +39,7 @@ namespace EcoFarm.UseCases.FarmingPackages.Start
             var farmingPackage = await _unitOfWork.FarmingPackages.FindAsync(request.FarmingPackageId);
             if (farmingPackage is null)
             {
-                return Result<FarmingPackageDTO>.NotFound("Không tìm thấy thông tin gói farming");
+                return Result<FarmingPackageDTO>.Error("Không tìm thấy thông tin gói farming");
             }
 
             var username = _authService.GetUsername();
@@ -62,6 +62,10 @@ namespace EcoFarm.UseCases.FarmingPackages.Start
             }
 
             farmingPackage.START_TIME = DateTime.Now.ToVnDateTime();
+            //if (!farmingPackage.CLOSE_REGISTER_TIME.HasValue)
+            //{
+            //    farmingPackage.CLOSE_REGISTER_TIME = DateTime.Now.ToVnDateTime(); //Need to be rechecked the data flow!!
+            //}
             _unitOfWork.FarmingPackages.Update(farmingPackage);
             await _unitOfWork.SaveChangesAsync();
             return Result.SuccessWithMessage($"Bắt đầu gói farming thành công vào lúc {farmingPackage.START_TIME}");

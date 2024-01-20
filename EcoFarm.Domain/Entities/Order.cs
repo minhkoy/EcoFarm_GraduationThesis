@@ -17,6 +17,8 @@ public class Order : BaseEntity
     public decimal TOTAL_WEIGHT { get; set; }
     public string ADDRESS_ID { get; set; }
     public string ADDRESS_DESCRIPTION { get; set; }
+    public string RECEIVER_NAME { get; set; }
+    public string RECEIVER_PHONE { get; set; }
     public OrderStatus STATUS { get; set; } = OrderStatus.WaitingSellerConfirm;
     public OrderPaymentMethod PAYMENT_METHOD { get; set; } = OrderPaymentMethod.Cash;
     [NotMapped]

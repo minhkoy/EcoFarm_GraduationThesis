@@ -1,9 +1,9 @@
 ﻿using EcoFarm.Api.Abstraction.Extensions;
-using EcoFarm.Api.Hubs;
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.UseCases.Accounts.ChangePassword;
 using EcoFarm.UseCases.Accounts.Get;
 using EcoFarm.UseCases.Accounts.Lock;
+using EcoFarm.UseCases.Common.Hubs;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +47,16 @@ namespace EcoFarm.Api.Controllers.Administration
             return this.FromResult(result, _logger);
         }
 
+        /// <summary>
+        /// Lấy thông tin tài khoản đang đăng nhập
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetMyAccountInfo()
+        {
+            var result = await _mediator.Send(new GetMyAccountInfoQuery());
+            return this.FromResult(result, _logger);
+        }
         /// <summary>
         /// Thay đổi mật khẩu
         /// </summary>

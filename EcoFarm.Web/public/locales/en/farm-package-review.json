@@ -1,0 +1,6 @@
+{
+  "error": {
+    "rating_out_of_range": "Rating points must vary from {{fromRating}} to {{toRating}}"
+  },
+  "success": "Reviewing successful"
+}

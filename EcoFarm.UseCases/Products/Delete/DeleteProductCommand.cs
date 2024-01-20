@@ -2,6 +2,7 @@
 using EcoFarm.Application.Interfaces.Messagings;
 using EcoFarm.Application.Interfaces.Repositories;
 using EcoFarm.Domain.Common.Values.Constants;
+using EcoFarm.Domain.Common.Values.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace EcoFarm.UseCases.Products.Delete
                 return Result<bool>.Unauthorized();
             }
             var type = EFX.AccountTypes.dctAccountType.FirstOrDefault(x => x.Value.Equals(accountType));
-            if (type.Key != Domain.Common.Values.Enums.HelperEnums.AccountType.Seller)
+            if (type.Key != HelperEnums.AccountType.Seller)
             {
                 return Result<bool>.Forbidden();
             }

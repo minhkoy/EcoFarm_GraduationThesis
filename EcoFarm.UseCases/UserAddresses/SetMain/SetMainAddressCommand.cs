@@ -29,6 +29,12 @@ namespace EcoFarm.UseCases.UserAddresses.SetMain
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
+        public SetMainAddressHandler(IUnitOfWork unitOfWork, IAuthService authService)
+        {
+            _unitOfWork = unitOfWork;
+            _authService = authService;
+        }
+
         public async Task<Result<bool>> Handle(SetMainAddressCommand request, CancellationToken cancellationToken)
         {
             var accountType = _authService.GetAccountTypeName();

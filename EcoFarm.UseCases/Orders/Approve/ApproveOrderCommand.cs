@@ -18,7 +18,14 @@ namespace EcoFarm.UseCases.Orders.Approve
     public class ApproveOrderCommand : ICommand<bool>
     {
         public string OrderId { get; set; }
-        public string OrderCode { get; set; }
+        public ApproveOrderCommand()
+        {
+
+        }
+        public ApproveOrderCommand(string orderId)
+        {
+            OrderId = orderId;
+        }
     }
     internal class ApproveOrderCommandHandler : ICommandHandler<ApproveOrderCommand, bool>
     {
@@ -41,14 +48,14 @@ namespace EcoFarm.UseCases.Orders.Approve
             Order order = null;
             if (!string.IsNullOrEmpty(request.OrderId))
             {
-                order = await _unitOfWork.Orders.FindAsync(erpId);              
+                order = await _unitOfWork.Orders.FindAsync(request.OrderId);              
             }
-            else
-            {
-                order = await _unitOfWork.Orders
-                    .GetQueryable()
-                    .FirstOrDefaultAsync(x => string.Equals(x.CODE, request.OrderCode));
-            }
+            //else
+            //{
+            //    order = await _unitOfWork.Orders
+            //        .GetQueryable()
+            //        .FirstOrDefaultAsync(x => string.Equals(x.CODE, request.OrderCode));
+            //}
             if (order is null)
             {
                 return Result.NotFound("Không tìm thấy đơn hàng");

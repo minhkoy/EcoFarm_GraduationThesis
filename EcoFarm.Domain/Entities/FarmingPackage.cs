@@ -27,13 +27,15 @@ public class FarmingPackage : BaseEntity
     //public decimal? DISCOUNT_PRICE { get; set; }
     //public DateTime? DISCOUNT_START { get; set; }
     //public DateTime? DISCOUNT_END { get; set; }
-    public ServicePackageApprovalStatus STATUS { get; set; } = ServicePackageApprovalStatus.Pending;
+    public ServicePackageApprovalStatus STATUS { get; set; } = ServicePackageApprovalStatus.Approved;
     public string APPROVE_OR_REJECT_BY { get; set; }
     public DateTime? APPROVE_OR_REJECT_TIME { get; set; }
     public FarmingPackageType PACKAGE_TYPE { get; set; }
     public string REJECT_REASON { get; set; }
     public long TOTAL_RATING_POINTS { get; set; } = 0;
     public int NUMBERS_OF_RATING { get; set; } = 0;
+
+    public string AVATAR_URL { get; set; }
 
     //Extension properties
     [NotMapped] public decimal AverageRating => NUMBERS_OF_RATING == 0 ? 0 : Math.Round(TOTAL_RATING_POINTS * 1.00M / NUMBERS_OF_RATING, 2);

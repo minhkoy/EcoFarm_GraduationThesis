@@ -168,4 +168,7 @@
   <data name="UpdateReviewSuccessful" xml:space="preserve">
     <value>Cập nhật đánh giá thành công!</value>
   </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>Không tìm thấy thông tin đơn hàng</value>
+  </data>
 </root>
