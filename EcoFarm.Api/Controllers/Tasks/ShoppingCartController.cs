@@ -45,6 +45,10 @@ namespace EcoFarm.Api.Controllers.Tasks
             return this.FromResult(result, _logger);
         }
 
+        /// <summary>
+        /// Lấy thông tin giỏ hàng của người dùng. Sẽ hỗ trợ nhiều giỏ hàng cho một người sau
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetMyCart()
         {

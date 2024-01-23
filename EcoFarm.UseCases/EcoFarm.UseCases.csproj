@@ -24,7 +24,6 @@
     <Folder Include="FarmingPackages\Delete\" />
     <Folder Include="Orders\NewFolder1\" />
     <Folder Include="Orders\Update\" />
-    <Folder Include="Orders\Reject\" />
     <Folder Include="Roles\Create\" />
     <Folder Include="Roles\Delete\" />
     <Folder Include="Statstics\GetEnterpriseStats\" />

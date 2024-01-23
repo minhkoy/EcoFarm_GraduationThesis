@@ -34,6 +34,8 @@ namespace EcoFarm.UseCases.Products.Get
         public CurrencyType? Currency { get; set; }
         public int? Page { get; set; }
         public int? Limit { get; set; }
+
+        public int SortingProductOrder { get; set; } = (int)SortingProductType.Newest;
     }
 
     public class GetListProductQueryHandler : IQueryHandler<GetListProductQuery, ProductDTO>

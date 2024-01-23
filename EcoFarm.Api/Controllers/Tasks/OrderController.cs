@@ -7,6 +7,7 @@ using EcoFarm.UseCases.Orders.Get;
 using EcoFarm.UseCases.Orders.MarkPreparing;
 using EcoFarm.UseCases.Orders.MarkPreparingCompleted;
 using EcoFarm.UseCases.Orders.MarkReceived;
+using EcoFarm.UseCases.Orders.Reject;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -103,6 +104,17 @@ namespace EcoFarm.Api.Controllers.Tasks
             return this.FromResult(result, _logger);
         }
 
+        /// <summary>
+        /// Người bán từ chối đơn hàng
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> RejectOrder([FromRoute] string id)
+        {
+            var result = await _mediator.Send(new RejectOrderCommand(id));
+            return this.FromResult(result, _logger);
+        }
         /// <summary>
         /// Đánh dấu đơn hàng đã chuẩn bị xong và bắt đầu bàn giao vận chuyển
         /// </summary>
