@@ -42,7 +42,7 @@ namespace EcoFarm.Api.Middlewares
                 else 
                 {
 
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
                     _logger.LogError($"{e}");
                 }
             }

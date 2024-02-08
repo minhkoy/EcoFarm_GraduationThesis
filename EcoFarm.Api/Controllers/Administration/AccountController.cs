@@ -2,6 +2,7 @@
 using EcoFarm.Domain.Common.Values.Constants;
 using EcoFarm.UseCases.Accounts.ChangePassword;
 using EcoFarm.UseCases.Accounts.Get;
+using EcoFarm.UseCases.Accounts.GetVerificationCode;
 using EcoFarm.UseCases.Accounts.Lock;
 using EcoFarm.UseCases.Common.Hubs;
 using MediatR;
@@ -64,6 +65,18 @@ namespace EcoFarm.Api.Controllers.Administration
         /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return this.FromResult(result, _logger);
+        }
+
+        /// <summary>
+        /// Lấy mã xác thực
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetVerificationCode([FromBody] GetVerificationCodeCommand command)
         {
             var result = await _mediator.Send(command);
             return this.FromResult(result, _logger);

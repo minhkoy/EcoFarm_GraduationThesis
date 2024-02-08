@@ -64,12 +64,12 @@ namespace EcoFarm.Api.Controllers.Tasks
         /// <summary>
         /// Người dùng hủy đơn hàng
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPatch]
-        public async Task<IActionResult> Cancel([FromBody] CancelOrderCommand command)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Cancel([FromRoute] string id)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new CancelOrderCommand(id));
             return this.FromResult(result, _logger);
         }
 

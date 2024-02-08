@@ -151,8 +151,26 @@ namespace EcoFarm.UseCases.Products.Get
             {
                 request.Page = 1;
             }
+
+            switch (request.SortingProductOrder)
+            {
+                case (int)SortingProductType.MostSold:
+                    query = query.OrderByDescending(x => x.SOLD);
+                    break;
+                case (int)SortingProductType.MostSoldInWeek:
+                    query = query
+                        .Include(x => x.OrderProducts)
+                        .ThenInclude(x => x.OrderInfo)
+                        .OrderByDescending(x => x.OrderProducts
+                            .Where(x => x.OrderInfo.CREATED_TIME > DateTime.Now.AddDays(-7))
+                            .Sum(x => x.QUANTITY));
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CREATED_TIME);
+                    break;
+            }
             var result = await query
-                .OrderByDescending(x => x.CREATED_TIME)
+                //.OrderByDescending(x => x.CREATED_TIME)
                 .Skip((request.Page.Value - 1) * request.Limit.Value)
                 .Take(request.Limit.Value)
                 .Select(x => new ProductDTO

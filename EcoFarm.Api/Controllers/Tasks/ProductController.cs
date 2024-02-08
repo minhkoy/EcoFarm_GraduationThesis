@@ -3,6 +3,7 @@ using EcoFarm.UseCases.Common.Hubs;
 using EcoFarm.UseCases.Products.Create;
 using EcoFarm.UseCases.Products.Delete;
 using EcoFarm.UseCases.Products.Get;
+using EcoFarm.UseCases.Products.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,6 +47,21 @@ namespace EcoFarm.Api.Controllers.Tasks
             return this.FromResult(result, _logger);
         }
 
+        /// <summary>
+        /// Cập nhật thông tin sản phẩm
+        /// </summary>
+        /// <param name="command"></param>
+        /// <remarks>
+        /// Lưu ý: Không thể thay đổi thông tin gói farming liên quan!
+        /// 
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Update([FromBody] UpdateProductCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return this.FromResult(result, _logger);
+        }
         //[HttpGet("[action]")]
         //public async Task<IActionResult> GetListByCategory([FromQuery] GetListProductByCategoryQuery command)
         //{

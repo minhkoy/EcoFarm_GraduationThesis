@@ -73,6 +73,21 @@ namespace EcoFarm.Api.Controllers.Administration
         /// Tạo gói farming
         /// </summary>
         /// <param name="command"></param>
+        /// <remarks>
+        /// Mô tả API:
+        /// 
+        /// Ý nghĩa các trường đầu vào:
+        /// - Code: Mã gói farming
+        /// - Name: Tên gói farming
+        /// - Description: Mô tả gói farming
+        /// - EstimatedStartTime: Thời gian bắt đầu gói dự kiến
+        /// - EstimatedEndTime: Thời gian kết thúc gói dự kiến
+        /// - Price: Giá đăng ký gói
+        /// - Quantity: Số suất đăng ký
+        /// - Avatar: Ảnh đại diện cho gói farming
+        /// - ServiceType: Loại gói (chăn nuôi/ trồng trọt/ ...), tạm thời chưa dùng tới
+        /// - isAutoCloseRegister: Tự động đóng đăng ký khi đến ngày dự kiến bắt đầu (nếu có)
+        /// </remarks>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateFarmingPackageCommand command)

@@ -68,5 +68,14 @@ namespace EcoFarm.Application.Common.Extensions
             return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(vnTimeZoneId));
 
         }
+
+        public static bool IsDateInRange(this DateTime date, DateTime fromDate, DateTime toDate)
+        {
+            if (date <= toDate && date >= fromDate)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

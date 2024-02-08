@@ -30,7 +30,7 @@ namespace EcoFarm.Domain.Entities
         public CurrencyType? CURRENCY { get; set; } = CurrencyType.VND;
 
         [NotMapped]
-        public int? CURRENT_QUANTITY { get => QUANTITY ?? 0 - SOLD ?? 0; }
+        public int? CURRENT_QUANTITY { get => (QUANTITY ?? 0) - (SOLD ?? 0); }
 
         [ForeignKey(nameof(PACKAGE_ID))]
         [InverseProperty(nameof(FarmingPackage.ProductInfo))]

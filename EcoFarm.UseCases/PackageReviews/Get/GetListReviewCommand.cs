@@ -42,7 +42,8 @@ namespace EcoFarm.UseCases.PackageReviews.Get
         {
             IQueryable<UserPackageReview> query = _unitOfWork.PackageReviews
                 .GetQueryable()
-                .Include(x => x.UserInfo);
+                .Include(x => x.UserInfo)
+                .ThenInclude(x => x.AccountInfo);
             if (!string.IsNullOrEmpty(request.PackageId))
             {
                 query = query.Where(x => string.Equals(x.PACKAGE_ID, request.PackageId));
@@ -83,7 +84,7 @@ namespace EcoFarm.UseCases.PackageReviews.Get
                     PackageId = x.PACKAGE_ID,
                     UserId = x.USER_ID,
                     UserFullname = x.UserInfo.NAME,
-
+                    Username = x.UserInfo.AccountInfo.USERNAME
                 })
                 .ToListAsync();
             return Result.Success(result);

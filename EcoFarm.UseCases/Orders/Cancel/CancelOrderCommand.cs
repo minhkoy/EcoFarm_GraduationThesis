@@ -19,6 +19,12 @@ namespace EcoFarm.UseCases.Orders.Cancel
     {
         public string OrderId { get; set; }
         public string OrderCode { get; set; }
+        public CancelOrderCommand() { }
+        public CancelOrderCommand(string orderId)
+        {
+            OrderId = orderId;
+            OrderCode = string.Empty;
+        }
     }
     internal class CancelOrderCommandHandler : ICommandHandler<CancelOrderCommand, bool>
     {

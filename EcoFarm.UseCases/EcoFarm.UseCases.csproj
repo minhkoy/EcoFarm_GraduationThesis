@@ -26,7 +26,6 @@
     <Folder Include="Orders\Update\" />
     <Folder Include="Roles\Create\" />
     <Folder Include="Roles\Delete\" />
-    <Folder Include="Statstics\GetEnterpriseStats\" />
     <Folder Include="Users\Create\" />
     <Folder Include="Users\Update\" />
   </ItemGroup>

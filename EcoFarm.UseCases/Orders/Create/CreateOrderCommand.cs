@@ -186,7 +186,7 @@ namespace EcoFarm.UseCases.Orders.Create
                     UpdatedAt = newOrder.MODIFIED_TIME,
                     ReceiverName = newOrder.RECEIVER_NAME,
                     ReceiverPhone = newOrder.RECEIVER_PHONE,
-                }, "Thêm mới đặt hàng thành công");
+                }, "Thêm mới đơn hàng thành công");
             }
             else if (request.CartProducts is not null && request.CartProducts.Count > 0)
             {
@@ -329,7 +329,7 @@ namespace EcoFarm.UseCases.Orders.Create
                     //UpdatedAt = newOrder.MODIFIED_TIME,
                     //ReceiverName = newOrder.RECEIVER_NAME,
                     //ReceiverPhone = newOrder.RECEIVER_PHONE,
-                }, "Thêm mới đặt hàng thành công");
+                }, "Thêm mới danh sách đơn hàng thành công");
             }
             //else if (!string.IsNullOrEmpty(request.CartId))
             //{

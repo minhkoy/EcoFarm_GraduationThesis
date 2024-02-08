@@ -3,3 +3,14 @@
 </RuleSet>
 
 ****
+**EcoFarm Documentation**
+***Link to the detailed API documentation:***
+https://minh-2.gitbook.io/api-reference-for-ecofarm-project/
+***Main tech stack:***
+
+|  No.  | Component |         Tech stack        |
+|:-----:|:---------:|:-------------------------:|
+|     1 |  Back-end |      ASP.NET Core 7.0     |
+|     2 | Front-end |         Next.js 14        |
+|     3 |  Database | Microsoft SQL Server 2022 |
+
