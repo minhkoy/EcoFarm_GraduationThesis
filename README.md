@@ -2,8 +2,8 @@
 <RuleSet Name="New Rule Set" Description=" " ToolsVersion="10.0">
 </RuleSet>
 
-****
 **EcoFarm Documentation**
+****
 ***Link to the detailed API documentation:***
 https://minh-2.gitbook.io/api-reference-for-ecofarm-project/
 ***Main tech stack:***
