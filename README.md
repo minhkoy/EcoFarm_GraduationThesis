@@ -3,9 +3,12 @@
 </RuleSet>
 
 <h1>EcoFarm Documentation</h1>
+
 ****
+
 ***Link to the detailed API documentation:***
 https://minh-2.gitbook.io/api-reference-for-ecofarm-project/
+
 ***Main tech stack:***
 
 |  No.  | Component |         Tech stack        |
